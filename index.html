@@ -1,191 +1,1047 @@
-# Microsoft Copilot Help Guide
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCA Copilot Guide - Financial Crime</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-## What is Microsoft Copilot?
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            overflow: hidden;
+            height: 100vh;
+        }
 
-Microsoft Copilot is an AI-powered assistant integrated across Microsoft 365 applications and available as a standalone chat interface. It helps you with writing, research, data analysis, coding, and productivity tasks.
+        .presentation-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-## Getting Started
+        .slide {
+            display: none;
+            width: 100%;
+            height: calc(100vh - 80px);
+            padding: 40px;
+            animation: slideIn 0.5s ease-out;
+        }
 
-### Accessing Copilot
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow-y: auto;
+        }
 
-- **Web**: Visit copilot.microsoft.com
-- **Windows 11**: Click the Copilot icon in the taskbar or press Windows + C
-- **Edge Browser**: Click the Copilot icon in the sidebar
-- **Microsoft 365 Apps**: Look for the Copilot icon in Word, Excel, PowerPoint, Outlook, and Teams
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
 
-### Account Requirements
+        .slide-content {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
 
-- Free tier available with a Microsoft account
-- Enhanced features with Microsoft 365 subscription (Copilot Pro)
-- Enterprise features with Copilot for Microsoft 365
+        h1 {
+            color: #1e3a8a;
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
-## Core Features
+        h2 {
+            color: #3b82f6;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+        }
 
-### Chat & Conversation
+        h3 {
+            color: #1e3a8a;
+            font-size: 1.5em;
+            margin: 20px 0 10px 0;
+        }
 
-Ask questions in natural language about virtually any topic. Copilot can help with:
-- Answering questions and explaining concepts
-- Brainstorming ideas
-- Summarizing information
-- Providing recommendations
+        p, li {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
 
-**Tip**: Be specific in your requests for better results.
+        .fca-logo {
+            text-align: center;
+            font-size: 1.2em;
+            color: #1e3a8a;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
 
-### Writing Assistance
+        .navigation {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 80px;
+            background: rgba(255,255,255,0.95);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+        }
 
-- Draft emails, documents, and content
-- Rewrite text in different tones (professional, casual, concise)
-- Proofread and improve grammar
-- Generate creative content like stories or poems
+        .nav-button {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background: #1e3a8a;
+            color: white;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
 
-**Example**: "Write a professional email declining a meeting invitation"
+        .nav-button:hover {
+            background: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
 
-### Research & Learning
+        .nav-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
 
-- Search the web for current information
-- Summarize articles and documents
-- Compare different perspectives on topics
-- Explain complex subjects in simple terms
+        .slide-counter {
+            font-size: 1.2em;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
 
-### Image Generation
+        .interactive-box {
+            background: #eff6ff;
+            border-left: 5px solid #3b82f6;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
 
-Create images from text descriptions using AI. Simply describe what you want to see.
+        .interactive-box:hover {
+            background: #dbeafe;
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
 
-**Example**: "Create an image of a peaceful mountain landscape at sunset"
+        .hidden-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            margin-top: 15px;
+        }
 
-## Using Copilot in Microsoft 365 Apps
+        .hidden-content.show {
+            max-height: 2000px;
+        }
 
-### Word
-- Draft entire documents from prompts
-- Rewrite sections for clarity or tone
-- Summarize long documents
-- Generate content ideas
+        .do-box {
+            background: #d1fae5;
+            border-left: 5px solid #10b981;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+        }
 
-**How to use**: Select text and click the Copilot icon, or open Copilot pane
+        .dont-box {
+            background: #fee2e2;
+            border-left: 5px solid #ef4444;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+        }
 
-### Excel
-- Analyze data and identify trends
-- Generate formulas from plain language
-- Create charts and visualizations
-- Ask questions about your data
+        .warning-box {
+            background: #fef3c7;
+            border-left: 5px solid #f59e0b;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+        }
 
-**Example**: "What are the top 5 products by revenue?"
+        .example-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
 
-### PowerPoint
-- Create presentations from prompts or documents
-- Generate slide content
-- Design layouts and suggest images
-- Summarize presentations
+        .example-card {
+            padding: 20px;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
 
-**How to use**: Use "Create presentation about..." or add slides with Copilot
+        .good-example {
+            background: #d1fae5;
+            border: 2px solid #10b981;
+        }
 
-### Outlook
-- Draft email responses
-- Summarize long email threads
-- Schedule meetings from email context
-- Suggest replies based on tone
+        .bad-example {
+            background: #fee2e2;
+            border: 2px solid #ef4444;
+        }
 
-### Teams
-- Summarize meetings and chats
-- Catch up on missed conversations
-- Generate action items
-- Answer questions using chat history
+        .scenario-button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            margin: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
 
-## Tips for Effective Use
+        .scenario-button:hover {
+            background: #1e3a8a;
+            transform: translateY(-2px);
+        }
 
-### Writing Better Prompts
+        .scenario-content {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
 
-1. **Be specific**: Instead of "write about dogs," try "write a 200-word informative paragraph about dog nutrition for senior dogs"
+        .scenario-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
 
-2. **Provide context**: Include relevant background information for better results
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
-3. **Specify format**: Request bullet points, paragraphs, tables, or other formats
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: #3b82f6;
+            transition: width 0.3s;
+            z-index: 1000;
+        }
 
-4. **Iterate**: Refine your request based on initial results
+        .checklist-item {
+            background: white;
+            border: 2px solid #e5e7eb;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
 
-### Conversation Management
+        .checklist-item:hover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
 
-- Start a new conversation for different topics
-- Reference previous messages: "Based on your earlier explanation..."
-- Ask follow-up questions to dive deeper
-- Request clarification if responses aren't clear
+        .checklist-item.checked {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
 
-### Privacy & Security
+        .icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
 
-- Don't share sensitive personal information (passwords, financial details)
-- In enterprise settings, your admin controls data access
-- Commercial data is protected and not used to train models (Microsoft 365)
-- Review Microsoft's privacy policies for detailed information
+        ul {
+            margin-left: 25px;
+        }
 
-## Common Use Cases
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
 
-### For Students
-- Research assistance and source finding
-- Essay outlining and drafting
-- Study guide creation
-- Explaining difficult concepts
+        .transcribe-feature {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 3px solid #3b82f6;
+        }
 
-### For Professionals
-- Email composition and management
-- Report writing and data analysis
-- Meeting preparation and summaries
-- Project planning assistance
+        .proportionality-scale {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f3f4f6;
+            border-radius: 10px;
+        }
 
-### For Creators
-- Content ideation
-- Draft generation
-- Editing and refinement
-- Creative writing assistance
+        .scale-item {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            margin: 0 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
 
-## Troubleshooting
+        .scale-low {
+            background: #d1fae5;
+            border: 2px solid #10b981;
+        }
 
-### Copilot isn't responding
-- Check your internet connection
-- Refresh the page or restart the application
-- Clear browser cache
-- Verify your account status
+        .scale-medium {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+        }
 
-### Poor quality responses
-- Rephrase your question more specifically
-- Provide additional context
-- Break complex requests into smaller parts
-- Try different wording
+        .scale-high {
+            background: #fee2e2;
+            border: 2px solid #ef4444;
+        }
 
-### Feature not available
-- Verify your subscription level
-- Check if feature is available in your region
-- Ensure app is updated to latest version
-- Contact your IT admin for enterprise features
+        .scale-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="slide-content">
+                <div class="fca-logo">Financial Conduct Authority</div>
+                <h1>🛡️ Using Microsoft Copilot</h1>
+                <h2 style="text-align: center; color: #3b82f6;">Financial Crime Work - Best Practices Guide</h2>
+                <p style="text-align: center; font-size: 1.3em; margin-top: 30px;">
+                    Your guide to using Copilot responsibly and effectively in financial crime-related work
+                </p>
+                <div class="warning-box" style="margin-top: 40px;">
+                    <p style="text-align: center; margin: 0;"><strong>Important:</strong> This guide covers appropriate use, key sensitivities, and compliance considerations when using Microsoft Copilot at the FCA.</p>
+                </div>
+            </div>
+        </div>
 
-## Keyboard Shortcuts
+        <!-- Slide 2: What is Copilot -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>What is Microsoft Copilot?</h2>
+                <p>Microsoft Copilot is an AI-powered assistant integrated across Microsoft 365 applications. It can help with research, writing, data analysis, and productivity tasks.</p>
+                
+                <h3 style="margin-top: 30px;">Where Can You Use Copilot at the FCA?</h3>
+                
+                <div class="interactive-box" onclick="toggleContent('location1')">
+                    <h3><span class="icon">🌐</span>Web Copilot (copilot.microsoft.com)</h3>
+                    <div class="hidden-content" id="location1">
+                        <p><strong>What it does:</strong> General research and information gathering</p>
+                        <p><strong>Best for:</strong> Understanding regulatory frameworks, industry trends, public information</p>
+                        <p><strong>Remember:</strong> No access to internal FCA documents or data</p>
+                    </div>
+                </div>
 
-- **Windows + C**: Open Copilot (Windows 11)
-- **Alt + Shift + C**: Focus Copilot in Edge
-- **Ctrl + Shift + .**: Open Copilot in Microsoft 365 apps
+                <div class="interactive-box" onclick="toggleContent('location2')">
+                    <h3><span class="icon">📄</span>Copilot in Word/Excel/PowerPoint</h3>
+                    <div class="hidden-content" id="location2">
+                        <p><strong>What it does:</strong> Works with YOUR documents and data</p>
+                        <p><strong>Best for:</strong> Drafting policy papers, analyzing data, creating presentations</p>
+                        <p><strong>Remember:</strong> Only sees the specific document you have open</p>
+                    </div>
+                </div>
 
-## Best Practices
+                <div class="interactive-box" onclick="toggleContent('location3')">
+                    <h3><span class="icon">💬</span>Copilot in Teams</h3>
+                    <div class="hidden-content" id="location3">
+                        <p><strong>What it does:</strong> Summarizes meetings and conversations</p>
+                        <p><strong>Best for:</strong> Catching up on discussions, tracking action items</p>
+                        <p><strong>Remember:</strong> Special rules apply - see Copilot Transcribe section</p>
+                    </div>
+                </div>
 
-1. **Review AI outputs**: Always verify important information and edit as needed
-2. **Combine with your expertise**: Use Copilot to enhance, not replace, your work
-3. **Protect privacy**: Avoid sharing confidential information
-4. **Provide feedback**: Use thumbs up/down to improve responses
-5. **Stay updated**: Features are regularly added and improved
+                <div class="interactive-box" onclick="toggleContent('location4')">
+                    <h3><span class="icon">📧</span>Copilot in Outlook</h3>
+                    <div class="hidden-content" id="location4">
+                        <p><strong>What it does:</strong> Drafts emails and summarizes threads</p>
+                        <p><strong>Best for:</strong> Email management and communication</p>
+                        <p><strong>Remember:</strong> Consider sensitivity of email content</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-## Getting Help
+        <!-- Slide 3: DO's -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>✅ DO's - Appropriate Uses for Financial Crime Work</h2>
+                <p>Here are appropriate and effective ways to use Copilot in your financial crime-related work at the FCA:</p>
 
-- **Microsoft Support**: support.microsoft.com
-- **Copilot documentation**: Learn more at Microsoft's official documentation
-- **Community forums**: Join discussions with other users
-- **Feedback**: Use in-app feedback tools to report issues or suggestions
+                <div class="do-box">
+                    <h3>📚 Research Regulatory Frameworks</h3>
+                    <p>Use Copilot to understand and research financial crime regulations, frameworks, and international standards.</p>
+                    <p><strong>Example:</strong> "Explain the key requirements of the Money Laundering Regulations 2017"</p>
+                </div>
 
-## Additional Resources
+                <div class="do-box">
+                    <h3>📝 Draft Policy Documents</h3>
+                    <p>Use Copilot to help draft policy papers, guidance documents, and internal communications on financial crime matters.</p>
+                    <p><strong>Example:</strong> "Help me draft an outline for guidance on fraud prevention controls"</p>
+                </div>
 
-- Copilot Lab: Explore example prompts and use cases
-- Microsoft Learn: Free training courses on Copilot
-- YouTube: Microsoft's official Copilot tutorials
-- Tech Community: Share tips and tricks with other users
+                <div class="do-box">
+                    <h3>📊 Analyze Published Industry Reports</h3>
+                    <p>Use Copilot to summarize and analyze publicly available industry reports, research, and publications.</p>
+                    <p><strong>Example:</strong> "Summarize the key trends in this financial crime typology report"</p>
+                </div>
 
----
+                <div class="do-box">
+                    <h3>🎓 Create Training Materials</h3>
+                    <p>Develop training content on financial crime typologies, red flags, and prevention measures.</p>
+                    <p><strong>Example:</strong> "Create an outline for training on APP fraud indicators"</p>
+                </div>
 
-*Remember: Copilot is a tool to augment your capabilities. The best results come from combining AI assistance with your own knowledge, creativity, and critical thinking.*
+                <div class="do-box">
+                    <h3>📋 Summarize Consultation Responses</h3>
+                    <p>Use Copilot to help organize and summarize themes from public consultation responses (once published).</p>
+                    <p><strong>Example:</strong> "Help me identify common themes in these consultation responses"</p>
+                </div>
 
+                <div class="do-box">
+                    <h3>🔍 Understand Financial Crime Typologies</h3>
+                    <p>Research different types of financial crime, emerging threats, and prevention techniques.</p>
+                    <p><strong>Example:</strong> "What are common money laundering typologies in the crypto sector?"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: DON'Ts -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>❌ DON'Ts - Critical Rules to Follow</h2>
+                <p>These are important restrictions to protect sensitive information and maintain professional standards:</p>
+
+                <div class="dont-box">
+                    <h3>🚫 Don't Look Up Information Outside Your Job Role</h3>
+                    <p><strong>Rule:</strong> Only use Copilot for information relevant to your role and responsibilities.</p>
+                    <p><strong>Why:</strong> Maintains information barriers and prevents unauthorized access to sensitive data.</p>
+                    <p><strong>Example of what NOT to do:</strong> Searching for details about ongoing enforcement cases you're not involved with.</p>
+                </div>
+
+                <div class="dont-box">
+                    <h3>🔒 Don't Input Sensitive or Confidential Information</h3>
+                    <p><strong>Rule:</strong> Never input personal data, confidential firm information, market-sensitive data, or details of ongoing matters.</p>
+                    <p><strong>Why:</strong> Protects data privacy, market integrity, and confidential information.</p>
+                    <p><strong>Examples of what NOT to input:</strong></p>
+                    <ul>
+                        <li>Names of individuals under investigation</li>
+                        <li>Confidential firm data from supervisory work</li>
+                        <li>Market-sensitive information</li>
+                        <li>Unpublished enforcement details</li>
+                    </ul>
+                </div>
+
+                <div class="dont-box">
+                    <h3>⚖️ Don't Use Copilot Beyond Proportionate Purposes</h3>
+                    <p><strong>Rule:</strong> Only use Copilot when it's proportionate to the task at hand.</p>
+                    <p><strong>Why:</strong> Ensures responsible use of AI tools and maintains professional judgment.</p>
+                    <p><strong>Ask yourself:</strong> Is using Copilot necessary and appropriate for this specific task?</p>
+                </div>
+
+                <div class="dont-box">
+                    <h3>📊 Don't Use Without Understanding Limitations</h3>
+                    <p><strong>Rule:</strong> Always verify Copilot's outputs and apply your professional expertise.</p>
+                    <p><strong>Why:</strong> AI can make mistakes or provide incomplete information.</p>
+                    <p><strong>Remember:</strong> You are responsible for the accuracy of any work product.</p>
+                </div>
+
+                <div class="dont-box">
+                    <h3>🎯 Don't Rely Solely on Copilot for Critical Decisions</h3>
+                    <p><strong>Rule:</strong> Use Copilot as a tool to assist, not replace, your professional judgment.</p>
+                    <p><strong>Why:</strong> Financial crime work requires human expertise, context, and decision-making.</p>
+                    <p><strong>Remember:</strong> Copilot enhances your work; it doesn't replace your expertise.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Sensitivities -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>⚠️ Key Sensitivities & Data Protection</h2>
+                <p>Be acutely aware of these sensitivities when using Copilot:</p>
+
+                <div class="warning-box">
+                    <h3>🔐 Personal Data & GDPR Compliance</h3>
+                    <div class="interactive-box" onclick="toggleContent('gdpr')">
+                        <strong>Click to expand</strong>
+                        <div class="hidden-content" id="gdpr">
+                            <p><strong>Never input:</strong></p>
+                            <ul>
+                                <li>Names of individuals</li>
+                                <li>Personal identifiers (addresses, phone numbers, account numbers)</li>
+                                <li>Any data that could identify a living person</li>
+                            </ul>
+                            <p><strong>Why it matters:</strong> GDPR requires lawful basis and appropriate safeguards for processing personal data. Copilot use must comply with data protection principles.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <h3>📈 Market Sensitive Information</h3>
+                    <div class="interactive-box" onclick="toggleContent('market')">
+                        <strong>Click to expand</strong>
+                        <div class="hidden-content" id="market">
+                            <p><strong>Never input:</strong></p>
+                            <ul>
+                                <li>Inside information about listed companies</li>
+                                <li>Unpublished market-moving data</li>
+                                <li>Non-public information that could affect market prices</li>
+                            </ul>
+                            <p><strong>Why it matters:</strong> Maintains market integrity and prevents potential market abuse concerns.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <h3>🏢 Confidential Firm Information</h3>
+                    <div class="interactive-box" onclick="toggleContent('firm')">
+                        <strong>Click to expand</strong>
+                        <div class="hidden-content" id="firm">
+                            <p><strong>Never input:</strong></p>
+                            <ul>
+                                <li>Confidential information from supervised firms</li>
+                                <li>Non-public supervisory assessments</li>
+                                <li>Details from confidential meetings or submissions</li>
+                            </ul>
+                            <p><strong>Why it matters:</strong> Protects confidentiality obligations and maintains trust with regulated firms.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <h3>⚖️ Ongoing Enforcement Matters</h3>
+                    <div class="interactive-box" onclick="toggleContent('enforcement')">
+                        <strong>Click to expand</strong>
+                        <div class="hidden-content" id="enforcement">
+                            <p><strong>Never input:</strong></p>
+                            <ul>
+                                <li>Details of ongoing investigations</li>
+                                <li>Evidence or witness information</li>
+                                <li>Unpublished enforcement decisions</li>
+                            </ul>
+                            <p><strong>Why it matters:</strong> Maintains the integrity of enforcement processes and legal privilege.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <h3>🚧 Information Barriers</h3>
+                    <div class="interactive-box" onclick="toggleContent('barriers')">
+                        <strong>Click to expand</strong>
+                        <div class="hidden-content" id="barriers">
+                            <p><strong>Stay within your remit:</strong></p>
+                            <ul>
+                                <li>Only access information relevant to your role</li>
+                                <li>Respect established information barriers between teams</li>
+                                <li>Don't use Copilot to circumvent access controls</li>
+                            </ul>
+                            <p><strong>Why it matters:</strong> Maintains proper governance and prevents conflicts of interest.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Copilot Transcribe -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>🎙️ Copilot Transcribe - Special Considerations</h2>
+                <p>Copilot Transcribe (in Teams) has specific requirements you must follow:</p>
+
+                <div class="transcribe-feature">
+                    <h3 style="color: #1e3a8a; margin-top: 0;">Critical Requirements:</h3>
+                    
+                    <div class="do-box" style="margin: 20px 0;">
+                        <h3>✅ ALWAYS Inform Participants</h3>
+                        <p><strong>Requirement:</strong> You MUST tell all meeting participants at the start that you are using Copilot Transcribe.</p>
+                        <p><strong>How to do this:</strong> "Just to let everyone know, I'm using Copilot Transcribe for this meeting to help with note-taking."</p>
+                        <p><strong>Why:</strong> Transparency, consent, and data protection compliance.</p>
+                    </div>
+
+                    <div class="warning-box" style="margin: 20px 0;">
+                        <h3>⏰ Transcripts Auto-Delete After 7 Days</h3>
+                        <p><strong>Important:</strong> Copilot Transcribe automatically deletes transcripts after 7 days.</p>
+                        <p><strong>Action required:</strong> If you need to retain information for legitimate business purposes, save key points to appropriate systems BEFORE the 7-day deadline.</p>
+                        <p><strong>Don't:</strong> Save entire transcripts unnecessarily - only extract what's needed and proportionate.</p>
+                    </div>
+
+                    <div class="warning-box" style="margin: 20px 0;">
+                        <h3>⚖️ Only Use When Proportionate</h3>
+                        <p><strong>Ask yourself:</strong></p>
+                        <ul>
+                            <li>Is transcription necessary for this meeting?</li>
+                            <li>Could simple manual notes suffice?</li>
+                            <li>Does the benefit justify the data processing?</li>
+                        </ul>
+                        <p><strong>Examples of proportionate use:</strong> Complex technical meetings, multi-stakeholder discussions, meetings requiring detailed records.</p>
+                        <p><strong>Not proportionate:</strong> Routine catch-ups, informal discussions, meetings with minimal content.</p>
+                    </div>
+
+                    <div class="dont-box" style="margin: 20px 0;">
+                        <h3>❌ When NOT to Use Transcribe</h3>
+                        <p><strong>Do not use Copilot Transcribe for meetings containing:</strong></p>
+                        <ul>
+                            <li>Highly confidential or market-sensitive information</li>
+                            <li>Enforcement-related discussions with legal privilege</li>
+                            <li>Personal or sensitive information about individuals</li>
+                            <li>Information that should not be recorded or processed by AI</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box" style="margin: 20px 0;">
+                        <h3>🔐 Access During 7-Day Period</h3>
+                        <p><strong>Remember:</strong> During those 7 days, consider who has access to the transcript in Teams.</p>
+                        <p><strong>Best practice:</strong> Use Transcribe only in meetings where all participants are authorized to see the content.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Proportionality Principle -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>⚖️ The Proportionality Principle</h2>
+                <p>Always ask: "Is using Copilot proportionate to the task I need to accomplish?"</p>
+
+                <h3 style="margin-top: 30px;">Understanding Proportionality:</h3>
+                
+                <div class="proportionality-scale">
+                    <div class="scale-item scale-low" onclick="showProportionality('low')">
+                        <h3>✅ Proportionate</h3>
+                        <p>Clear benefit, low risk</p>
+                    </div>
+                    <div class="scale-item scale-medium" onclick="showProportionality('medium')">
+                        <h3>⚠️ Consider Carefully</h3>
+                        <p>Moderate benefit, some sensitivities</p>
+                    </div>
+                    <div class="scale-item scale-high" onclick="showProportionality('high')">
+                        <h3>❌ Not Proportionate</h3>
+                        <p>Limited benefit, high risk</p>
+                    </div>
+                </div>
+
+                <div id="proportionalityContent" style="margin-top: 30px;"></div>
+
+                <div class="warning-box" style="margin-top: 30px;">
+                    <h3>Questions to Ask Before Using Copilot:</h3>
+                    <ul>
+                        <li>Is this task within my role and responsibilities?</li>
+                        <li>Does the information I'm using contain sensitive data?</li>
+                        <li>Could I accomplish this effectively without Copilot?</li>
+                        <li>What's the benefit vs. the risk of using AI for this task?</li>
+                        <li>Am I using Copilot to enhance my work, or to replace professional judgment?</li>
+                        <li>Would I be comfortable explaining my use of Copilot for this task?</li>
+                    </ul>
+                </div>
+
+                <div class="do-box" style="margin-top: 20px;">
+                    <h3>When in Doubt, Don't</h3>
+                    <p>If you're unsure whether using Copilot is appropriate for a particular task, err on the side of caution and don't use it. Consult with your manager or compliance team if you need guidance.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Good vs Bad Examples -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>💡 Practical Examples - Good vs Bad</h2>
+                <p>See the difference between appropriate and inappropriate uses:</p>
+
+                <h3 style="margin-top: 30px;">Example 1: Research Task</h3>
+                <div class="example-grid">
+                    <div class="example-card good-example">
+                        <h3>✅ Good</h3>
+                        <p><strong>Scenario:</strong> You need to understand current AML regulations.</p>
+                        <p><strong>Prompt:</strong> "Explain the key requirements of the UK Money Laundering Regulations 2017 for the financial services sector"</p>
+                        <p><strong>Why it's good:</strong> Public information, within your role, helps you do your job better.</p>
+                    </div>
+                    <div class="example-card bad-example">
+                        <h3>❌ Bad</h3>
+                        <p><strong>Scenario:</strong> Curiosity about another team's work.</p>
+                        <p><strong>Prompt:</strong> "Search for information about the XYZ Bank enforcement case"</p>
+                        <p><strong>Why it's bad:</strong> Outside your remit, potential information barrier breach, may involve confidential data.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 30px;">Example 2: Document Drafting</h3>
+                <div class="example-grid">
+                    <div class="example-card good-example">
+                        <h3>✅ Good</h3>
+                        <p><strong>Scenario:</strong> Writing a policy paper on fraud prevention.</p>
+                        <p><strong>Prompt:</strong> "Help me create an outline for a policy paper on emerging fraud typologies in digital payments"</p>
+                        <p><strong>Why it's good:</strong> Legitimate work task, no sensitive data, enhances your productivity.</p>
+                    </div>
+                    <div class="example-card bad-example">
+                        <h3>❌ Bad</h3>
+                        <p><strong>Scenario:</strong> Including confidential firm data.</p>
+                        <p><strong>Prompt:</strong> "Analyze this firm's suspicious transaction data and identify patterns"</p>
+                        <p><strong>Why it's bad:</strong> Confidential firm data, personal information, inappropriate use of AI for sensitive analysis.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 30px;">Example 3: Meeting Transcription</h3>
+                <div class="example-grid">
+                    <div class="example-card good-example">
+                        <h3>✅ Good</h3>
+                        <p><strong>Scenario:</strong> Complex policy development meeting with your team.</p>
+                        <p><strong>Action:</strong> Inform all participants at the start, use Transcribe, extract key action items within 7 days.</p>
+                        <p><strong>Why it's good:</strong> Proportionate, transparent, helps accurate record-keeping.</p>
+                    </div>
+                    <div class="example-card bad-example">
+                        <h3>❌ Bad</h3>
+                        <p><strong>Scenario:</strong> Meeting discussing confidential enforcement matters.</p>
+                        <p><strong>Action:</strong> Use Copilot Transcribe without considering sensitivity.</p>
+                        <p><strong>Why it's bad:</strong> Highly sensitive content, not proportionate, risks confidential information being processed inappropriately.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 30px;">Example 4: Email Management</h3>
+                <div class="example-grid">
+                    <div class="example-card good-example">
+                        <h3>✅ Good</h3>
+                        <p><strong>Scenario:</strong> Responding to a general query about published guidance.</p>
+                        <p><strong>Prompt:</strong> "Draft a response explaining our published guidance on AML controls"</p>
+                        <p><strong>Why it's good:</strong> Public information, routine communication, saves time.</p>
+                    </div>
+                    <div class="example-card bad-example">
+                        <h3>❌ Bad</h3>
+                        <p><strong>Scenario:</strong> Email thread contains market-sensitive information.</p>
+                        <p><strong>Action:</strong> Ask Copilot to summarize without considering the sensitivity.</p>
+                        <p><strong>Why it's bad:</strong> Market-sensitive information shouldn't be processed by AI tools.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Interactive Scenarios -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>🎯 Test Your Judgment - Interactive Scenarios</h2>
+                <p>Click on a scenario to reveal whether using Copilot would be appropriate:</p>
+
+                <button class="scenario-button" onclick="showScenario('scenario1')">Scenario 1: Industry Trends Research</button>
+                <button class="scenario-button" onclick="showScenario('scenario2')">Scenario 2: Analyzing Firm Data</button>
+                <button class="scenario-button" onclick="showScenario('scenario3')">Scenario 3: Team Meeting Notes</button>
+                <button class="scenario-button" onclick="showScenario('scenario4')">Scenario 4: Training Material Creation</button>
+
+                <div id="scenario1" class="scenario-content">
+                    <h3>Scenario 1: Industry Trends Research</h3>
+                    <p><strong>Situation:</strong> You're working on a thematic review of financial crime controls in the payments sector. You want to understand current fraud trends affecting payment service providers.</p>
+                    <p><strong>Your plan:</strong> Use Web Copilot to research published reports on payment fraud trends from industry bodies and public sources.</p>
+                    <div class="do-box">
+                        <h3>✅ Appropriate Use</h3>
+                        <p><strong>Why:</strong> This is legitimate research using public information. It helps you understand the industry landscape and is directly relevant to your role.</p>
+                        <p><strong>Best practice:</strong> Verify information from multiple sources and cite your sources in your work.</p>
+                    </div>
+                </div>
+
+                <div id="scenario2" class="scenario-content">
+                    <h3>Scenario 2: Analyzing Firm Data</h3>
+                    <p><strong>Situation:</strong> You have transaction data from a supervised firm showing patterns that might indicate money laundering. You're considering using Excel Copilot to help analyze the patterns.</p>
+                    <p><strong>Your plan:</strong> Upload the data to Excel and ask Copilot to identify suspicious patterns.</p>
+                    <div class="dont-box">
+                        <h3>❌ Inappropriate Use</h3>
+                        <p><strong>Why:</strong> This data is confidential firm information and likely contains personal data. It should not be processed by AI tools.</p>
+                        <p><strong>What to do instead:</strong> Use your professional expertise and approved analytical tools. Consult with your manager if you need additional analytical support.</p>
+                    </div>
+                </div>
+
+                <div id="scenario3" class="scenario-content">
+                    <h3>Scenario 3: Team Meeting Notes</h3>
+                    <p><strong>Situation:</strong> You're having a weekly team catch-up to discuss general workload, upcoming projects, and administrative matters. No sensitive information will be discussed.</p>
+                    <p><strong>Your plan:</strong> Use Copilot Transcribe to capture action items and key discussion points.</p>
+                    <div class="warning-box">
+                        <h3>⚖️ Consider Proportionality</h3>
+                        <p><strong>Questions to ask:</strong></p>
+                        <ul>
+                            <li>Is this meeting complex enough to warrant transcription?</li>
+                            <li>Could simple manual notes achieve the same outcome?</li>
+                            <li>Have you informed all participants?</li>
+                        </ul>
+                        <p><strong>Decision:</strong> If it's a routine catch-up, manual notes might be more proportionate. If it's a complex project planning session, Transcribe could be appropriate - but always inform participants first.</p>
+                    </div>
+                </div>
+
+                <div id="scenario4" class="scenario-content">
+                    <h3>Scenario 4: Training Material Creation</h3>
+                    <p><strong>Situation:</strong> You need to create training materials for new starters on how to identify common fraud red flags in the banking sector.</p>
+                    <p><strong>Your plan:</strong> Use Copilot to help structure the training content and generate examples of red flag indicators based on public information.</p>
+                    <div class="do-box">
+                        <h3>✅ Appropriate Use</h3>
+                        <p><strong>Why:</strong> Creating training materials is a legitimate task. Using Copilot for structure and general examples (not specific firm cases) is appropriate.</p>
+                        <p><strong>Best practice:</strong> Review all outputs carefully, ensure examples are generic or publicly available, and add your professional expertise to make the training FCA-specific.</p>
+                        <p><strong>Remember:</strong> Don't use real case examples from confidential supervisory or enforcement work.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Best Practices Checklist -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>📋 Best Practices - Your Checklist</h2>
+                <p>Before using Copilot, run through this checklist. Click each item to mark as reviewed:</p>
+
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <strong>☐ Role Relevance:</strong> Is this task within my job role and responsibilities?
+                </div>
+
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <strong>☐ No Sensitive Data:</strong> Am I certain I'm not inputting personal data, confidential firm information, or market-sensitive data?
+                </div>
+
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <strong>☐ Proportionality:</strong> Is using Copilot proportionate to this task, or would simpler methods work?
+                </div>
+
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <strong>☐ Information Barriers:</strong> Am I staying within appropriate information boundaries?
+                </div>
+
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <strong>☐ Verification:</strong> Will I verify Copilot's outputs using my professional expertise?
+                </div>
+
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <strong>☐ Transcribe Rules:</strong> If using Copilot Transcribe, have I informed all participants?
+                </div>
+
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <strong>☐ 7-Day Rule:</strong> If using Transcribe, do I have a plan to extract necessary information before auto-deletion?
+                </div>
+
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <strong>☐ Professional Judgment:</strong> Am I using Copilot to enhance, not replace, my professional expertise?
+                </div>
+
+                <h3 style="margin-top: 40px;">Additional Best Practices:</h3>
+
+                <div class="do-box">
+                    <h3>✅ Always Verify Outputs</h3>
+                    <p>Copilot can make mistakes. Always review, verify, and apply your professional judgment to any Copilot-generated content.</p>
+                </div>
+
+                <div class="do-box">
+                    <h3>✅ Keep Learning</h3>
+                    <p>Stay updated on Copilot features, limitations, and FCA guidance on AI tool usage.</p>
+                </div>
+
+                <div class="do-box">
+                    <h3>✅ Consult When Uncertain</h3>
+                    <p>If you're unsure whether using Copilot is appropriate for a specific task, ask your manager or the compliance team.</p>
+                </div>
+
+                <div class="do-box">
+                    <h3>✅ Document Your Decisions</h3>
+                    <p>For important work products, keep a record of how you used Copilot and what verification you performed.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Summary -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>📚 Summary - Key Takeaways</h2>
+                
+                <div class="do-box">
+                    <h3>✅ What You CAN Do:</h3>
+                    <ul>
+                        <li>Research regulatory frameworks and public information</li>
+                        <li>Draft policy documents and guidance</li>
+                        <li>Analyze published industry reports</li>
+                        <li>Create training materials on financial crime</li>
+                        <li>Summarize public consultation responses</li>
+                        <li>Understand financial crime typologies</li>
+                    </ul>
+                </div>
+
+                <div class="dont-box">
+                    <h3>❌ What You CANNOT Do:</h3>
+                    <ul>
+                        <li>Look up information outside your job role</li>
+                        <li>Input sensitive, confidential, or personal data</li>
+                        <li>Use Copilot for disproportionate purposes</li>
+                        <li>Rely solely on Copilot for critical decisions</li>
+                        <li>Use Transcribe without informing participants</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h3>⚠️ Always Remember:</h3>
+                    <ul>
+                        <li><strong>Be aware of sensitivities:</strong> Personal data, market information, confidential firm data, enforcement matters</li>
+                        <li><strong>Stay in your lane:</strong> Only access information relevant to your role</li>
+                        <li><strong>Copilot Transcribe rules:</strong> Always inform participants, transcripts delete after 7 days, only use when proportionate</li>
+                        <li><strong>Proportionality matters:</strong> Ask yourself if using Copilot is necessary and appropriate</li>
+                        <li><strong>You're responsible:</strong> Always verify outputs and apply professional judgment</li>
+                    </ul>
+                </div>
+
+                <div class="transcribe-feature" style="text-align: center; margin-top: 40px;">
+                    <h3>🎯 Core Principle</h3>
+                    <p style="font-size: 1.3em; margin: 20px 0;"><strong>Use Copilot as a tool to enhance your work, not to replace your professional expertise and judgment.</strong></p>
+                    <p>When in doubt, don't use it. Consult your manager or compliance team for guidance.</p>
+                </div>
+
+                <div class="fca-logo" style="margin-top: 40px; font-size: 1.4em;">
+                    Thank you for completing this guide!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">11</span>
+        </div>
+        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = document.querySelectorAll('.slide').length;
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function changeSlide(direction) {
+            const slides = document.querySelectorAll('.slide');
+            slides[currentSlide - 1].classList.remove('active');
+            
+            currentSlide += direction;
+            
+            if (currentSlide > totalSlides) currentSlide = totalSlides;
+            if (currentSlide < 1) currentSlide = 1;
+            
+            slides[currentSlide - 1].classList.add('active');
+            document.getElementById('currentSlide').textContent = currentSlide;
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+            
+            updateProgressBar();
+        }
+
+        function updateProgressBar() {
+            const progress = (currentSlide / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            content.classList.toggle('show');
+        }
+
+        function showProportionality(level) {
+            const content = document.getElementById('proportionalityContent');
+            let html = '';
+            
+            if (level === 'low') {
+                html = `
+                    <div class="do-box">
+                        <h3>✅ Proportionate Use Examples:</h3>
+                        <ul>
+                            <li><strong>Researching public regulations:</strong> Clear benefit to understanding your work area, no risk</li>
+                            <li><strong>Drafting routine communications:</strong> Saves time, enhances clarity, no sensitive content</li>
+                            <li><strong>Creating training outlines:</strong> Improves efficiency, uses only public knowledge</li>
+                            <li><strong>Understanding industry terminology:</strong> Enhances your knowledge, publicly available information</li>
+                        </ul>
+                        <p><strong>Characteristics:</strong> Public information, routine tasks, clear work benefit, no sensitive data involved.</p>
+                    </div>
+                `;
+            } else if (level === 'medium') {
+                html = `
+                    <div class="warning-box">
+                        <h3>⚠️ Consider Carefully - Examples:</h3>
+                        <ul>
+                            <li><strong>Summarizing long email threads:</strong> Benefit: saves time. Concern: emails might contain some sensitive context</li>
+                            <li><strong>Transcribing routine team meetings:</strong> Benefit: accurate records. Concern: is it really necessary?</li>
+                            <li><strong>Analyzing aggregated, anonymized data:</strong> Benefit: insights. Concern: ensure truly anonymized</li>
+                        </ul>
+                        <p><strong>What to do:</strong> Carefully assess whether the benefit justifies the data processing. Consider alternatives. Ensure no sensitive data is involved. When in doubt, consult your manager.</p>
+                    </div>
+                `;
+            } else {
+                html = `
+                    <div class="dont-box">
+                        <h3>❌ Not Proportionate - Examples:</h3>
+                        <ul>
+                            <li><strong>Using AI for simple tasks:</strong> Asking Copilot to draft a two-sentence email that would take 30 seconds to write yourself</li>
+                            <li><strong>Processing sensitive data:</strong> Any use involving personal data, confidential information, or market-sensitive content</li>
+                            <li><strong>Critical decision-making:</strong> Relying on Copilot for enforcement decisions or supervisory judgments</li>
+                            <li><strong>Matters outside your remit:</strong> Looking up information you're not authorized to access</li>
+                        </ul>
+                        <p><strong>Characteristics:</strong> Limited or no benefit, significant risk, alternatives readily available, or involves sensitive information that shouldn't be processed by AI.</p>
+                        <p><strong>Action:</strong> Don't use Copilot for these purposes.</p>
+                    </div>
+                `;
+            }
+            
+            content.innerHTML = html;
+        }
+
+        function showScenario(scenarioId) {
+            document.querySelectorAll('.scenario-content').forEach(s => s.classList.remove('active'));
+            document.getElementById(scenarioId).classList.add('active');
+        }
+
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
+            const text = element.querySelector('strong');
+            if (element.classList.contains('checked')) {
+                text.textContent = text.textContent.replace('☐', '☑');
+            } else {
+                text.textContent = text.textContent.replace('☑', '☐');
+            }
+        }
+
+        // Initialize
+        document.getElementById('prevBtn').disabled = true;
+        updateProgressBar();
+    </script>
+</body>
+</html>
