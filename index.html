@@ -1,670 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Microsoft Copilot Interactive Guide</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); overflow: hidden; height: 100vh; }
-        .presentation-container { width: 100%; height: 100vh; display: flex; flex-direction: column; }
-        .slide { display: none; width: 100%; height: calc(100vh - 80px); padding: 40px; animation: slideIn 0.5s ease-out; overflow-y: auto; }
-        .slide.active { display: block; }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
-        .slide-content { background: white; border-radius: 20px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 1200px; margin: 0 auto; width: 100%; }
-        h1 { color: #667eea; font-size: 2.5em; margin-bottom: 20px; text-align: center; }
-        h2 { color: #764ba2; font-size: 1.8em; margin-bottom: 20px; }
-        h3 { color: #667eea; font-size: 1.3em; margin: 15px 0 10px 0; }
-        p, li { font-size: 1.1em; line-height: 1.6; color: #333; margin-bottom: 10px; }
-        ul { margin-left: 20px; }
-        .navigation { position: fixed; bottom: 0; width: 100%; height: 80px; background: rgba(255,255,255,0.95); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); }
-        .nav-button { padding: 15px 30px; font-size: 1.1em; border: none; border-radius: 10px; cursor: pointer; background: #667eea; color: white; transition: all 0.3s; font-weight: 600; }
-        .nav-button:hover { background: #764ba2; transform: translateY(-2px); }
-        .nav-button:disabled { background: #ccc; cursor: not-allowed; transform: none; }
-        .slide-counter { font-size: 1.2em; color: #667eea; font-weight: 600; }
-        .interactive-box { background: #f0f4ff; border-left: 5px solid #667eea; padding: 15px; margin: 15px 0; border-radius: 10px; cursor: pointer; transition: all 0.3s; }
-        .interactive-box:hover { background: #e6edff; transform: translateX(5px); }
-        .hidden-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
-        .hidden-content.show { max-height: 1000px; }
-        .example-box { background: #fff9e6; border: 2px solid #ffd700; padding: 15px; border-radius: 10px; margin: 15px 0; }
-        .warning-box { background: #fef3c7; border-left: 5px solid #f59e0b; padding: 15px; margin: 15px 0; border-radius: 10px; }
-        .good-box { background: #d1fae5; border-left: 5px solid #10b981; padding: 15px; margin: 15px 0; border-radius: 10px; }
-        .bad-box { background: #fee2e2; border-left: 5px solid #ef4444; padding: 15px; margin: 15px 0; border-radius: 10px; }
-        table { width: 100%; border-collapse: collapse; background: white; margin: 15px 0; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background: #667eea; color: white; }
-        tr:hover { background: #f0f4ff; }
-        .progress-bar { position: fixed; top: 0; left: 0; height: 5px; background: #667eea; transition: width 0.3s; z-index: 1000; }
-        .comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
-        .comparison-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 15px; text-align: center; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Copilot for MS365 Training – Enhanced</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.dark {
+      background: #222;
+      color: #eee;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+    .slide {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .slide.active {
+      display: block;
+      opacity: 1;
+    }
+    .controls {
+      margin-top: 20px;
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 6px;
+      border: none;
+    }
+    #toc {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 260px;
+      height: 100%;
+      overflow-y: auto;
+      background: #fff;
+      border-right: 1px solid #ccc;
+      padding: 20px;
+    }
+    body.dark #toc {
+      background: #333;
+      border-right-color: #555;
+    }
+    #toc a {
+      display: block;
+      margin-bottom: 10px;
+      text-decoration: none;
+      color: inherit;
+    }
+    #toc a.active {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    #main {
+      margin-left: 280px;
+      padding: 20px;
+    }
+    .progress-dots {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin: 4px;
+      border-radius: 50%;
+      background: #999;
+      cursor: pointer;
+    }
+    .dot.active {
+      background: #000;
+    }
+    body.dark .dot.active {
+      background: #fff;
+    }
+
+    /* Quiz */
+    .quiz-question {
+      margin-top: 20px;
+      padding: 15px;
+      background: #eaeaea;
+      border-radius: 8px;
+    }
+    body.dark .quiz-question {
+      background: #444;
+    }
+    .quiz-feedback {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+  </style>
 </head>
 <body>
-    <div class="progress-bar" id="progressBar"></div>
-    
-    <div class="presentation-container">
-        <!-- Slide 1: Title -->
-        <div class="slide active">
-            <div class="slide-content">
-                <h1>🤖 Microsoft Copilot</h1>
-                <h2 style="text-align: center; color: #764ba2;">Your Interactive Guide</h2>
-                <p style="text-align: center; font-size: 1.2em; margin-top: 20px;">Click through to discover how to use Copilot effectively and responsibly</p>
-                <p style="text-align: center; color: #666; margin-top: 15px;">Use the navigation buttons below to explore • Click on interactive elements to reveal more</p>
-            </div>
-        </div>
 
-        <!-- Slide 2: What is Copilot -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>What is Microsoft Copilot?</h2>
-                <p>Microsoft Copilot is your AI-powered assistant that works across Microsoft products to boost productivity.</p>
-                <div class="interactive-box" onclick="toggleContent('feature1')">
-                    <h3>✍️ Writing & Content Creation</h3>
-                    <div class="hidden-content" id="feature1">
-                        <p>Draft documents, emails, and creative content with AI assistance.</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('feature2')">
-                    <h3>📊 Data Analysis</h3>
-                    <div class="hidden-content" id="feature2">
-                        <p>Analyze spreadsheets, identify trends, and create visualizations from your data.</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('feature3')">
-                    <h3>🔍 Research & Learning</h3>
-                    <div class="hidden-content" id="feature3">
-                        <p>Get instant answers, summarize documents, and learn complex topics explained simply.</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('feature4')">
-                    <h3>🎨 Creative Tasks</h3>
-                    <div class="hidden-content" id="feature4">
-                        <p>Generate images, create presentations, and brainstorm ideas for your projects.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div id="toc"></div>
 
-        <!-- Slide 3: Which Copilot -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>Which Copilot Should I Use?</h2>
-                <p>Different Copilots have different capabilities. Click each to learn more:</p>
-                <div class="comparison-grid">
-                    <div class="comparison-card">
-                        <h3>🌐 Web Copilot</h3>
-                        <p>General research & learning</p>
-                    </div>
-                    <div class="comparison-card">
-                        <h3>📝 Word Copilot</h3>
-                        <p>Works with YOUR documents</p>
-                    </div>
-                    <div class="comparison-card">
-                        <h3>📊 Excel Copilot</h3>
-                        <p>Analyzes YOUR data</p>
-                    </div>
-                    <div class="comparison-card">
-                        <h3>💬 Teams Copilot</h3>
-                        <p>Knows your conversations</p>
-                    </div>
-                    <div class="comparison-card">
-                        <h3>📧 Outlook Copilot</h3>
-                        <p>Reads your emails</p>
-                    </div>
-                    <div class="comparison-card">
-                        <h3>📽️ PowerPoint Copilot</h3>
-                        <p>Creates presentations</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div id="main">
+  <div class="container" id="slides"></div>
 
-        <!-- Slide 4: Web Copilot -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>🌐 Web Copilot</h2>
-                <div class="interactive-box" onclick="toggleContent('web1')">
-                    <h3>What It Knows</h3>
-                    <div class="hidden-content" id="web1">
-                        <p>General knowledge and public internet information only. It does NOT know about your documents, emails, or Teams conversations.</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('web2')">
-                    <h3>Best For</h3>
-                    <div class="hidden-content" id="web2">
-                        <ul>
-                            <li>Researching regulatory frameworks and legislation</li>
-                            <li>Understanding industry trends and developments</li>
-                            <li>Getting definitions and explanations</li>
-                            <li>Brainstorming ideas for projects</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="example-box">
-                    <h3>Example Prompts:</h3>
-                    <p>"What are the key requirements of the Money Laundering Regulations 2017?"</p>
-                    <p>"Explain common fraud typologies in simple terms"</p>
-                </div>
-                <div class="good-box">✅ Great for general research and learning</div>
-                <div class="bad-box">❌ Cannot access your files or internal systems</div>
-            </div>
-        </div>
+  <div class="controls">
+    <button onclick="prevSlide()">Previous</button>
+    <button onclick="nextSlide()">Next</button>
+    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    <button onclick="toggleOverview()">Slide Overview</button>
+  </div>
 
-        <!-- Slide 5: Word Copilot -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>📝 Word Copilot</h2>
-                <div class="interactive-box" onclick="toggleContent('word1')">
-                    <h3>What It Knows</h3>
-                    <div class="hidden-content" id="word1">
-                        <p>Only the specific Word document you currently have open. It can read and work with YOUR document content.</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('word2')">
-                    <h3>Best For</h3>
-                    <div class="hidden-content" id="word2">
-                        <ul>
-                            <li>Drafting policy papers and guidance documents</li>
-                            <li>Summarizing long documents</li>
-                            <li>Rewriting sections for clarity or tone</li>
-                            <li>Creating document outlines</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="example-box">
-                    <h3>Example Prompts:</h3>
-                    <p>"Summarize this 20-page document into 5 key themes"</p>
-                    <p>"Make this section more concise and professional"</p>
-                    <p>"Create an outline for guidance on fraud prevention"</p>
-                </div>
-                <div class="good-box">✅ Works with YOUR document content</div>
-                <div class="bad-box">❌ Only sees the current document - not your other files</div>
-            </div>
-        </div>
+  <div class="progress-dots" id="dots"></div>
+</div>
 
-        <!-- Slide 6: Excel Copilot -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>📊 Excel Copilot</h2>
-                <div class="interactive-box" onclick="toggleContent('excel1')">
-                    <h3>What It Knows</h3>
-                    <div class="hidden-content" id="excel1">
-                        <p>Only the specific Excel spreadsheet you currently have open. It can analyze YOUR data.</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('excel2')">
-                    <h3>Best For</h3>
-                    <div class="hidden-content" id="excel2">
-                        <ul>
-                            <li>Analyzing trends in data</li>
-                            <li>Creating charts and visualizations</li>
-                            <li>Writing formulas</li>
-                            <li>Summarizing large datasets</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="example-box">
-                    <h3>Example Prompts:</h3>
-                    <p>"What are the trends in this data over the last 3 years?"</p>
-                    <p>"Create a chart showing the distribution by category"</p>
-                    <p>"Create a formula to calculate year-over-year change"</p>
-                </div>
-                <div class="good-box">✅ Powerful for analyzing appropriate datasets</div>
-                <div class="bad-box">❌ Only use with non-sensitive, appropriate data</div>
-            </div>
-        </div>
+<div id="overview" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.8); color:#fff; overflow:auto; padding:40px;"></div>
 
-        <!-- Slide 7: Teams Copilot -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>💬 Teams Copilot</h2>
-                <div class="interactive-box" onclick="toggleContent('teams1')">
-                    <h3>What It Knows</h3>
-                    <div class="hidden-content" id="teams1">
-                        <p>Messages and meetings in the specific Teams channel or chat you're viewing. It can access conversation history and meeting transcripts.</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('teams2')">
-                    <h3>Best For</h3>
-                    <div class="hidden-content" id="teams2">
-                        <ul>
-                            <li>Summarizing meetings you missed</li>
-                            <li>Finding key decisions from conversations</li>
-                            <li>Tracking action items</li>
-                            <li>Catching up on channel discussions</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="example-box">
-                    <h3>Example Prompts:</h3>
-                    <p>"Summarize the key decisions from today's meeting"</p>
-                    <p>"What were the main discussion points this week?"</p>
-                    <p>"List all action items assigned in yesterday's meeting"</p>
-                </div>
-                <div class="good-box">✅ Helps you stay on top of team communications</div>
-                <div class="warning-box">⚠️ Always inform participants when using Transcribe</div>
-            </div>
-        </div>
+<script>
+// --- Slides Content (including quizzes) ---
+const slideData = [
+  { title: "Welcome", content: "<p>Welcome to the enhanced Copilot training.</p>" },
+  { title: "Overview", content: "<p>This course covers features, usage, and challenges.</p>" },
+  {
+    title: "Quick Quiz",
+    content: `
+      <p>Which version of Copilot is used for Microsoft 365 apps?</p>
+      <div class='quiz-question'>
+        <label><input type='radio' name='q1' value='wrong'> GitHub Copilot</label><br>
+        <label><input type='radio' name='q1' value='correct'> Copilot for Microsoft 365</label><br>
+        <label><input type='radio' name='q1' value='wrong'> Copilot Pro (personal)</label>
+        <div class='quiz-feedback' id='q1-feedback'></div>
+      </div>
+    `,
+    quiz: {
+      name: "q1",
+      correct: "correct",
+      feedbackId: "q1-feedback"
+    }
+  }
+];
 
-        <!-- Slide 8: Outlook Copilot -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>📧 Outlook Copilot</h2>
-                <div class="interactive-box" onclick="toggleContent('outlook1')">
-                    <h3>What It Knows</h3>
-                    <div class="hidden-content" id="outlook1">
-                        <p>Your email conversations and threads. It can read the emails you're working with.</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('outlook2')">
-                    <h3>Best For</h3>
-                    <div class="hidden-content" id="outlook2">
-                        <ul>
-                            <li>Drafting email responses</li>
-                            <li>Summarizing long email threads</li>
-                            <li>Adjusting tone of emails</li>
-                            <li>Catching up on correspondence</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="example-box">
-                    <h3>Example Prompts:</h3>
-                    <p>"Draft a response explaining our published guidance"</p>
-                    <p>"Summarize this 15-email thread"</p>
-                    <p>"Make this email more formal for external stakeholders"</p>
-                </div>
-                <div class="good-box">✅ Great for routine correspondence</div>
-                <div class="warning-box">⚠️ Consider sensitivity of email content before using</div>
-            </div>
-        </div>
+// Build slides
+const slidesContainer = document.getElementById("slides");
+slideData.forEach((s, i) => {
+  const div = document.createElement('div');
+  div.className = 'slide';
+  div.id = 'slide-' + i;
+  div.innerHTML = `<h2>${s.title}</h2>${s.content}`;
+  slidesContainer.appendChild(div);
+});
 
-        <!-- Slide 9: Quick Reference Card -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>📋 Quick Reference Card</h2>
-                <p>Use this handy reference for common tasks:</p>
-                <table>
-                    <thead>
-                        <tr><th>I want to...</th><th>Try saying...</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Start fresh</td><td>"Help me brainstorm..."</td></tr>
-                        <tr><td>Get shorter answers</td><td>"Summarise in 3 points..."</td></tr>
-                        <tr><td>Get longer answers</td><td>"Explain in detail..."</td></tr>
-                        <tr><td>Change the style</td><td>"Rewrite this to be more..."</td></tr>
-                        <tr><td>Understand something</td><td>"Explain this simply..."</td></tr>
-                        <tr><td>Check my work</td><td>"Review this and suggest improvements..."</td></tr>
-                        <tr><td>Save time</td><td>"Draft a quick..."</td></tr>
-                        <tr><td>Be creative</td><td>"Give me 10 ideas for..."</td></tr>
-                        <tr><td>Analyse data</td><td>"What trends do you see in..."</td></tr>
-                        <tr><td>Prepare for meetings</td><td>"Help me prepare questions for..."</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+let current = 0;
+showSlide(0);
 
-        <!-- Slide 10: Useful Phrases -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>💬 Useful Phrases for Copilot</h2>
-                <div class="interactive-box" onclick="toggleContent('phrases1')">
-                    <h3>Starting Your Search or Question</h3>
-                    <div class="hidden-content" id="phrases1">
-                        <p>"Can you help me find..." • "I'm looking for..." • "What are the best options for..." • "Can you recommend..." • "Show me..." • "Compare... and..."</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('phrases2')">
-                    <h3>Getting More Detail</h3>
-                    <div class="hidden-content" id="phrases2">
-                        <p>"Can you explain that in simpler terms?" • "Tell me more about..." • "What are the pros and cons of...?" • "Give me examples of..."</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('phrases3')">
-                    <h3>Refining Your Results</h3>
-                    <div class="hidden-content" id="phrases3">
-                        <p>"Can you narrow that down to..." • "What about something shorter/simpler?" • "Are there alternatives to...?" • "What's the best option for a beginner?"</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('phrases4')">
-                    <h3>Practical Tasks</h3>
-                    <div class="hidden-content" id="phrases4">
-                        <p>"How do I..." • "What's the best way to..." • "Can you walk me through..." • "Step by step, how would I..."</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+function showSlide(i) {
+  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('slide-' + i);
+  if (el) el.classList.add('active');
+  current = i;
+  updateTOC();
+  updateDots();
+}
+function nextSlide() { if (current < slideData.length - 1) showSlide(current + 1); }
+function prevSlide() { if (current > 0) showSlide(current - 1); }
 
-        <!-- Slide 11: The 4 Keys -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>🎯 The 4 Keys to Good Prompts</h2>
-                <p>A good prompt has four parts:</p>
-                <div class="comparison-grid">
-                    <div class="interactive-box" style="text-align: center;">
-                        <h3>🎯 Goal</h3>
-                        <p>What you want Copilot to do</p>
-                    </div>
-                    <div class="interactive-box" style="text-align: center;">
-                        <h3>📋 Context</h3>
-                        <p>Background information</p>
-                    </div>
-                    <div class="interactive-box" style="text-align: center;">
-                        <h3>📁 Source</h3>
-                        <p>Files or data to reference</p>
-                    </div>
-                    <div class="interactive-box" style="text-align: center;">
-                        <h3>✅ Expectations</h3>
-                        <p>Format, tone, length</p>
-                    </div>
-                </div>
-                <div class="example-box">
-                    <h3>Example prompt:</h3>
-                    <p><em>"Draft an outline of a training manual about AML controls. Our audience is new starters who need to understand the basics. The tone should be professional but accessible."</em></p>
-                </div>
-            </div>
-        </div>
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') nextSlide();
+  if (e.key === 'ArrowLeft') prevSlide();
+});
 
-        <!-- Slide 12: Common Mistakes -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>❌ Common Mistakes to Avoid</h2>
-                <div class="bad-box">
-                    <p><strong>❌ Too vague:</strong> "Help me with my report"</p>
-                    <p><strong>✅ Better:</strong> "Help me write an executive summary for my Q3 review, highlighting the top 3 achievements"</p>
-                </div>
-                <div class="bad-box">
-                    <p><strong>❌ Too much at once:</strong> Asking 5 questions in one prompt</p>
-                    <p><strong>✅ Better:</strong> Ask one thing, get an answer, then follow up</p>
-                </div>
-                <div class="bad-box">
-                    <p><strong>❌ Not reviewing output:</strong> Accepting everything Copilot writes</p>
-                    <p><strong>✅ Better:</strong> Always check facts, figures, and tone before using</p>
-                </div>
-                <div class="bad-box">
-                    <p><strong>❌ Giving up too quickly:</strong> Stopping after one attempt</p>
-                    <p><strong>✅ Better:</strong> Rephrase and try again - different wording gets different results</p>
-                </div>
-            </div>
-        </div>
+// Dark mode
+function toggleDarkMode() { document.body.classList.toggle('dark'); }
 
-        <!-- Slide 13: Real-World Use Cases -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>💼 Real-World Use Cases</h2>
-                <div class="interactive-box" onclick="toggleContent('usecase1')">
-                    <h3>Scenario 1: Preparing for a Meeting</h3>
-                    <div class="hidden-content" id="usecase1">
-                        <p><em>"I have a meeting with the team in 2 hours. Help me prepare 5 discussion questions about emerging trends."</em></p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('usecase2')">
-                    <h3>Scenario 2: Creating a Presentation</h3>
-                    <div class="hidden-content" id="usecase2">
-                        <p><em>"Create a 6-slide presentation outline. Include an introduction, key requirements, case studies, best practices, and next steps."</em></p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('usecase3')">
-                    <h3>Scenario 3: Catching Up After Leave</h3>
-                    <div class="hidden-content" id="usecase3">
-                        <p><em>"Summarise the key points from this document so I can quickly get up to speed."</em></p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('usecase4')">
-                    <h3>Scenario 4: Writing a Difficult Email</h3>
-                    <div class="hidden-content" id="usecase4">
-                        <p><em>"Help me write a polite but clear email requesting an update on a delayed project. I need to express urgency but maintain a professional tone."</em></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+// TOC
+const toc = document.getElementById("toc");
+slideData.forEach((s, i) => {
+  const a = document.createElement('a');
+  a.textContent = s.title;
+  a.href = '#';
+  a.onclick = () => { showSlide(i); };
+  a.id = 'toc-' + i;
+  toc.appendChild(a);
+});
+function updateTOC() {
+  document.querySelectorAll('#toc a').forEach(a => a.classList.remove('active'));
+  const active = document.getElementById('toc-' + current);
+  if (active) active.classList.add('active');
+}
 
-        <!-- Slide 14: Getting Help -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>🆘 Getting Help & Learning More</h2>
-                <div class="interactive-box" onclick="toggleContent('help1')">
-                    <h3>If Copilot Doesn't Understand You:</h3>
-                    <div class="hidden-content" id="help1">
-                        <ul>
-                            <li>Rephrase using simpler words</li>
-                            <li>Break your request into smaller parts</li>
-                            <li>Give an example of what you want</li>
-                            <li>Try "What I mean is..."</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('help2')">
-                    <h3>Free Learning Resources:</h3>
-                    <div class="hidden-content" id="help2">
-                        <ul>
-                            <li><strong>Microsoft Learn:</strong> Free courses at learn.microsoft.com</li>
-                            <li><strong>YouTube:</strong> Search "Microsoft Copilot tutorials"</li>
-                            <li><strong>Microsoft Tech Community:</strong> Tips from other users</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="good-box">
-                    <h3>Give Feedback:</h3>
-                    <p>Use thumbs up/down in Copilot to improve responses. Share useful prompts with colleagues!</p>
-                </div>
-            </div>
-        </div>
+// Progress dots
+const dots = document.getElementById('dots');
+slideData.forEach((_, i) => {
+  const d = document.createElement('span');
+  d.className = 'dot';
+  d.onclick = () => showSlide(i);
+  d.id = 'dot-' + i;
+  dots.appendChild(d);
+});
+function updateDots() {
+  document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+  const active = document.getElementById('dot-' + current);
+  if (active) active.classList.add('active');
+}
 
-        <!-- Slide 15: CPIA Introduction -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>⚠️ Disclosure Obligations & CPIA</h2>
-                <div class="warning-box">
-                    <h3>Why This Matters When Using Copilot</h3>
-                    <p>When you use Copilot to search for information or conduct research as part of an investigation, you may be creating material that is subject to <strong>disclosure obligations</strong> under the Criminal Procedure and Investigations Act 1996 (CPIA).</p>
-                </div>
-                <div class="example-box">
-                    <h3>Key Principle:</h3>
-                    <p>Investigators must pursue all reasonable lines of enquiry, whether these point towards or away from the suspect. This includes digital searches and AI-assisted research.</p>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('cpia1')">
-                    <h3>What is CPIA?</h3>
-                    <div class="hidden-content" id="cpia1">
-                        <p>The Criminal Procedure and Investigations Act 1996 (CPIA) governs how investigators must:</p>
-                        <ul>
-                            <li><strong>Record</strong> - Document all material obtained during an investigation</li>
-                            <li><strong>Retain</strong> - Keep material that may be relevant to the case</li>
-                            <li><strong>Reveal</strong> - Disclose material to the prosecutor that might undermine the prosecution case or assist the defence</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+// Overview Mode
+function toggleOverview() {
+  const o = document.getElementById('overview');
+  if (o.style.display === 'none') {
+    o.innerHTML = '';
+    slideData.forEach((s, i) => {
+      const div = document.createElement('div');
+      div.style.margin = '20px';
+      div.style.padding = '20px';
+      div.style.background = '#333';
+      div.style.cursor = 'pointer';
+      div.innerHTML = `<h3>${s.title}</h3><p>${s.content.substring(0, 120)}...</p>`;
+      div.onclick = () => { o.style.display = 'none'; showSlide(i); };
+      o.appendChild(div);
+    });
+    o.style.display = 'block';
+  } else {
+    o.style.display = 'none';
+  }
+}
 
-        <!-- Slide 16: CPIA How It Applies -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>⚠️ CPIA - How It Applies to Copilot</h2>
-                <table>
-                    <thead>
-                        <tr><th>What You Do</th><th>What It Creates</th><th>Disclosure Implication</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Search for information</td><td>Search queries and results</td><td>May need to be recorded</td></tr>
-                        <tr><td>Ask Copilot questions</td><td>Prompts and responses</td><td>May be disclosable material</td></tr>
-                        <tr><td>Generate summaries</td><td>AI-generated content</td><td>Should be reviewed and retained if relevant</td></tr>
-                        <tr><td>Research suspects or topics</td><td>Digital records</td><td>Must be logged if part of investigation</td></tr>
-                    </tbody>
-                </table>
-                <div class="warning-box">
-                    <p><strong>Remember:</strong> The CPIA Code of Practice states that material may be relevant if it has some bearing on any offence under investigation, any person being investigated, or the surrounding circumstances of the case.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 17: CPIA Best Practice -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>⚠️ CPIA - Best Practice</h2>
-                <div class="good-box">
-                    <h3>✅ DO:</h3>
-                    <ul>
-                        <li>Keep a record of searches conducted using Copilot</li>
-                        <li>Document what you asked and what results you received</li>
-                        <li>Save relevant outputs that may assist or undermine the case</li>
-                        <li>Consider whether results point towards OR away from the suspect</li>
-                        <li>Include Copilot searches in your Investigation Management Document (IMD)</li>
-                        <li>Treat AI-generated material the same as any other digital material</li>
-                    </ul>
-                </div>
-                <div class="bad-box">
-                    <h3>❌ DON'T:</h3>
-                    <ul>
-                        <li>Assume Copilot searches are not disclosable</li>
-                        <li>Delete search history without considering disclosure obligations</li>
-                        <li>Rely solely on AI summaries without verifying the information</li>
-                        <li>Forget that both helpful AND unhelpful results may need disclosure</li>
-                        <li>Use Copilot for investigation searches without proper record-keeping</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 18: CPIA Recording Searches -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>⚠️ CPIA - Recording Your Searches</h2>
-                <div class="interactive-box">
-                    <h3>When using Copilot as part of an investigation, record:</h3>
-                    <ol>
-                        <li><strong>Date and time</strong> of the search</li>
-                        <li><strong>The prompt/question</strong> you entered</li>
-                        <li><strong>The response</strong> Copilot provided</li>
-                        <li><strong>Your assessment</strong> of relevance to the investigation</li>
-                        <li><strong>Any action taken</strong> as a result of the search</li>
-                    </ol>
-                </div>
-                <div class="warning-box">
-                    <h3>The Disclosure Test</h3>
-                    <p>Material must be disclosed if it:</p>
-                    <ul>
-                        <li>Might reasonably be considered capable of <strong>undermining the case for the prosecution</strong>, OR</li>
-                        <li>Might reasonably be considered capable of <strong>assisting the case for the accused</strong></li>
-                    </ul>
-                    <p>This applies to Copilot searches just as it applies to any other investigative material.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 19: CPIA Key Questions -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>⚠️ CPIA - Key Questions to Ask Yourself</h2>
-                <div class="example-box">
-                    <h3>Before using Copilot for investigation-related work:</h3>
-                    <ol>
-                        <li>Is this search part of a criminal investigation?</li>
-                        <li>Am I recording this search appropriately?</li>
-                        <li>Could the results (positive or negative) be relevant to the case?</li>
-                        <li>Have I considered lines of enquiry that point away from the suspect?</li>
-                        <li>Will this search need to be included in disclosure schedules?</li>
-                    </ol>
-                </div>
-                <div class="warning-box">
-                    <h3>Remember:</h3>
-                    <ul>
-                        <li>Copilot responses are AI-generated and must be verified</li>
-                        <li>The disclosure officer is responsible for reviewing all relevant material</li>
-                        <li>Failure to disclose relevant material can lead to cases collapsing</li>
-                        <li>Always err on the side of caution - if in doubt, record and retain</li>
-                    </ul>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('cpiaguidance')">
-                    <h3>Further Guidance</h3>
-                    <div class="hidden-content" id="cpiaguidance">
-                        <ul>
-                            <li><strong>CPIA Code of Practice 2020</strong> - Sets out investigator obligations</li>
-                            <li><strong>Attorney General's Guidelines on Disclosure 2022</strong> - Includes Annex A on Digital Material</li>
-                            <li><strong>CPS Disclosure Manual</strong> - Detailed guidance on disclosure processes</li>
-                            <li>Consult your <strong>Disclosure Officer</strong> if you are unsure</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 20: Summary -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>📝 Summary</h2>
-                <div class="example-box">
-                    <h3>Remember the 4 Keys to Good Prompts:</h3>
-                    <ol>
-                        <li>🎯 <strong>Goal</strong> - What do you want?</li>
-                        <li>📋 <strong>Context</strong> - What's the background?</li>
-                        <li>📁 <strong>Source</strong> - What files or data to use?</li>
-                        <li>✅ <strong>Expectations</strong> - What format, tone, length?</li>
-                    </ol>
-                </div>
-                <div class="good-box">
-                    <h3>Key Takeaways:</h3>
-                    <ul>
-                        <li>✓ Use clear, specific language when asking Copilot questions</li>
-                        <li>✓ Choose the right Copilot for your task</li>
-                        <li>✓ Treat it like a conversation - ask follow-ups</li>
-                        <li>✓ Try different wording if you don't get the right answer</li>
-                        <li>✓ Always review and verify Copilot's responses</li>
-                        <li>✓ Be aware of CPIA disclosure obligations for investigation work</li>
-                    </ul>
-                </div>
-                <div class="warning-box" style="text-align: center;">
-                    <p style="font-size: 1.3em;"><strong>Start Simple → Get Results → Refine → Repeat</strong></p>
-                    <p>Copilot is a conversation - the more you guide it, the better it gets!</p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="navigation">
-        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
-        <div class="slide-counter">
-            <span id="currentSlide">1</span> / <span id="totalSlides">20</span>
-        </div>
-        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">Next →</button>
-    </div>
-
-    <script>
-        let currentSlide = 1;
-        const totalSlides = document.querySelectorAll('.slide').length;
-        document.getElementById('totalSlides').textContent = totalSlides;
-
-        function changeSlide(direction) {
-            const slides = document.querySelectorAll('.slide');
-            slides[currentSlide - 1].classList.remove('active');
-            
-            currentSlide += direction;
-            
-            if (currentSlide > totalSlides) currentSlide = totalSlides;
-            if (currentSlide < 1) currentSlide = 1;
-            
-            slides[currentSlide - 1].classList.add('active');
-            document.getElementById('currentSlide').textContent = currentSlide;
-            
-            document.getElementById('prevBtn').disabled = currentSlide === 1;
-            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
-            
-            updateProgressBar();
-        }
-
-        function updateProgressBar() {
-            const progress = (currentSlide / totalSlides) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-        }
-
-        function toggleContent(id) {
-            const content = document.getElementById(id);
-            content.classList.toggle('show');
-        }
-
-        // Initialize
-        document.getElementById('prevBtn').disabled = true;
-        updateProgressBar();
-    </script>
-</body>
-</html>
+// Quiz logic
+slidesContainer.addEventListener('change', e => {
+  const slide = slideData[current];
+  if (!slide.quiz) return;
+  const q = slide.quiz;
+  if (e.target.name === q.name) {
