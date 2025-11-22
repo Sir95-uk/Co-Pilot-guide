@@ -3,9 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Copilot Training – Minimal</title>
+<title>Copilot Training – TOC Version</title>
 <style>
-  body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f4f4f4; }
+  body { font-family: Arial, sans-serif; margin: 0; display: flex; }
+  #toc { width: 200px; background: #eee; padding: 20px; }
+  #toc a { display: block; margin-bottom: 10px; text-decoration: none; color: black; }
+  #toc a.active { font-weight: bold; text-decoration: underline; }
+  #main { flex: 1; padding: 20px; }
   .slide { display: none; }
   .slide.active { display: block; }
   button { margin: 5px; padding: 10px 20px; cursor: pointer; }
@@ -14,29 +18,73 @@
 </head>
 <body>
 
-<div class="slide active" id="slide-0">
-  <h2>Welcome</h2>
-  <p>Welcome to the enhanced Copilot training.</p>
+<div id="toc">
+  <a href="#" onclick="showSlide(0); return false;">Welcome</a>
+  <a href="#" onclick="showSlide(1); return false;">Quick Quiz</a>
 </div>
 
-<div class="slide" id="slide-1">
-  <h2>Quick Quiz</h2>
-  <p>Which version of Copilot is used for Microsoft 365 apps?</p>
-  <div>
-    <label><input type="radio" name="q1" value="wrong"> GitHub Copilot</label><br>
-    <label><input type="radio" name="q1" value="correct"> Copilot for Microsoft 365</label><br>
-    <label><input type="radio" name="q1" value="wrong"> Copilot Pro (personal)</label>
-    <div class="quiz-feedback" id="q1-feedback"></div>
+<div id="main">
+  <div class="slide active" id="slide-0">
+    <h2>Welcome</h2>
+    <p>Welcome to the enhanced Copilot training.</p>
   </div>
-</div>
 
-<div>
-  <button onclick="prevSlide()">Previous</button>
-  <button onclick="nextSlide()">Next</button>
+  <div class="slide" id="slide-1">
+    <h2>Quick Quiz</h2>
+    <p>Which version of Copilot is used for Microsoft 365 apps?</p>
+    <div>
+      <label><input type="radio" name="q1" value="wrong"> GitHub Copilot</label><br>
+      <label><input type="radio" name="q1" value="correct"> Copilot for Microsoft 365</label><br>
+      <label><input type="radio" name="q1" value="wrong"> Copilot Pro (personal)</label>
+      <div class="quiz-feedback" id="q1-feedback"></div>
+    </div>
+  </div>
+
+  <div>
+    <button onclick="prevSlide()">Previous</button>
+    <button onclick="nextSlide()">Next</button>
+  </div>
 </div>
 
 <script>
 let current = 0;
 const slides = document.querySelectorAll('.slide');
+const tocLinks = document.querySelectorAll('#toc a');
 
-func
+function showSlide(index) {
+  slides.forEach(s => s.classList.remove('active'));
+  slides[index].classList.add('active');
+  current = index;
+  updateTOC();
+}
+
+function updateTOC() {
+  tocLinks.forEach(a => a.classList.remove('active'));
+  tocLinks[current].classList.add('active');
+}
+
+function nextSlide() {
+  if(current < slides.length - 1) showSlide(current + 1);
+}
+
+function prevSlide() {
+  if(current > 0) showSlide(current - 1);
+}
+
+// Quiz logic
+document.querySelectorAll('input[name="q1"]').forEach(input => {
+  input.addEventListener('change', (e) => {
+    const feedback = document.getElementById('q1-feedback');
+    if(e.target.value === 'correct') {
+      feedback.textContent = "Correct! Well done.";
+      feedback.style.color = "green";
+    } else {
+      feedback.textContent = "Incorrect — this option does not represent Copilot for Microsoft 365.";
+      feedback.style.color = "red";
+    }
+  });
+});
+</script>
+
+</body>
+</html>
