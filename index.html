@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Copilot for MS365 Training</title>
-  <!-- Reveal.js CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/black.css" id="theme">
-  <style>
-    body { font-family: Arial, sans-serif; }
-    .quiz-feedback { margin-top: 10px; font-weight: bold; }
-    .quiz-question { margin-top: 15px; background: #eee; padding: 15px; border-radius: 8px; }
-    body.dark .quiz-question { background: #444; color: #fff; }
-    button#toggle-theme { position: fixed; top: 10px; right: 10px; padding: 8px 12px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copilot for MS365 Training</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/black.css" id="theme">
+<style>
+  .quiz-feedback { margin-top: 10px; font-weight: bold; }
+  .quiz-question { margin-top: 15px; background: #eee; padding: 15px; border-radius: 8px; }
+  body.dark .quiz-question { background: #444; color: #fff; }
+  button#toggle-theme { position: fixed; top: 10px; right: 10px; padding: 8px 12px; z-index: 1000; }
+</style>
 </head>
 <body>
 
@@ -22,41 +20,11 @@
 <div class="reveal">
   <div class="slides">
 
-    <!-- Slide 1 -->
-    <section>
-      <h2>Welcome</h2>
-      <p>Welcome to the enhanced Copilot for Microsoft 365 training!</p>
-    </section>
+    <section><h2>Welcome</h2><p>Welcome to the enhanced Copilot training.</p></section>
+    <section><h2>Overview</h2><p>We will cover features, usage, best practices, and challenges.</p></section>
+    <section><h2>Key Features</h2><ul><li>Automates tasks</li><li>Summarizes documents</li><li>Suggests intelligently</li></ul></section>
+    <section><h2>Benefits</h2><ul><li>Save time</li><li>Increase productivity</li><li>Reduce errors</li></ul></section>
 
-    <!-- Slide 2 -->
-    <section>
-      <h2>Overview</h2>
-      <p>We will cover features, usage, best practices, and challenges when using Copilot in Microsoft 365 apps.</p>
-    </section>
-
-    <!-- Slide 3 -->
-    <section>
-      <h2>Key Features</h2>
-      <ul>
-        <li>Automates repetitive tasks</li>
-        <li>Generates summaries for documents and emails</li>
-        <li>Provides intelligent suggestions</li>
-        <li>Integrates with Word, Excel, PowerPoint, and Outlook</li>
-      </ul>
-    </section>
-
-    <!-- Slide 4 -->
-    <section>
-      <h2>Benefits</h2>
-      <ul>
-        <li>Save time on daily tasks</li>
-        <li>Increase productivity</li>
-        <li>Reduce errors</li>
-        <li>Enhance collaboration</li>
-      </ul>
-    </section>
-
-    <!-- Slide 5: Quiz -->
     <section>
       <h2>Quick Quiz</h2>
       <p>Which version of Copilot is used for Microsoft 365 apps?</p>
@@ -68,17 +36,42 @@
       </div>
     </section>
 
-    <!-- Slide 6 -->
-    <section>
-      <h2>Tips & Tricks</h2>
-      <ul>
-        <li>Use keyboard shortcuts to speed up workflow</li>
-        <li>Integrate with Teams and Outlook</li>
-        <li>Ask Copilot to summarize long documents</li>
-      </ul>
-    </section>
+    <section><h2>Tips & Tricks</h2><ul><li>Use keyboard shortcuts</li><li>Integrate with Teams</li><li>Summarize long docs</li></ul></section>
+    <section><h2>Common Challenges</h2><ul><li>Accuracy may vary</li><li>Requires subscription</li><li>App-specific features</li></ul></section>
+    <section><h2>Best Practices</h2><ul><li>Start small</li><li>Check suggestions</li><li>Combine with your own knowledge</li></ul></section>
+    <section><h2>Next Steps</h2><ul><li>Try Copilot in Word/Excel/Outlook</li><li>Practice reports</li><li>Share tips with team</li></ul></section>
+    <section><h2>Thank You!</h2><p>You’ve completed the Copilot training. Happy automating!</p></section>
 
-    <!-- Slide 7 -->
-    <section>
-      <h2>Common Challenges</h2>
-      <ul>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({ hash: true, slideNumber: true });
+
+  // Quiz logic
+  document.querySelectorAll('input[name="q1"]').forEach(radio => {
+    radio.addEventListener('change', e => {
+      const feedback = document.getElementById('q1-feedback');
+      if (e.target.value === 'correct') {
+        feedback.textContent = "Correct! Well done.";
+        feedback.style.color = "green";
+      } else {
+        feedback.textContent = "Incorrect — not Copilot for Microsoft 365.";
+        feedback.style.color = "red";
+      }
+    });
+  });
+
+  // Dark/light toggle
+  const themeBtn = document.getElementById('toggle-theme');
+  themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    document.getElementById('theme').setAttribute('href', document.body.classList.contains('dark')
+      ? 'https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/black.css'
+      : 'https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/white.css');
+  });
+</script>
+
+</body>
+</html>
