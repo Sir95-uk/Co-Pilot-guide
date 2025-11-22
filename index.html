@@ -31,6 +31,7 @@
             height: calc(100vh - 80px);
             padding: 60px;
             animation: slideIn 0.5s ease-out;
+            overflow-y: auto;
         }
 
         .slide.active {
@@ -190,6 +191,30 @@
             margin: 15px 0;
         }
 
+        .warning-box {
+            background: #fef3c7;
+            border-left: 5px solid #f59e0b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .good-box {
+            background: #d1fae5;
+            border-left: 5px solid #10b981;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .bad-box {
+            background: #fee2e2;
+            border-left: 5px solid #ef4444;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
         .scenario-button {
             background: #764ba2;
             color: white;
@@ -285,6 +310,18 @@
             background: #667eea;
             transition: width 0.3s;
             z-index: 1000;
+        }
+
+        .four-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .four-grid .interactive-box {
+            text-align: center;
+            margin: 0;
         }
     </style>
 </head>
@@ -627,7 +664,7 @@
             </div>
         </div>
 
-        <!-- Slide 10: Summary -->
+        <!-- Slide 10: Original Summary -->
         <div class="slide">
             <div class="slide-content">
                 <h2>Key Takeaways</h2>
@@ -660,118 +697,71 @@
                     <p><strong>5. Combine for Best Results</strong></p>
                     <p>Use multiple Copilots together for complex workflows.</p>
                 </div>
+            </div>
+        </div>
 
-                <div class="example-box" style="margin-top: 40px; text-align: center;">
-                    <h3>🚀 Now you're ready to use Copilot effectively!</h3>
-                    <p>Start with simple tasks and build your skills over time.</p>
+        <!-- NEW SLIDE 11: Quick Reference Card -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>📋 Quick Reference Card</h2>
+                <p>Use this handy reference for common tasks:</p>
+                
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>I want to...</th>
+                                <th>Try saying...</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Start fresh</td><td>"Help me brainstorm..."</td></tr>
+                            <tr><td>Get shorter answers</td><td>"Summarise in 3 points..."</td></tr>
+                            <tr><td>Get longer answers</td><td>"Explain in detail..."</td></tr>
+                            <tr><td>Change the style</td><td>"Rewrite this to be more..."</td></tr>
+                            <tr><td>Understand something</td><td>"Explain this simply..."</td></tr>
+                            <tr><td>Check my work</td><td>"Review this and suggest improvements..."</td></tr>
+                            <tr><td>Save time</td><td>"Draft a quick..."</td></tr>
+                            <tr><td>Be creative</td><td>"Give me 10 ideas for..."</td></tr>
+                            <tr><td>Analyse data</td><td>"What trends do you see in..."</td></tr>
+                            <tr><td>Prepare for meetings</td><td>"Help me prepare questions for..."</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="navigation">
-        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
-        <div class="slide-counter">
-            <span id="currentSlide">1</span> / <span id="totalSlides">10</span>
-        </div>
-        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">Next →</button>
-    </div>
-
-    <script>
-        let currentSlide = 1;
-        const totalSlides = document.querySelectorAll('.slide').length;
-        document.getElementById('totalSlides').textContent = totalSlides;
-
-        function changeSlide(direction) {
-            const slides = document.querySelectorAll('.slide');
-            slides[currentSlide - 1].classList.remove('active');
-            
-            currentSlide += direction;
-            
-            if (currentSlide > totalSlides) currentSlide = totalSlides;
-            if (currentSlide < 1) currentSlide = 1;
-            
-            slides[currentSlide - 1].classList.add('active');
-            document.getElementById('currentSlide').textContent = currentSlide;
-            
-            document.getElementById('prevBtn').disabled = currentSlide === 1;
-            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
-            
-            updateProgressBar();
-        }
-
-        function updateProgressBar() {
-            const progress = (currentSlide / totalSlides) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-        }
-
-        function toggleContent(id) {
-            const content = document.getElementById(id);
-            content.classList.toggle('show');
-        }
-
-        function showComparison(type) {
-            const content = document.getElementById('comparisonContent');
-            let html = '';
-            
-            if (type === 1) {
-                html = `
-                    <div class="example-box">
-                        <h3>🌐 Web Copilot (copilot.microsoft.com)</h3>
-                        <p><strong>What it knows:</strong> General knowledge and internet information</p>
-                        <p><strong>What it doesn't know:</strong> Your documents, emails, or Teams conversations</p>
-                        <p><strong>Best for:</strong> Research, learning new topics, getting general answers</p>
-                        <p><strong>Example:</strong> "Explain blockchain technology in simple terms"</p>
+        <!-- NEW SLIDE 12: Useful Phrases -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>💬 Useful Phrases for Copilot</h2>
+                
+                <div class="interactive-box" onclick="toggleContent('phrases1')">
+                    <h3>Starting Your Search or Question</h3>
+                    <div class="hidden-content" id="phrases1">
+                        <p>"Can you help me find..." • "I'm looking for..." • "What are the best options for..."</p>
+                        <p>"Can you recommend..." • "Show me..." • "Compare... and..."</p>
                     </div>
-                `;
-            } else if (type === 2) {
-                html = `
-                    <div class="example-box">
-                        <h3>📄 App Copilot (Word, Excel, PowerPoint)</h3>
-                        <p><strong>What it knows:</strong> The specific document or file you have open</p>
-                        <p><strong>What it can do:</strong> Edit, analyze, and work with YOUR content</p>
-                        <p><strong>Best for:</strong> Working with existing documents and data</p>
-                        <p><strong>Example:</strong> "Summarize this 20-page report into 5 key points"</p>
+                </div>
+
+                <div class="interactive-box" onclick="toggleContent('phrases2')">
+                    <h3>Getting More Detail</h3>
+                    <div class="hidden-content" id="phrases2">
+                        <p>"Can you explain that in simpler terms?" • "Tell me more about..."</p>
+                        <p>"What are the pros and cons of...?" • "Give me examples of..."</p>
                     </div>
-                `;
-            } else {
-                html = `
-                    <div class="example-box">
-                        <h3>💬 Teams Copilot</h3>
-                        <p><strong>What it knows:</strong> Messages and meetings in that specific Teams channel</p>
-                        <p><strong>What it can do:</strong> Summarize conversations, find decisions, track action items</p>
-                        <p><strong>Best for:</strong> Catching up on missed meetings and conversations</p>
-                        <p><strong>Example:</strong> "What decisions were made in yesterday's standup?"</p>
+                </div>
+
+                <div class="interactive-box" onclick="toggleContent('phrases3')">
+                    <h3>Refining Your Results</h3>
+                    <div class="hidden-content" id="phrases3">
+                        <p>"Can you narrow that down to..." • "What about something shorter/simpler?"</p>
+                        <p>"Are there alternatives to...?" • "What's the best option for a beginner?"</p>
                     </div>
-                `;
-            }
-            
-            content.innerHTML = html;
-        }
+                </div>
 
-        function showScenario(scenario) {
-            document.querySelectorAll('.scenario-content').forEach(s => s.classList.remove('active'));
-            document.getElementById(scenario + 'Scenario').classList.add('active');
-        }
-
-        function checkAnswer(element, isCorrect) {
-            const allOptions = element.parentElement.querySelectorAll('.quiz-option');
-            allOptions.forEach(opt => {
-                opt.style.pointerEvents = 'none';
-            });
-            
-            if (isCorrect) {
-                element.classList.add('correct');
-                element.innerHTML += ' ✓ Correct!';
-            } else {
-                element.classList.add('incorrect');
-                element.innerHTML += ' ✗ Try again!';
-            }
-        }
-
-        // Initialize
-        document.getElementById('prevBtn').disabled = true; 
-        updateProgressBar();
-    </script>
-</body>
-</html>
+                <div class="interactive-box" onclick="toggleContent('phrases4')">
+                    <h3>Practical Tasks & Clarifying</h3>
+                    <div class="hidden-content" id="phrases4">
+                        <p>"How do I..." • "What's the best way to..." • "Step by step, how would I..."</p>
+                        <p>"What do you mean by...?" • "Can you
