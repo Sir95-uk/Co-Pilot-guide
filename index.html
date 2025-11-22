@@ -4,73 +4,92 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Copilot for MS365 Training</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/black.css" id="theme">
 <style>
+  body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; color: #222; }
+  .dark { background: #222; color: #eee; }
+  .slide { display: none; padding: 40px; max-width: 800px; margin: auto; transition: opacity 0.3s; }
+  .slide.active { display: block; }
+  .controls { text-align: center; margin-top: 20px; }
+  button { padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px; border: none; }
+  .quiz-question { background: #eaeaea; padding: 15px; border-radius: 8px; margin-top: 15px; }
+  .dark .quiz-question { background: #444; color: #fff; }
   .quiz-feedback { margin-top: 10px; font-weight: bold; }
-  .quiz-question { margin-top: 15px; background: #eee; padding: 15px; border-radius: 8px; }
-  body.dark .quiz-question { background: #444; color: #fff; }
-  button#toggle-theme { position: fixed; top: 10px; right: 10px; padding: 8px 12px; z-index: 1000; }
 </style>
 </head>
 <body>
 
-<button id="toggle-theme">Toggle Dark/Light</button>
-
-<div class="reveal">
-  <div class="slides">
-
-    <section><h2>Welcome</h2><p>Welcome to the enhanced Copilot training.</p></section>
-    <section><h2>Overview</h2><p>We will cover features, usage, best practices, and challenges.</p></section>
-    <section><h2>Key Features</h2><ul><li>Automates tasks</li><li>Summarizes documents</li><li>Suggests intelligently</li></ul></section>
-    <section><h2>Benefits</h2><ul><li>Save time</li><li>Increase productivity</li><li>Reduce errors</li></ul></section>
-
-    <section>
-      <h2>Quick Quiz</h2>
-      <p>Which version of Copilot is used for Microsoft 365 apps?</p>
-      <div class="quiz-question">
-        <label><input type="radio" name="q1" value="wrong"> GitHub Copilot</label><br>
-        <label><input type="radio" name="q1" value="correct"> Copilot for Microsoft 365</label><br>
-        <label><input type="radio" name="q1" value="wrong"> Copilot Pro (personal)</label>
-        <div class="quiz-feedback" id="q1-feedback"></div>
-      </div>
-    </section>
-
-    <section><h2>Tips & Tricks</h2><ul><li>Use keyboard shortcuts</li><li>Integrate with Teams</li><li>Summarize long docs</li></ul></section>
-    <section><h2>Common Challenges</h2><ul><li>Accuracy may vary</li><li>Requires subscription</li><li>App-specific features</li></ul></section>
-    <section><h2>Best Practices</h2><ul><li>Start small</li><li>Check suggestions</li><li>Combine with your own knowledge</li></ul></section>
-    <section><h2>Next Steps</h2><ul><li>Try Copilot in Word/Excel/Outlook</li><li>Practice reports</li><li>Share tips with team</li></ul></section>
-    <section><h2>Thank You!</h2><p>You’ve completed the Copilot training. Happy automating!</p></section>
-
+<div id="slides">
+  <div class="slide active" id="slide-0">
+    <h2>Welcome</h2>
+    <p>Welcome to the enhanced Copilot training.</p>
+  </div>
+  <div class="slide" id="slide-1">
+    <h2>Overview</h2>
+    <p>This course covers features, usage, best practices, and challenges.</p>
+  </div>
+  <div class="slide" id="slide-2">
+    <h2>Quick Quiz</h2>
+    <p>Which version of Copilot is used for Microsoft 365 apps?</p>
+    <div class="quiz-question">
+      <label><input type="radio" name="q1" value="wrong"> GitHub Copilot</label><br>
+      <label><input type="radio" name="q1" value="correct"> Copilot for Microsoft 365</label><br>
+      <label><input type="radio" name="q1" value="wrong"> Copilot Pro (personal)</label>
+      <div class="quiz-feedback" id="q1-feedback"></div>
+    </div>
+  </div>
+  <div class="slide" id="slide-3">
+    <h2>Tips & Tricks</h2>
+    <ul>
+      <li>Use keyboard shortcuts</li>
+      <li>Integrate with Teams</li>
+      <li>Summarize long docs</li>
+    </ul>
+  </div>
+  <div class="slide" id="slide-4">
+    <h2>Thank You!</h2>
+    <p>You’ve completed the Copilot training. Happy automating!</p>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+<div class="controls">
+  <button onclick="prevSlide()">Previous</button>
+  <button onclick="nextSlide()">Next</button>
+  <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+</div>
+
 <script>
-  Reveal.initialize({ hash: true, slideNumber: true });
+let current = 0;
+const slides = document.querySelectorAll('.slide');
 
-  // Quiz logic
-  document.querySelectorAll('input[name="q1"]').forEach(radio => {
-    radio.addEventListener('change', e => {
-      const feedback = document.getElementById('q1-feedback');
-      if (e.target.value === 'correct') {
-        feedback.textContent = "Correct! Well done.";
-        feedback.style.color = "green";
-      } else {
-        feedback.textContent = "Incorrect — not Copilot for Microsoft 365.";
-        feedback.style.color = "red";
-      }
-    });
-  });
+function showSlide(index) {
+  slides.forEach(s => s.classList.remove('active'));
+  slides[index].classList.add('active');
+  current = index;
+}
 
-  // Dark/light toggle
-  const themeBtn = document.getElementById('toggle-theme');
-  themeBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    document.getElementById('theme').setAttribute('href', document.body.classList.contains('dark')
-      ? 'https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/black.css'
-      : 'https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/white.css');
+function nextSlide() { if(current < slides.length -1) showSlide(current + 1); }
+function prevSlide() { if(current > 0) showSlide(current - 1); }
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'ArrowRight') nextSlide();
+  if(e.key === 'ArrowLeft') prevSlide();
+});
+
+function toggleDarkMode() { document.body.classList.toggle('dark'); }
+
+// Quiz logic
+document.querySelectorAll('input[name="q1"]').forEach(radio => {
+  radio.addEventListener('change', e => {
+    const feedback = document.getElementById('q1-feedback');
+    if(e.target.value === 'correct') {
+      feedback.textContent = "Correct! Well done.";
+      feedback.style.color = "green";
+    } else {
+      feedback.textContent = "Incorrect — not Copilot for Microsoft 365.";
+      feedback.style.color = "red";
+    }
   });
+});
 </script>
 
 </body>
