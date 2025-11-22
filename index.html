@@ -240,3 +240,19 @@ slidesContainer.addEventListener('change', e => {
   if (!slide.quiz) return;
   const q = slide.quiz;
   if (e.target.name === q.name) {
+        if (e.target.value === q.correct) {
+      const feedback = document.getElementById(q.feedbackId);
+      feedback.textContent = "Correct! Well done.";
+      feedback.style.color = "green";
+    } else {
+      const feedback = document.getElementById(q.feedbackId);
+      feedback.textContent = "Incorrect — this option does not represent Copilot for Microsoft 365.";
+      feedback.style.color = "red";
+    }
+  }
+});
+</script>
+</body>
+</html>
+
+
