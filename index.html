@@ -1,147 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Copilot Training – Clean Working Version</title>
-  <style>
-    body { margin:0; font-family:Arial, sans-serif; background:#f4f4f4; }
-    body.dark { background:#222; color:#eee; }
-
-    #toc { position:fixed; top:0; left:0; width:240px; height:100vh; overflow-y:auto; background:#fff; border-right:1px solid #ccc; padding:20px; }
-    body.dark #toc { background:#333; border-right-color:#555; }
-    #toc a { display:block; margin-bottom:10px; text-decoration:none; color:inherit; }
-    #toc a.active { font-weight:bold; text-decoration:underline; }
-
-    #main { margin-left:260px; padding:20px; }
-
-    .slide { display:none; opacity:0; transition:opacity .5s; }
-    .slide.active { display:block; opacity:1; }
-
-    .controls { margin-top:20px; text-align:center; }
-    button { padding:10px 20px; margin:5px; border:none; border-radius:6px; cursor:pointer; }
-
-    .progress-dots { text-align:center; margin-top:10px; }
-    .dot { width:12px; height:12px; border-radius:50%; background:#888; display:inline-block; margin:4px; cursor:pointer; }
-    .dot.active { background:#000; }
-    body.dark .dot.active { background:#fff; }
-
-    .quiz-question { margin-top:15px; padding:15px; background:#eaeaea; border-radius:8px; }
-    body.dark .quiz-question { background:#444; }
-    .quiz-feedback { margin-top:10px; font-weight:bold; }
-
-    #overview { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.8); color:#fff; overflow-y:auto; padding:40px; }
-    .overview-item { background:#333; padding:20px; margin:20px; border-radius:8px; cursor:pointer; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copilot for MS365 Training – Clean Version</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    transition: background 0.3s, color 0.3s;
+  }
+  body.dark { background: #222; color: #eee; }
+  #toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100%;
+    overflow-y: auto;
+    background: #fff;
+    border-right: 1px solid #ccc;
+    padding: 20px;
+  }
+  body.dark #toc { background: #333; border-right-color: #555; }
+  #toc a {
+    display: block;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  #toc a.active { font-weight: bold; text-decoration: underline; }
+  #main { margin-left: 280px; padding: 20px; }
+  .slide { display: none; opacity: 0; transition: opacity 0.5s ease; }
+  .slide.active { display: block; opacity: 1; }
+  .progress-dots { text-align: center; margin-top: 10px; }
+  .dot {
+    display: inline-block;
+    width: 12px; height: 12px;
+    margin: 4px; border-radius: 50%;
+    background: #999; cursor: pointer;
+  }
+  .dot.active { background: #000; }
+  body.dark .dot.active { background: #fff; }
+  .quiz-question {
+    margin-top: 20px;
+    padding: 15px;
+    background: #eaeaea;
+    border-radius: 8px;
+  }
+  body.dark .quiz-question { background: #444; }
+  .quiz-feedback { margin-top: 10px; font-weight: bold; }
+  #overview {
+    display: none;
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,.8); color: #fff;
+    overflow: auto; padding: 40px;
+  }
+  #overview div { margin: 20px; padding: 20px; background: #333; cursor: pointer; }
+</style>
 </head>
 <body>
 
 <div id="toc"></div>
-
 <div id="main">
   <div id="slides"></div>
-
-  <!-- Controls removed as requested -->
-
-  <div id="dots" class="progress-dots"></div>
+  <div class="progress-dots" id="dots"></div>
 </div>
-
 <div id="overview"></div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+// --- Slides Data ---
+const slideData = [
+  { title: "Welcome", content: "<p>Welcome to the enhanced Copilot training.</p>" },
+  { title: "Overview", content: "<p>This course covers features, usage, and challenges.</p>" },
+  { title: "Quick Quiz", content: `
+    <p>Which version of Copilot is used for Microsoft 365 apps?</p>
+    <div class='quiz-question'>
+      <label><input type='radio' name='q1' value='wrong'> GitHub Copilot</label><br>
+      <label><input type='radio' name='q1' value='correct'> Copilot for Microsoft 365</label><br>
+      <label><input type='radio' name='q1' value='wrong'> Copilot Pro (personal)</label>
+      <div class='quiz-feedback' id='q1-feedback'></div>
+    </div>
+  `, quiz: { name: "q1", correct: "correct", feedbackId: "q1-feedback" } }
+];
 
-  const slideData = [
-    { title: "Welcome", content: `<p>Welcome to the clean Copilot training slideshow.</p>` },
-    { title: "Overview", content: `<p>This course introduces Copilot for Microsoft 365.</p>` },
-    {
-      title: "Quiz",
-      content: `
-        <p>Which Copilot works in Microsoft 365 apps?</p>
-        <div class='quiz-question'>
-          <label><input type='radio' name='q1' value='wrong'> GitHub Copilot</label><br>
-          <label><input type='radio' name='q1' value='correct'> Copilot for Microsoft 365</label><br>
-          <label><input type='radio' name='q1' value='wrong'> Copilot Pro (personal)</label>
-          <div id='q1-feedback' class='quiz-feedback'></div>
-        </div>
-      `,
-      quiz: { name: "q1", correct: "correct", feedbackId: "q1-feedback" }
-    }
-  ];
+// Build slides
+const slidesContainer = document.getElementById("slides");
+slideData.forEach((s,i)=>{
+  const div = document.createElement('div');
+  div.className = 'slide';
+  div.id = 'slide-'+i;
+  div.innerHTML = `<h2>${s.title}</h2>${s.content}`;
+  slidesContainer.appendChild(div);
+});
 
-  const slides = document.getElementById("slides");
-  const toc = document.getElementById("toc");
-  const dots = document.getElementById("dots");
-  const overview = document.getElementById("overview");
-  let current = 0;
+let current = 0;
+showSlide(0);
 
-  slideData.forEach((s, i) => {
-    const div = document.createElement("div");
-    div.className = "slide";
-    div.id = "slide-" + i;
-    div.innerHTML = `<h2>${s.title}</h2>${s.content}`;
-    slides.appendChild(div);
+function showSlide(i){
+  document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));
+  const el = document.getElementById('slide-'+i);
+  if(el) el.classList.add('active');
+  current = i;
+  updateTOC();
+  updateDots();
+}
+function nextSlide(){ if(current < slideData.length-1) showSlide(current+1); }
+function prevSlide(){ if(current > 0) showSlide(current-1); }
 
-    const tocItem = document.createElement("a");
-    tocItem.textContent = s.title;
-    tocItem.href = "#";
-    tocItem.onclick = () => showSlide(i);
-    tocItem.id = "toc-" + i;
-    toc.appendChild(tocItem);
+// Keyboard navigation
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight') nextSlide();
+  if(e.key==='ArrowLeft') prevSlide();
+  if(e.key==='d') document.body.classList.toggle('dark'); // press 'd' for dark mode
+  if(e.key==='o') toggleOverview(); // press 'o' for overview
+});
 
-    const d = document.createElement("span");
-    d.className = "dot";
-    d.id = "dot-" + i;
-    d.onclick = () => showSlide(i);
-    dots.appendChild(d);
-  });
+// TOC
+const toc = document.getElementById("toc");
+slideData.forEach((s,i)=>{
+  const a = document.createElement('a');
+  a.textContent = s.title;
+  a.onclick = ()=> showSlide(i);
+  a.id='toc-'+i;
+  toc.appendChild(a);
+});
+function updateTOC(){
+  document.querySelectorAll('#toc a').forEach(a=>a.classList.remove('active'));
+  const active = document.getElementById('toc-'+current);
+  if(active) active.classList.add('active');
+}
 
-  function showSlide(i) {
-    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
-    document.getElementById('slide-' + i).classList.add('active');
-    current = i;
+// Dots
+const dots = document.getElementById('dots');
+slideData.forEach((_,i)=>{
+  const d = document.createElement('span');
+  d.className='dot';
+  d.onclick = ()=>showSlide(i);
+  d.id='dot-'+i;
+  dots.appendChild(d);
+});
+function updateDots(){
+  document.querySelectorAll('.dot').forEach(d=>d.classList.remove('active'));
+  const active = document.getElementById('dot-'+current);
+  if(active) active.classList.add('active');
+}
 
-    document.querySelectorAll('#toc a').forEach(a => a.classList.remove('active'));
-    document.getElementById('toc-' + i).classList.add('active');
-
-    document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
-    document.getElementById('dot-' + i).classList.add('active');
-  }
-
-  window.nextSlide = () => { if (current < slideData.length - 1) showSlide(current + 1); };
-  window.prevSlide = () => { if (current > 0) showSlide(current - 1); };
-  window.toggleDarkMode = () => document.body.classList.toggle('dark');
-
-  window.toggleOverview = () => {
-    if (overview.style.display === "block") {
-      overview.style.display = "none";
-      return;
-    }
-    overview.innerHTML = "";
-    slideData.forEach((s, i) => {
-      const div = document.createElement("div");
-      div.className = "overview-item";
-      div.innerHTML = `<h3>${s.title}</h3><p>${s.content.substring(0,80)}...</p>`;
-      div.onclick = () => { overview.style.display = "none"; showSlide(i); };
-      overview.appendChild(div);
+// Overview Mode
+function toggleOverview(){
+  const o = document.getElementById('overview');
+  if(o.style.display==='none'){
+    o.innerHTML='';
+    slideData.forEach((s,i)=>{
+      const div = document.createElement('div');
+      div.innerHTML = `<h3>${s.title}</h3><p>${s.content.substring(0,120)}...</p>`;
+      div.onclick = ()=>{ o.style.display='none'; showSlide(i); };
+      o.appendChild(div);
     });
-    overview.style.display = "block";
-  };
+    o.style.display='block';
+  } else { o.style.display='none'; }
+}
 
-  slides.addEventListener('change', e => {
-    const slide = slideData[current];
-    if (!slide.quiz) return;
-    const q = slide.quiz;
-    if (e.target.name === q.name) {
-      const fb = document.getElementById(q.feedbackId);
-      fb.textContent = e.target.value === q.correct ? "Correct!" : "Incorrect.";
-      fb.style.color = e.target.value === q.correct ? "green" : "red";
+// Quiz logic
+slidesContainer.addEventListener('change', e=>{
+  const slide = slideData[current];
+  if(!slide.quiz) return;
+  const q = slide.quiz;
+  if(e.target.name===q.name){
+    const feedback = document.getElementById(q.feedbackId);
+    if(e.target.value===q.correct){
+      feedback.textContent="Correct! Well done.";
+      feedback.style.color="green";
+    } else {
+      feedback.textContent="Incorrect — this option does not represent Copilot for Microsoft 365.";
+      feedback.style.color="red";
     }
-  });
-
-  showSlide(0);
+  }
 });
 </script>
-
 </body>
 </html>
