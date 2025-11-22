@@ -1,127 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Copilot Training – Fancy Version</title>
-<style>
-  body { margin: 0; font-family: Arial, sans-serif; transition: background 0.3s, color 0.3s; }
-  body.dark { background: #222; color: #eee; }
-  #toc { position: fixed; left: 0; top: 0; width: 200px; height: 100%; background: #f0f0f0; padding: 20px; overflow-y: auto; box-sizing: border-box; }
-  body.dark #toc { background: #333; }
-  #toc a { display: block; margin-bottom: 10px; text-decoration: none; color: inherit; }
-  #toc a.active { font-weight: bold; text-decoration: underline; }
-  #main { margin-left: 220px; padding: 20px; box-sizing: border-box; max-width: 800px; }
-  .slide { display: none; transition: opacity 0.5s ease; }
-  .slide.active { display: block; opacity: 1; }
-  .controls { margin-top: 20px; text-align: center; }
-  button { margin: 5px; padding: 10px 20px; cursor: pointer; border-radius: 6px; border: none; }
-  .progress-dots { text-align: center; margin-top: 15px; }
-  .dot { display: inline-block; width: 12px; height: 12px; margin: 5px; border-radius: 50%; background: #999; cursor: pointer; }
-  .dot.active { background: #000; }
-  body.dark .dot.active { background: #fff; }
-  .quiz-feedback { margin-top: 10px; font-weight: bold; }
-  .quiz-question { background: #eaeaea; padding: 15px; border-radius: 8px; }
-  body.dark .quiz-question { background: #444; }
-</style>
+  <meta charset="UTF-8">
+  <title>Copilot for MS365 Training</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Reveal.js core CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css" id="theme">
+
+  <style>
+    /* Quiz styling */
+    .quiz-question {
+      margin-top: 20px;
+      padding: 15px;
+      background: #eee;
+      border-radius: 8px;
+    }
+    .quiz-feedback {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 -->
+      <section>
+        <h2>Welcome</h2>
+        <p>Welcome to the enhanced Copilot training.</p>
+      </section>
 
-<div id="toc"></div>
+      <!-- Slide 2 -->
+      <section>
+        <h2>Overview</h2>
+        <p>This course covers features, usage, and challenges of Copilot for Microsoft 365.</p>
+      </section>
 
-<div id="main">
-  <div class="slide" id="slide-0">
-    <h2>Welcome</h2>
-    <p>Welcome to the enhanced Copilot training.</p>
-  </div>
-
-  <div class="slide" id="slide-1">
-    <h2>Overview</h2>
-    <p>This course covers features, usage, and challenges of Microsoft 365 Copilot.</p>
-  </div>
-
-  <div class="slide" id="slide-2">
-    <h2>Quick Quiz</h2>
-    <div class="quiz-question">
-      <p>Which version of Copilot is used for Microsoft 365 apps?</p>
-      <label><input type="radio" name="q1" value="wrong"> GitHub Copilot</label><br>
-      <label><input type="radio" name="q1" value="correct"> Copilot for Microsoft 365</label><br>
-      <label><input type="radio" name="q1" value="wrong"> Copilot Pro (personal)</label>
-      <div class="quiz-feedback" id="q1-feedback"></div>
-    </div>
-  </div>
-
-  <div class="controls">
-    <button onclick="prevSlide()">Previous</button>
-    <button onclick="nextSlide()">Next</button>
-    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
-  </div>
-
-  <div class="progress-dots" id="dots"></div>
-</div>
-
-<script>
-const slides = document.querySelectorAll('.slide');
-const toc = document.getElementById('toc');
-const dotsContainer = document.getElementById('dots');
-let current = 0;
-
-// Build TOC
-slides.forEach((s, i) => {
-  const a = document.createElement('a');
-  a.textContent = s.querySelector('h2').textContent;
-  a.href = '#';
-  a.onclick = () => { showSlide(i); return false; };
-  toc.appendChild(a);
-
-  // Build dots
-  const dot = document.createElement('span');
-  dot.className = 'dot';
-  dot.onclick = () => showSlide(i);
-  dotsContainer.appendChild(dot);
-});
-
-// Show initial slide
-showSlide(0);
-
-function showSlide(i) {
-  slides.forEach(s => s.classList.remove('active'));
-  slides[i].classList.add('active');
-  current = i;
-
-  // Update TOC
-  toc.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-  toc.querySelectorAll('a')[i].classList.add('active');
-
-  // Update dots
-  dotsContainer.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
-  dotsContainer.querySelectorAll('.dot')[i].classList.add('active');
-}
-
-function nextSlide() { if(current < slides.length - 1) showSlide(current + 1); }
-function prevSlide() { if(current > 0) showSlide(current - 1); }
-function toggleDarkMode() { document.body.classList.toggle('dark'); }
-
-// Quiz logic
-document.querySelectorAll('input[name="q1"]').forEach(input => {
-  input.addEventListener('change', (e) => {
-    const feedback = document.getElementById('q1-feedback');
-    if(e.target.value === 'correct'){
-      feedback.textContent = "Correct! Well done.";
-      feedback.style.color = "green";
-    } else {
-      feedback.textContent = "Incorrect — this option does not represent Copilot for Microsoft 365.";
-      feedback.style.color = "red";
-    }
-  });
-});
-
-// Keyboard navigation
-document.addEventListener('keydown', e => {
-  if(e.key === 'ArrowRight') nextSlide();
-  if(e.key === 'ArrowLeft') prevSlide();
-});
-</script>
-
-</body>
-</html>
+      <!-- Slide 3 (Quiz) -->
+      <section>
+        <h2>Quick Quiz</h2>
+        <p>Which version of Copilot is used for Microsoft 365 apps?</p>
+        <div class="quiz-question">
+          <label><input type="radio" name="q1" value="wrong"> GitHub Copilot</label><br>
+          <label><input type="radio" name="q1" value="correct"> Copilot for Microsoft 365</label><br>
+          <label><input type="radio" name="q1" value="wrong"> Copilot Pro (personal)
