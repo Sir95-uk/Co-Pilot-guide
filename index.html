@@ -1,45 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Copilot for MS365 Training</title>
-
-<!-- Reveal.js CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css" id="theme">
-
-<style>
-/* Quiz styling */
-.quiz-question {
-  margin-top: 20px;
-  padding: 15px;
-  background: #eee;
-  border-radius: 8px;
-}
-.quiz-feedback {
-  margin-top: 10px;
-  font-weight: bold;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Copilot for MS365 Training</title>
+  <!-- Reveal.js CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/black.css" id="theme">
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .quiz-feedback { margin-top: 10px; font-weight: bold; }
+    .quiz-question { margin-top: 15px; background: #eee; padding: 15px; border-radius: 8px; }
+    body.dark .quiz-question { background: #444; color: #fff; }
+    button#toggle-theme { position: fixed; top: 10px; right: 10px; padding: 8px 12px; }
+  </style>
 </head>
 <body>
 
+<button id="toggle-theme">Toggle Dark/Light</button>
+
 <div class="reveal">
   <div class="slides">
+
     <!-- Slide 1 -->
     <section>
       <h2>Welcome</h2>
-      <p>Welcome to the enhanced Copilot training.</p>
+      <p>Welcome to the enhanced Copilot for Microsoft 365 training!</p>
     </section>
 
     <!-- Slide 2 -->
     <section>
       <h2>Overview</h2>
-      <p>This course covers features, usage, and challenges of Copilot for Microsoft 365.</p>
+      <p>We will cover features, usage, best practices, and challenges when using Copilot in Microsoft 365 apps.</p>
     </section>
 
-    <!-- Slide 3: Quiz -->
+    <!-- Slide 3 -->
+    <section>
+      <h2>Key Features</h2>
+      <ul>
+        <li>Automates repetitive tasks</li>
+        <li>Generates summaries for documents and emails</li>
+        <li>Provides intelligent suggestions</li>
+        <li>Integrates with Word, Excel, PowerPoint, and Outlook</li>
+      </ul>
+    </section>
+
+    <!-- Slide 4 -->
+    <section>
+      <h2>Benefits</h2>
+      <ul>
+        <li>Save time on daily tasks</li>
+        <li>Increase productivity</li>
+        <li>Reduce errors</li>
+        <li>Enhance collaboration</li>
+      </ul>
+    </section>
+
+    <!-- Slide 5: Quiz -->
     <section>
       <h2>Quick Quiz</h2>
       <p>Which version of Copilot is used for Microsoft 365 apps?</p>
@@ -50,37 +67,18 @@
         <div class="quiz-feedback" id="q1-feedback"></div>
       </div>
     </section>
-  </div>
-</div>
 
-<!-- Reveal.js JS -->
-<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
-<script>
-  // Initialize Reveal.js
-  Reveal.initialize({
-    hash: true,
-    controls: true,
-    progress: true,
-    slideNumber: true,
-    width: "100%",
-    height: "100%",
-    transition: "fade"
-  });
+    <!-- Slide 6 -->
+    <section>
+      <h2>Tips & Tricks</h2>
+      <ul>
+        <li>Use keyboard shortcuts to speed up workflow</li>
+        <li>Integrate with Teams and Outlook</li>
+        <li>Ask Copilot to summarize long documents</li>
+      </ul>
+    </section>
 
-  // Quiz logic
-  document.querySelectorAll('input[name="q1"]').forEach(input => {
-    input.addEventListener('change', e => {
-      const feedback = document.getElementById('q1-feedback');
-      if (e.target.value === 'correct') {
-        feedback.textContent = "Correct! Well done.";
-        feedback.style.color = "green";
-      } else {
-        feedback.textContent = "Incorrect — this option does not represent Copilot for Microsoft 365.";
-        feedback.style.color = "red";
-      }
-    });
-  });
-</script>
-
-</body>
-</html>
+    <!-- Slide 7 -->
+    <section>
+      <h2>Common Challenges</h2>
+      <ul>
