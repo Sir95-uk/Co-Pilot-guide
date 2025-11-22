@@ -3,92 +3,169 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Copilot for MS365 Training</title>
+<title>Copilot for MS365 Training – Fancy</title>
 <style>
-  body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; color: #222; }
-  .dark { background: #222; color: #eee; }
-  .slide { display: none; padding: 40px; max-width: 800px; margin: auto; transition: opacity 0.3s; }
-  .slide.active { display: block; }
-  .controls { text-align: center; margin-top: 20px; }
-  button { padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 5px; border: none; }
-  .quiz-question { background: #eaeaea; padding: 15px; border-radius: 8px; margin-top: 15px; }
-  .dark .quiz-question { background: #444; color: #fff; }
-  .quiz-feedback { margin-top: 10px; font-weight: bold; }
+  body { margin:0; font-family:Arial,sans-serif; background:#f4f4f4; transition:0.3s; }
+  body.dark { background:#222; color:#eee; }
+  #toc { position:fixed; top:0; left:0; width:240px; height:100%; overflow-y:auto; background:#fff; border-right:1px solid #ccc; padding:20px; }
+  body.dark #toc { background:#333; border-color:#555; }
+  #toc a { display:block; margin-bottom:10px; text-decoration:none; color:inherit; }
+  #toc a.active { font-weight:bold; text-decoration:underline; }
+  #main { margin-left:260px; padding:20px; }
+  .slide { display:none; opacity:0; transition:opacity 0.5s ease; padding:20px; background:#fff; border-radius:10px; box-shadow:0 0 15px rgba(0,0,0,0.1); margin-bottom:20px; }
+  .slide.active { display:block; opacity:1; }
+  .controls { text-align:center; margin-top:20px; }
+  button { padding:10px 20px; margin:5px; cursor:pointer; border:none; border-radius:6px; }
+  .progress-dots { text-align:center; margin-top:10px; }
+  .dot { display:inline-block; width:12px; height:12px; margin:4px; border-radius:50%; background:#999; cursor:pointer; }
+  .dot.active { background:#000; }
+  body.dark .dot.active { background:#fff; }
+  .quiz-question { margin-top:15px; padding:15px; background:#eaeaea; border-radius:8px; }
+  body.dark .quiz-question { background:#444; }
+  .quiz-feedback { margin-top:10px; font-weight:bold; }
+  #overview { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); color:#fff; overflow:auto; padding:40px; }
+  #overview div { margin:20px; padding:20px; background:#333; cursor:pointer; border-radius:10px; }
 </style>
 </head>
 <body>
 
-<div id="slides">
-  <div class="slide active" id="slide-0">
-    <h2>Welcome</h2>
-    <p>Welcome to the enhanced Copilot training.</p>
+<div id="toc"></div>
+<div id="main">
+  <div id="slides"></div>
+  <div class="controls">
+    <button onclick="prevSlide()">Previous</button>
+    <button onclick="nextSlide()">Next</button>
+    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    <button onclick="toggleOverview()">Slide Overview</button>
   </div>
-  <div class="slide" id="slide-1">
-    <h2>Overview</h2>
-    <p>This course covers features, usage, best practices, and challenges.</p>
-  </div>
-  <div class="slide" id="slide-2">
-    <h2>Quick Quiz</h2>
-    <p>Which version of Copilot is used for Microsoft 365 apps?</p>
-    <div class="quiz-question">
-      <label><input type="radio" name="q1" value="wrong"> GitHub Copilot</label><br>
-      <label><input type="radio" name="q1" value="correct"> Copilot for Microsoft 365</label><br>
-      <label><input type="radio" name="q1" value="wrong"> Copilot Pro (personal)</label>
-      <div class="quiz-feedback" id="q1-feedback"></div>
-    </div>
-  </div>
-  <div class="slide" id="slide-3">
-    <h2>Tips & Tricks</h2>
-    <ul>
-      <li>Use keyboard shortcuts</li>
-      <li>Integrate with Teams</li>
-      <li>Summarize long docs</li>
-    </ul>
-  </div>
-  <div class="slide" id="slide-4">
-    <h2>Thank You!</h2>
-    <p>You’ve completed the Copilot training. Happy automating!</p>
-  </div>
+  <div class="progress-dots" id="dots"></div>
 </div>
-
-<div class="controls">
-  <button onclick="prevSlide()">Previous</button>
-  <button onclick="nextSlide()">Next</button>
-  <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
-</div>
+<div id="overview"></div>
 
 <script>
-let current = 0;
-const slides = document.querySelectorAll('.slide');
+// --- Slides Data ---
+const slideData = [
+  { title:"Welcome", content:"<p>Welcome to the enhanced Copilot training.</p>" },
+  { title:"Overview", content:"<p>This course covers features, usage, and challenges of Copilot for MS365.</p>" },
+  { title:"What is Copilot?", content:"<p>Copilot integrates AI assistance directly into Microsoft 365 apps like Word, Excel, and PowerPoint.</p>" },
+  { title:"Benefits", content:"<ul><li>Boost productivity</li><li>Automate repetitive tasks</li><li>Generate insights</li></ul>" },
+  { title:"Quick Quiz 1", content:`
+    <p>Which version of Copilot is used for Microsoft 365 apps?</p>
+    <div class='quiz-question'>
+      <label><input type='radio' name='q1' value='wrong'> GitHub Copilot</label><br>
+      <label><input type='radio' name='q1' value='correct'> Copilot for Microsoft 365</label><br>
+      <label><input type='radio' name='q1' value='wrong'> Copilot Pro (personal)</label>
+      <div class='quiz-feedback' id='q1-feedback'></div>
+    </div>
+  `, quiz:{name:"q1", correct:"correct", feedbackId:"q1-feedback"} },
+  { title:"Using Copilot in Word", content:"<p>You can draft documents, summarize text, and generate tables automatically.</p>" },
+  { title:"Using Copilot in Excel", content:"<p>Analyze data, create charts, and generate formulas effortlessly.</p>" },
+  { title:"Quick Quiz 2", content:`
+    <p>What can Copilot in Excel do?</p>
+    <div class='quiz-question'>
+      <label><input type='radio' name='q2' value='wrong'> Replace Excel completely</label><br>
+      <label><input type='radio' name='q2' value='correct'> Assist with formulas, analysis, and charts</label><br>
+      <label><input type='radio' name='q2' value='wrong'> Only copy-paste data</label>
+      <div class='quiz-feedback' id='q2-feedback'></div>
+    </div>
+  `, quiz:{name:"q2", correct:"correct", feedbackId:"q2-feedback"} },
+  { title:"Best Practices", content:"<p>Use Copilot responsibly: review AI suggestions, maintain data privacy, and combine with your expertise.</p>" },
+  { title:"Conclusion", content:"<p>Now you know the key features of Copilot for Microsoft 365! Apply them in your daily work.</p>" }
+];
 
-function showSlide(index) {
-  slides.forEach(s => s.classList.remove('active'));
-  slides[index].classList.add('active');
-  current = index;
-}
-
-function nextSlide() { if(current < slides.length -1) showSlide(current + 1); }
-function prevSlide() { if(current > 0) showSlide(current - 1); }
-
-document.addEventListener('keydown', e => {
-  if(e.key === 'ArrowRight') nextSlide();
-  if(e.key === 'ArrowLeft') prevSlide();
+// --- Build Slides ---
+const slidesContainer = document.getElementById("slides");
+slideData.forEach((s,i)=>{
+  const div=document.createElement('div');
+  div.className='slide';
+  div.id='slide-'+i;
+  div.innerHTML=`<h2>${s.title}</h2>${s.content}`;
+  slidesContainer.appendChild(div);
 });
 
-function toggleDarkMode() { document.body.classList.toggle('dark'); }
+let current = 0;
+showSlide(0);
 
-// Quiz logic
-document.querySelectorAll('input[name="q1"]').forEach(radio => {
-  radio.addEventListener('change', e => {
-    const feedback = document.getElementById('q1-feedback');
-    if(e.target.value === 'correct') {
-      feedback.textContent = "Correct! Well done.";
-      feedback.style.color = "green";
-    } else {
-      feedback.textContent = "Incorrect — not Copilot for Microsoft 365.";
-      feedback.style.color = "red";
+function showSlide(i){
+  document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById('slide-'+i);
+  if(el) el.classList.add('active');
+  current=i;
+  updateTOC();
+  updateDots();
+}
+
+function nextSlide(){ if(current<slideData.length-1) showSlide(current+1); }
+function prevSlide(){ if(current>0) showSlide(current-1); }
+
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight') nextSlide();
+  if(e.key==='ArrowLeft') prevSlide();
+});
+
+function toggleDarkMode(){ document.body.classList.toggle('dark'); }
+
+// --- TOC ---
+const toc=document.getElementById('toc');
+slideData.forEach((s,i)=>{
+  const a=document.createElement('a');
+  a.textContent=s.title;
+  a.href='#';
+  a.onclick=()=>showSlide(i);
+  a.id='toc-'+i;
+  toc.appendChild(a);
+});
+function updateTOC(){
+  document.querySelectorAll('#toc a').forEach(a=>a.classList.remove('active'));
+  const active=document.getElementById('toc-'+current);
+  if(active) active.classList.add('active');
+}
+
+// --- Progress Dots ---
+const dots=document.getElementById('dots');
+slideData.forEach((_,i)=>{
+  const d=document.createElement('span');
+  d.className='dot';
+  d.onclick=()=>showSlide(i);
+  d.id='dot-'+i;
+  dots.appendChild(d);
+});
+function updateDots(){
+  document.querySelectorAll('.dot').forEach(d=>d.classList.remove('active'));
+  const active=document.getElementById('dot-'+current);
+  if(active) active.classList.add('active');
+}
+
+// --- Slide Overview ---
+function toggleOverview(){
+  const o=document.getElementById('overview');
+  if(o.style.display==='none'){
+    o.innerHTML='';
+    slideData.forEach((s,i)=>{
+      const div=document.createElement('div');
+      div.innerHTML=`<h3>${s.title}</h3><p>${s.content.substring(0,120)}...</p>`;
+      div.onclick=()=>{ o.style.display='none'; showSlide(i); };
+      o.appendChild(div);
+    });
+    o.style.display='block';
+  }else{o.style.display='none';}
+}
+
+// --- Quiz Logic ---
+slidesContainer.addEventListener('change', e=>{
+  const slide=slideData[current];
+  if(!slide.quiz) return;
+  const q=slide.quiz;
+  if(e.target.name===q.name){
+    const feedback=document.getElementById(q.feedbackId);
+    if(e.target.value===q.correct){
+      feedback.textContent="Correct! Well done.";
+      feedback.style.color="green";
+    } else{
+      feedback.textContent="Incorrect — try again.";
+      feedback.style.color="red";
     }
-  });
+  }
 });
 </script>
 
