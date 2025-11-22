@@ -1,48 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Copilot for MS365 Training</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Reveal.js core CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css" id="theme">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copilot for MS365 Training</title>
 
-  <style>
-    /* Quiz styling */
-    .quiz-question {
-      margin-top: 20px;
-      padding: 15px;
-      background: #eee;
-      border-radius: 8px;
-    }
-    .quiz-feedback {
-      margin-top: 10px;
-      font-weight: bold;
-    }
-  </style>
+<!-- Reveal.js CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css" id="theme">
+
+<style>
+/* Quiz styling */
+.quiz-question {
+  margin-top: 20px;
+  padding: 15px;
+  background: #eee;
+  border-radius: 8px;
+}
+.quiz-feedback {
+  margin-top: 10px;
+  font-weight: bold;
+}
+</style>
 </head>
 <body>
-  <div class="reveal">
-    <div class="slides">
-      <!-- Slide 1 -->
-      <section>
-        <h2>Welcome</h2>
-        <p>Welcome to the enhanced Copilot training.</p>
-      </section>
 
-      <!-- Slide 2 -->
-      <section>
-        <h2>Overview</h2>
-        <p>This course covers features, usage, and challenges of Copilot for Microsoft 365.</p>
-      </section>
+<div class="reveal">
+  <div class="slides">
+    <!-- Slide 1 -->
+    <section>
+      <h2>Welcome</h2>
+      <p>Welcome to the enhanced Copilot training.</p>
+    </section>
 
-      <!-- Slide 3 (Quiz) -->
-      <section>
-        <h2>Quick Quiz</h2>
-        <p>Which version of Copilot is used for Microsoft 365 apps?</p>
-        <div class="quiz-question">
-          <label><input type="radio" name="q1" value="wrong"> GitHub Copilot</label><br>
-          <label><input type="radio" name="q1" value="correct"> Copilot for Microsoft 365</label><br>
-          <label><input type="radio" name="q1" value="wrong"> Copilot Pro (personal)
+    <!-- Slide 2 -->
+    <section>
+      <h2>Overview</h2>
+      <p>This course covers features, usage, and challenges of Copilot for Microsoft 365.</p>
+    </section>
+
+    <!-- Slide 3: Quiz -->
+    <section>
+      <h2>Quick Quiz</h2>
+      <p>Which version of Copilot is used for Microsoft 365 apps?</p>
+      <div class="quiz-question">
+        <label><input type="radio" name="q1" value="wrong"> GitHub Copilot</label><br>
+        <label><input type="radio" name="q1" value="correct"> Copilot for Microsoft 365</label><br>
+        <label><input type="radio" name="q1" value="wrong"> Copilot Pro (personal)</label>
+        <div class="quiz-feedback" id="q1-feedback"></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- Reveal.js JS -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+<script>
+  // Initialize Reveal.js
+  Reveal.initialize({
+    hash: true,
+    controls: true,
+    progress: true,
+    slideNumber: true,
+    width: "100%",
+    height: "100%",
+    transition: "fade"
+  });
+
+  // Quiz logic
+  document.querySelectorAll('input[name="q1"]').forEach(input => {
+    input.addEventListener('change', e => {
+      const feedback = document.getElementById('q1-feedback');
+      if (e.target.value === 'correct') {
+        feedback.textContent = "Correct! Well done.";
+        feedback.style.color = "green";
+      } else {
+        feedback.textContent = "Incorrect — this option does not represent Copilot for Microsoft 365.";
+        feedback.style.color = "red";
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
