@@ -3,28 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Copilot for MS365 Training – Fancy</title>
+<title>Copilot for MS365 Training – Clean</title>
 <style>
-  body { margin:0; font-family:Arial,sans-serif; background:#f4f4f4; transition:0.3s; }
-  body.dark { background:#222; color:#eee; }
-  #toc { position:fixed; top:0; left:0; width:240px; height:100%; overflow-y:auto; background:#fff; border-right:1px solid #ccc; padding:20px; }
-  body.dark #toc { background:#333; border-color:#555; }
-  #toc a { display:block; margin-bottom:10px; text-decoration:none; color:inherit; }
-  #toc a.active { font-weight:bold; text-decoration:underline; }
-  #main { margin-left:260px; padding:20px; }
-  .slide { display:none; opacity:0; transition:opacity 0.5s ease; padding:20px; background:#fff; border-radius:10px; box-shadow:0 0 15px rgba(0,0,0,0.1); margin-bottom:20px; }
-  .slide.active { display:block; opacity:1; }
-  .controls { text-align:center; margin-top:20px; }
-  button { padding:10px 20px; margin:5px; cursor:pointer; border:none; border-radius:6px; }
-  .progress-dots { text-align:center; margin-top:10px; }
-  .dot { display:inline-block; width:12px; height:12px; margin:4px; border-radius:50%; background:#999; cursor:pointer; }
-  .dot.active { background:#000; }
-  body.dark .dot.active { background:#fff; }
-  .quiz-question { margin-top:15px; padding:15px; background:#eaeaea; border-radius:8px; }
-  body.dark .quiz-question { background:#444; }
-  .quiz-feedback { margin-top:10px; font-weight:bold; }
-  #overview { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); color:#fff; overflow:auto; padding:40px; }
-  #overview div { margin:20px; padding:20px; background:#333; cursor:pointer; border-radius:10px; }
+body { margin:0; font-family:Arial,sans-serif; background:#f4f4f4; transition:0.3s; }
+body.dark { background:#222; color:#eee; }
+#toc { position:fixed; top:0; left:0; width:220px; height:100%; overflow-y:auto; background:#fff; border-right:1px solid #ccc; padding:20px; }
+body.dark #toc { background:#333; border-color:#555; }
+#toc a { display:block; margin-bottom:10px; text-decoration:none; color:inherit; }
+#toc a.active { font-weight:bold; text-decoration:underline; }
+#main { margin-left:240px; padding:20px; }
+.slide { display:none; opacity:0; transition:opacity 0.5s ease; padding:20px; background:#fff; border-radius:10px; margin-bottom:20px; box-shadow:0 0 10px rgba(0,0,0,0.1); }
+.slide.active { display:block; opacity:1; }
+.controls { text-align:center; margin-top:20px; }
+button { padding:10px 20px; margin:5px; border:none; border-radius:6px; cursor:pointer; }
+.progress-dots { text-align:center; margin-top:10px; }
+.dot { display:inline-block; width:12px; height:12px; margin:4px; border-radius:50%; background:#999; cursor:pointer; }
+.dot.active { background:#000; }
+body.dark .dot.active { background:#fff; }
+.quiz-question { margin-top:15px; padding:15px; background:#eaeaea; border-radius:8px; }
+body.dark .quiz-question { background:#444; }
+.quiz-feedback { margin-top:10px; font-weight:bold; }
+#overview { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); color:#fff; overflow:auto; padding:40px; }
+#overview div { margin:20px; padding:20px; background:#333; cursor:pointer; border-radius:10px; }
 </style>
 </head>
 <body>
@@ -47,19 +47,19 @@
 const slideData = [
   { title:"Welcome", content:"<p>Welcome to the enhanced Copilot training.</p>" },
   { title:"Overview", content:"<p>This course covers features, usage, and challenges of Copilot for MS365.</p>" },
-  { title:"What is Copilot?", content:"<p>Copilot integrates AI assistance directly into Microsoft 365 apps like Word, Excel, and PowerPoint.</p>" },
-  { title:"Benefits", content:"<ul><li>Boost productivity</li><li>Automate repetitive tasks</li><li>Generate insights</li></ul>" },
+  { title:"What is Copilot?", content:"<p>Copilot integrates AI into Word, Excel, and PowerPoint.</p>" },
+  { title:"Tips & Tricks", content:"<ul><li>Use keyboard shortcuts</li><li>Integrate with Teams</li><li>Summarize long docs</li></ul>" },
   { title:"Quick Quiz 1", content:`
-    <p>Which version of Copilot is used for Microsoft 365 apps?</p>
+    <p>Which version of Copilot is for Microsoft 365?</p>
     <div class='quiz-question'>
       <label><input type='radio' name='q1' value='wrong'> GitHub Copilot</label><br>
       <label><input type='radio' name='q1' value='correct'> Copilot for Microsoft 365</label><br>
-      <label><input type='radio' name='q1' value='wrong'> Copilot Pro (personal)</label>
+      <label><input type='radio' name='q1' value='wrong'> Copilot Pro</label>
       <div class='quiz-feedback' id='q1-feedback'></div>
     </div>
   `, quiz:{name:"q1", correct:"correct", feedbackId:"q1-feedback"} },
-  { title:"Using Copilot in Word", content:"<p>You can draft documents, summarize text, and generate tables automatically.</p>" },
-  { title:"Using Copilot in Excel", content:"<p>Analyze data, create charts, and generate formulas effortlessly.</p>" },
+  { title:"Using Word", content:"<p>Draft documents, summarize, and generate tables automatically.</p>" },
+  { title:"Using Excel", content:"<p>Analyze data, create charts, generate formulas.</p>" },
   { title:"Quick Quiz 2", content:`
     <p>What can Copilot in Excel do?</p>
     <div class='quiz-question'>
@@ -69,8 +69,8 @@ const slideData = [
       <div class='quiz-feedback' id='q2-feedback'></div>
     </div>
   `, quiz:{name:"q2", correct:"correct", feedbackId:"q2-feedback"} },
-  { title:"Best Practices", content:"<p>Use Copilot responsibly: review AI suggestions, maintain data privacy, and combine with your expertise.</p>" },
-  { title:"Conclusion", content:"<p>Now you know the key features of Copilot for Microsoft 365! Apply them in your daily work.</p>" }
+  { title:"Best Practices", content:"<p>Review AI suggestions, maintain privacy, combine with expertise.</p>" },
+  { title:"Conclusion", content:"<p>You now know the key features of Copilot for Microsoft 365.</p>" }
 ];
 
 // --- Build Slides ---
