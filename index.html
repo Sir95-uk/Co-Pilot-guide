@@ -73,6 +73,7 @@
             font-weight: bold;
             font-size: 1.2em;
             transition: background 0.3s ease;
+            user-select: none;
         }
 
         .section-header:hover {
@@ -90,15 +91,24 @@
         }
 
         .section-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-            padding: 0 20px;
+            display: none;
+            padding: 20px;
         }
 
         .section.active .section-content {
-            max-height: 5000px;
-            padding: 20px;
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .copilot-type {
@@ -136,17 +146,24 @@
         }
 
         .scenario-reveal {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
+            display: none;
             margin-top: 15px;
-            padding-top: 0;
+            padding-top: 15px;
             border-top: 2px solid #e0e0e0;
         }
 
         .scenario-card.revealed .scenario-reveal {
-            max-height: 1000px;
-            padding-top: 15px;
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         .checklist-item {
@@ -198,7 +215,7 @@
             border-radius: 20px;
             font-size: 0.9em;
             font-weight: bold;
-            margin: 5px;
+            margin: 5px 0;
         }
 
         .badge.good {
@@ -251,6 +268,7 @@
         .progress-fill {
             background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
             height: 100%;
+            width: 0%;
             transition: width 0.5s ease;
             display: flex;
             align-items: center;
@@ -322,7 +340,7 @@
                 <div class="progress-fill" id="progressBar">0% Complete</div>
             </div>
 
-            <div class="section">
+            <div class="section active">
                 <div class="section-header">
                     <span>📚 Introduction to Copilot</span>
                     <span class="icon">▼</span>
@@ -401,6 +419,19 @@
                         </ul>
                     </div>
 
+                    <div class="danger-box">
+                        <h4>⚖️ CPIA 1996 - Criminal Procedures and Investigations Act:</h4>
+                        <p><strong>CRITICAL WARNING:</strong> Be extremely careful when using Copilot for <strong>live operations</strong> or any work involving criminal investigations, enforcement actions, or sensitive operational matters.</p>
+                        <p><strong>Why this matters:</strong> Under CPIA 1996, material generated or accessed during an investigation may be subject to <strong>disclosure requirements</strong> in criminal proceedings. This includes:</p>
+                        <ul>
+                            <li>AI-generated content and prompts used in investigations</li>
+                            <li>Analysis or summaries created by Copilot</li>
+                            <li>Any material that might reasonably be considered relevant to the investigation</li>
+                        </ul>
+                        <p><strong>Safe practice:</strong> For live operations and enforcement work, <strong>avoid using Copilot entirely</strong> unless you are certain the material would not create disclosure obligations or compromise operational integrity.</p>
+                        <p><strong>When in doubt:</strong> Consult with your line manager or legal team before using Copilot for any enforcement-related work.</p>
+                    </div>
+
                     <div class="warning-box">
                         <h4>⚠️ Stay within your remit:</h4>
                         <p>Only use Copilot for information relevant to your role and responsibilities. Don't search for details about cases or matters you're not involved with.</p>
@@ -418,4 +449,252 @@
                     <span>🎯 Interactive Scenarios</span>
                     <span class="icon">▼</span>
                 </div>
-                <d
+                <div class="section-content">
+                    <p><strong>Click each scenario to reveal whether using Copilot would be appropriate:</strong></p>
+
+                    <div class="scenario-card">
+                        <h4>Scenario 1: Thematic Review Research</h4>
+                        <p><strong>Situation:</strong> You're working on a thematic review of financial crime controls in the payments sector.</p>
+                        <div class="scenario-reveal">
+                            <span class="badge good">✅ APPROPRIATE</span>
+                            <p><strong>Why:</strong> Using Web Copilot to research published reports on payment fraud trends is legitimate research using public information.</p>
+                            <p><strong>Best practice:</strong> Verify information from multiple sources and cite your sources in your work.</p>
+                        </div>
+                    </div>
+
+                    <div class="scenario-card">
+                        <h4>Scenario 2: Transaction Data Analysis</h4>
+                        <p><strong>Situation:</strong> You have transaction data from a supervised firm showing suspicious patterns.</p>
+                        <div class="scenario-reveal">
+                            <span class="badge bad">❌ INAPPROPRIATE</span>
+                            <p><strong>Why:</strong> This data is confidential firm information and likely contains personal data. It should NOT be processed by AI tools.</p>
+                            <p><strong>What to do instead:</strong> Use your professional expertise and approved analytical tools.</p>
+                        </div>
+                    </div>
+
+                    <div class="scenario-card">
+                        <h4>Scenario 3: Weekly Team Catch-up</h4>
+                        <p><strong>Situation:</strong> You're having a routine team meeting to discuss general workload and projects.</p>
+                        <div class="scenario-reveal">
+                            <span class="badge warning">⚠️ DEPENDS ON CONTEXT</span>
+                            <p><strong>Decision factors:</strong></p>
+                            <ul>
+                                <li>Is there a clear benefit to transcription?</li>
+                                <li>Will sensitive information be discussed?</li>
+                                <li>Have all participants been informed?</li>
+                            </ul>
+                            <p>If it's a routine catch-up, manual notes might be more proportionate. For complex project planning, Transcribe could be appropriate - but always inform participants first.</p>
+                        </div>
+                    </div>
+
+                    <div class="scenario-card">
+                        <h4>Scenario 4: Training Materials Creation</h4>
+                        <p><strong>Situation:</strong> You need to create training materials for new starters on fraud red flags.</p>
+                        <div class="scenario-reveal">
+                            <span class="badge good">✅ APPROPRIATE</span>
+                            <p><strong>Why:</strong> Creating training materials is legitimate. Using Copilot for structure and generic examples is appropriate.</p>
+                            <p><strong>Best practice:</strong> Review all outputs carefully, ensure examples are generic or publicly available, and don't use real case examples from confidential work.</p>
+                        </div>
+                    </div>
+
+                    <div class="scenario-card">
+                        <h4>Scenario 5: Enforcement Case Curiosity</h4>
+                        <p><strong>Situation:</strong> You're curious about an enforcement case another team is working on.</p>
+                        <div class="scenario-reveal">
+                            <span class="badge bad">❌ INAPPROPRIATE</span>
+                            <p><strong>Why:</strong> This is outside your remit and represents a potential information barrier breach. You should only access information relevant to your role.</p>
+                        </div>
+                    </div>
+
+                    <div class="scenario-card">
+                        <h4>Scenario 6: Live Operations & Enforcement Work</h4>
+                        <p><strong>Situation:</strong> You're working on an active enforcement investigation and want to use Copilot to help organize case notes or analyze evidence.</p>
+                        <div class="scenario-reveal">
+                            <span class="badge bad">❌ HIGHLY INAPPROPRIATE</span>
+                            <p><strong>Why:</strong> Under CPIA 1996, any material generated during an investigation—including AI-generated content—may be subject to disclosure requirements in criminal proceedings. This creates significant legal and operational risks.</p>
+                            <p><strong>Risks include:</strong></p>
+                            <ul>
+                                <li>Creating disclosable material that must be provided to defendants</li>
+                                <li>Compromising the integrity of the investigation</li>
+                                <li>Exposing sensitive investigative techniques or sources</li>
+                                <li>Creating audit trails that could undermine prosecution</li>
+                            </ul>
+                            <p><strong>What to do instead:</strong> Use only approved, secure systems for live operations and enforcement work. Never use AI tools for active investigations without explicit legal approval.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <span>✓ Pre-Use Checklist</span>
+                    <span class="icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <p><strong>Before using Copilot, check each item (click to mark as complete):</strong></p>
+
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Am I working on live operations or enforcement matters? (If YES, do NOT use Copilot - CPIA 1996 disclosure risks)</div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Is this task relevant to my role and responsibilities?</div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Am I using only public or appropriately cleared information?</div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Have I verified there's no personal or confidential data?</div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Is using Copilot proportionate to this task?</div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Will I verify and review all Copilot outputs?</div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>For Teams Transcribe: Have I informed all participants?</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <span>🔧 Choosing the Right Copilot</span>
+                    <span class="icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>What You Need To Do</th>
+                                    <th>Use This Copilot</th>
+                                    <th>Why</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Research financial crime regulations</td>
+                                    <td>🌐 Web Copilot</td>
+                                    <td>Public information, general knowledge</td>
+                                </tr>
+                                <tr>
+                                    <td>Draft a policy document</td>
+                                    <td>📝 Word Copilot</td>
+                                    <td>Works with your document content</td>
+                                </tr>
+                                <tr>
+                                    <td>Analyze public fraud statistics</td>
+                                    <td>📊 Excel Copilot</td>
+                                    <td>Analyzes your non-sensitive data</td>
+                                </tr>
+                                <tr>
+                                    <td>Summarize a team meeting</td>
+                                    <td>💬 Teams Copilot</td>
+                                    <td>Accesses meeting transcripts (inform participants!)</td>
+                                </tr>
+                                <tr>
+                                    <td>Draft a routine email response</td>
+                                    <td>📧 Outlook Copilot</td>
+                                    <td>Reads your email context</td>
+                                </tr>
+                                <tr>
+                                    <td>Create a presentation for training</td>
+                                    <td>📽️ PowerPoint Copilot</td>
+                                    <td>Generates professional slides</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <span>⚠️ Copilot Transcribe Rules</span>
+                    <span class="icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="warning-box">
+                        <h4>🔔 REQUIREMENT: Inform all participants</h4>
+                        <p>You MUST tell all meeting participants at the start that you are using Copilot Transcribe.</p>
+                        <p><strong>How to say it:</strong> "Just to let everyone know, I'm using Copilot Transcribe for this meeting to help with note-taking."</p>
+                    </div>
+
+                    <div class="danger-box">
+                        <h4>⏰ 7-Day Auto-Delete</h4>
+                        <p>Copilot Transcribe automatically deletes transcripts after 7 days. If you need to retain information for legitimate business purposes, save key points to appropriate systems BEFORE the 7-day deadline.</p>
+                        <p><strong>Don't:</strong> Save entire transcripts unnecessarily - only extract what's needed and proportionate.</p>
+                    </div>
+
+                    <div class="danger-box">
+                        <h4>🚫 Do NOT use Transcribe for meetings containing:</h4>
+                        <ul>
+                            <li>Personal data about consumers or individuals</li>
+                            <li>Confidential firm information</li>
+                            <li>Enforcement matters or ongoing investigations</li>
+                            <li>Market-sensitive information</li>
+                            <li>Legally privileged communications</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Section toggle functionality
+        document.querySelectorAll('.section-header').forEach(header => {
+            header.addEventListener('click', function(e) {
+                e.preventDefault();
+                const section = this.parentElement;
+                section.classList.toggle('active');
+            });
+        });
+
+        // Scenario card reveal
+        document.querySelectorAll('.scenario-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                this.classList.toggle('revealed');
+            });
+        });
+
+        // Checklist functionality
+        const checklistItems = document.querySelectorAll('.checklist-item');
+        checklistItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                this.classList.toggle('checked');
+                updateProgress();
+            });
+        });
+
+        // Progress bar update
+        function updateProgress() {
+            const total = checklistItems.length;
+            const checked = document.querySelectorAll('.checklist-item.checked').length;
+            const percentage = Math.round((checked / total) * 100);
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '% Complete';
+        }
+
+        // Initialize progress
+        updateProgress();
+    </script>
+</body>
+</html>
