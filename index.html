@@ -1,173 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Copilot for MS365 Training – Clean</title>
-<style>
-body { margin:0; font-family:Arial,sans-serif; background:#f4f4f4; transition:0.3s; }
-body.dark { background:#222; color:#eee; }
-#toc { position:fixed; top:0; left:0; width:220px; height:100%; overflow-y:auto; background:#fff; border-right:1px solid #ccc; padding:20px; }
-body.dark #toc { background:#333; border-color:#555; }
-#toc a { display:block; margin-bottom:10px; text-decoration:none; color:inherit; }
-#toc a.active { font-weight:bold; text-decoration:underline; }
-#main { margin-left:240px; padding:20px; }
-.slide { display:none; opacity:0; transition:opacity 0.5s ease; padding:20px; background:#fff; border-radius:10px; margin-bottom:20px; box-shadow:0 0 10px rgba(0,0,0,0.1); }
-.slide.active { display:block; opacity:1; }
-.controls { text-align:center; margin-top:20px; }
-button { padding:10px 20px; margin:5px; border:none; border-radius:6px; cursor:pointer; }
-.progress-dots { text-align:center; margin-top:10px; }
-.dot { display:inline-block; width:12px; height:12px; margin:4px; border-radius:50%; background:#999; cursor:pointer; }
-.dot.active { background:#000; }
-body.dark .dot.active { background:#fff; }
-.quiz-question { margin-top:15px; padding:15px; background:#eaeaea; border-radius:8px; }
-body.dark .quiz-question { background:#444; }
-.quiz-feedback { margin-top:10px; font-weight:bold; }
-#overview { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); color:#fff; overflow:auto; padding:40px; }
-#overview div { margin:20px; padding:20px; background:#333; cursor:pointer; border-radius:10px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copilot for MS365 Training</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); overflow: hidden; height: 100vh; }
+        .presentation-container { width: 100%; height: 100vh; display: flex; flex-direction: column; }
+        .slide { display: none; width: 100%; height: calc(100vh - 80px); padding: 40px; animation: slideIn 0.5s ease-out; overflow-y: auto; }
+        .slide.active { display: block; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        .slide-content { background: white; border-radius: 20px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 1200px; margin: 0 auto; width: 100%; }
+        h1 { color: #667eea; font-size: 2.5em; margin-bottom: 20px; text-align: center; }
+        h2 { color: #764ba2; font-size: 1.8em; margin-bottom: 20px; }
+        h3 { color: #667eea; font-size: 1.3em; margin: 15px 0 10px 0; }
+        p, li { font-size: 1.1em; line-height: 1.6; color: #333; margin-bottom: 10px; }
+        ul { margin-left: 20px; }
+        .navigation { position: fixed; bottom: 0; width: 100%; height: 80px; background: rgba(255,255,255,0.95); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); }
+        .nav-button { padding: 15px 30px; font-size: 1.1em; border: none; border-radius: 10px; cursor: pointer; background: #667eea; color: white; transition: all 0.3s; font-weight: 600; }
+        .nav-button:hover { background: #764ba2; transform: translateY(-2px); }
+        .nav-button:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+        .slide-counter { font-size: 1.2em; color: #667eea; font-weight: 600; }
+        .interactive-box { background: #f0f4ff; border-left: 5px solid #667eea; padding: 15px; margin: 15px 0; border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .interactive-box:hover { background: #e6edff; transform: translateX(5px); }
+        .example-box { background: #fff9e6; border: 2px solid #ffd700; padding: 15px; border-radius: 10px; margin: 15px 0; }
+        .quiz-question { background: #f0f4ff; border-left: 5px solid #667eea; padding: 20px; margin: 20px 0; border-radius: 10px; }
+        .quiz-question label { display: block; padding: 10px; margin: 5px 0; background: white; border-radius: 8px; cursor: pointer; transition: all 0.3s; }
+        .quiz-question label:hover { background: #e6edff; transform: translateX(5px); }
+        .quiz-question input[type="radio"] { margin-right: 10px; }
+        .quiz-feedback { margin-top: 15px; padding: 15px; border-radius: 8px; font-weight: bold; display: none; }
+        .quiz-feedback.show { display: block; }
+        .quiz-feedback.correct { background: #d1fae5; color: #065f46; }
+        .quiz-feedback.incorrect { background: #fee2e2; color: #991b1b; }
+        .progress-bar { position: fixed; top: 0; left: 0; height: 5px; background: #667eea; transition: width 0.3s; z-index: 1000; }
+    </style>
 </head>
 <body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Welcome -->
+        <div class="slide active">
+            <div class="slide-content">
+                <h1>🤖 Copilot for Microsoft 365</h1>
+                <h2 style="text-align: center; color: #764ba2;">Enhanced Training Course</h2>
+                <p style="text-align: center; font-size: 1.2em; margin-top: 20px;">Welcome to the enhanced Copilot training.</p>
+                <p style="text-align: center; color: #666; margin-top: 15px;">Use the navigation buttons below to explore the course</p>
+            </div>
+        </div>
 
-<div id="toc"></div>
-<div id="main">
-  <div id="slides"></div>
-  <div class="controls">
-    <button onclick="prevSlide()">Previous</button>
-    <button onclick="nextSlide()">Next</button>
-    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
-    <button onclick="toggleOverview()">Slide Overview</button>
-  </div>
-  <div class="progress-dots" id="dots"></div>
-</div>
-<div id="overview"></div>
+        <!-- Slide 2: Overview -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>📋 Course Overview</h2>
+                <p>This course covers the features, usage, and challenges of Copilot for Microsoft 365.</p>
+                <div class="interactive-box">
+                    <h3>What You'll Learn:</h3>
+                    <ul>
+                        <li>What Copilot is and how it integrates with Microsoft 365</li>
+                        <li>Tips and tricks for effective use</li>
+                        <li>Using Copilot in Word and Excel</li>
+                        <li>Best practices for AI-assisted work</li>
+                        <li>Knowledge checks throughout the course</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-<script>
-// --- Slides Data ---
-const slideData = [
-  { title:"Welcome", content:"<p>Welcome to the enhanced Copilot training.</p>" },
-  { title:"Overview", content:"<p>This course covers features, usage, and challenges of Copilot for MS365.</p>" },
-  { title:"What is Copilot?", content:"<p>Copilot integrates AI into Word, Excel, and PowerPoint.</p>" },
-  { title:"Tips & Tricks", content:"<ul><li>Use keyboard shortcuts</li><li>Integrate with Teams</li><li>Summarize long docs</li></ul>" },
-  { title:"Quick Quiz 1", content:`
-    <p>Which version of Copilot is for Microsoft 365?</p>
-    <div class='quiz-question'>
-      <label><input type='radio' name='q1' value='wrong'> GitHub Copilot</label><br>
-      <label><input type='radio' name='q1' value='correct'> Copilot for Microsoft 365</label><br>
-      <label><input type='radio' name='q1' value='wrong'> Copilot Pro</label>
-      <div class='quiz-feedback' id='q1-feedback'></div>
+        <!-- Slide 3: What is Copilot? -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>🤔 What is Copilot?</h2>
+                <p>Copilot integrates AI into Word, Excel, and PowerPoint to help you work more efficiently.</p>
+                <div class="interactive-box">
+                    <h3>Key Features:</h3>
+                    <ul>
+                        <li><strong>AI-Powered Assistance:</strong> Get intelligent suggestions based on your work</li>
+                        <li><strong>Seamless Integration:</strong> Works directly within your Microsoft 365 apps</li>
+                        <li><strong>Natural Language:</strong> Ask questions and give commands in plain English</li>
+                        <li><strong>Context-Aware:</strong> Understands what you're working on</li>
+                    </ul>
+                </div>
+                <div class="example-box">
+                    <h3>Example Use Cases:</h3>
+                    <p>• Draft documents from brief prompts<br>
+                    • Analyze data and create visualizations<br>
+                    • Summarize long documents<br>
+                    • Generate presentation content</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Tips & Tricks -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>💡 Tips & Tricks</h2>
+                <div class="interactive-box">
+                    <h3>📌 Use Keyboard Shortcuts</h3>
+                    <ul>
+                        <li>Speed up your workflow with quick commands</li>
+                        <li>Access Copilot features without leaving the keyboard</li>
+                        <li>Learn the most common shortcuts for your daily tasks</li>
+                    </ul>
+                </div>
+                <div class="interactive-box">
+                    <h3>🔗 Integrate with Teams</h3>
+                    <ul>
+                        <li>Use Copilot to summarize meeting conversations</li>
+                        <li>Generate meeting notes automatically</li>
+                        <li>Share AI-assisted content with colleagues</li>
+                    </ul>
+                </div>
+                <div class="interactive-box">
+                    <h3>📄 Summarize Long Documents</h3>
+                    <ul>
+                        <li>Get key points from lengthy reports in seconds</li>
+                        <li>Extract action items from meeting notes</li>
+                        <li>Create executive summaries effortlessly</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Quick Quiz 1 -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>✅ Quick Quiz 1</h2>
+                <div class="quiz-question">
+                    <h3>Which version of Copilot is for Microsoft 365?</h3>
+                    <label><input type="radio" name="q1" value="wrong" onchange="checkQuiz1(this)"> GitHub Copilot</label>
+                    <label><input type="radio" name="q1" value="correct" onchange="checkQuiz1(this)"> Copilot for Microsoft 365</label>
+                    <label><input type="radio" name="q1" value="wrong" onchange="checkQuiz1(this)"> Copilot Pro</label>
+                    <div class="quiz-feedback" id="q1-feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Using Word -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>📝 Using Copilot in Word</h2>
+                <p>Draft documents, summarize content, and generate tables automatically.</p>
+                <div class="interactive-box">
+                    <h3>Key Capabilities:</h3>
+                    <ul>
+                        <li><strong>Draft Documents:</strong> Create entire documents from brief descriptions</li>
+                        <li><strong>Rewrite Content:</strong> Adjust tone, length, or style instantly</li>
+                        <li><strong>Summarize:</strong> Extract key points from long documents</li>
+                        <li><strong>Generate Tables:</strong> Create structured data from text</li>
+                    </ul>
+                </div>
+                <div class="example-box">
+                    <h3>Example Prompts:</h3>
+                    <p><em>"Draft a project proposal for a new marketing campaign"</em></p>
+                    <p><em>"Summarize this 10-page report into 3 key points"</em></p>
+                    <p><em>"Create a table comparing the features of our three products"</em></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Using Excel -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>📊 Using Copilot in Excel</h2>
+                <p>Analyze data, create charts, and generate formulas with ease.</p>
+                <div class="interactive-box">
+                    <h3>Key Capabilities:</h3>
+                    <ul>
+                        <li><strong>Data Analysis:</strong> Identify trends and patterns in your data</li>
+                        <li><strong>Create Charts:</strong> Generate visualizations automatically</li>
+                        <li><strong>Formula Generation:</strong> Get complex formulas explained in plain language</li>
+                        <li><strong>Data Insights:</strong> Discover hidden insights in your spreadsheets</li>
+                    </ul>
+                </div>
+                <div class="example-box">
+                    <h3>Example Prompts:</h3>
+                    <p><em>"Analyze sales trends over the last 6 months"</em></p>
+                    <p><em>"Create a chart showing revenue by region"</em></p>
+                    <p><em>"Generate a formula to calculate year-over-year growth"</em></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Quick Quiz 2 -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>✅ Quick Quiz 2</h2>
+                <div class="quiz-question">
+                    <h3>What can Copilot in Excel do?</h3>
+                    <label><input type="radio" name="q2" value="wrong" onchange="checkQuiz2(this)"> Replace Excel completely</label>
+                    <label><input type="radio" name="q2" value="correct" onchange="checkQuiz2(this)"> Assist with formulas, analysis, and charts</label>
+                    <label><input type="radio" name="q2" value="wrong" onchange="checkQuiz2(this)"> Only copy-paste data</label>
+                    <div class="quiz-feedback" id="q2-feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Best Practices -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>⭐ Best Practices</h2>
+                <div class="interactive-box">
+                    <h3>✅ Always Review AI Suggestions</h3>
+                    <ul>
+                        <li>Copilot is a tool to enhance your work, not replace your judgment</li>
+                        <li>Verify facts, figures, and accuracy</li>
+                        <li>Edit outputs to match your voice and style</li>
+                    </ul>
+                </div>
+                <div class="interactive-box">
+                    <h3>🔒 Maintain Privacy and Security</h3>
+                    <ul>
+                        <li>Don't share sensitive personal data</li>
+                        <li>Follow your organization's data policies</li>
+                        <li>Be cautious with confidential information</li>
+                    </ul>
+                </div>
+                <div class="interactive-box">
+                    <h3>🎯 Combine with Your Expertise</h3>
+                    <ul>
+                        <li>Use Copilot to handle routine tasks</li>
+                        <li>Focus your expertise on strategic decisions</li>
+                        <li>Iterate and refine AI outputs with your knowledge</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Conclusion -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>🎓 Conclusion</h2>
+                <div class="example-box" style="text-align: center;">
+                    <h3>Congratulations!</h3>
+                    <p style="font-size: 1.2em;">You now know the key features of Copilot for Microsoft 365.</p>
+                </div>
+                <div class="interactive-box">
+                    <h3>What You've Learned:</h3>
+                    <ul>
+                        <li>✓ What Copilot is and how it integrates with Microsoft 365</li>
+                        <li>✓ Tips and tricks for effective use</li>
+                        <li>✓ How to use Copilot in Word and Excel</li>
+                        <li>✓ Best practices for AI-assisted work</li>
+                    </ul>
+                </div>
+                <div class="example-box" style="text-align: center; margin-top: 30px;">
+                    <h3>🚀 Ready to Get Started?</h3>
+                    <p>Start using Copilot in your daily work and discover how it can boost your productivity!</p>
+                </div>
+            </div>
+        </div>
+
     </div>
-  `, quiz:{name:"q1", correct:"correct", feedbackId:"q1-feedback"} },
-  { title:"Using Word", content:"<p>Draft documents, summarize, and generate tables automatically.</p>" },
-  { title:"Using Excel", content:"<p>Analyze data, create charts, generate formulas.</p>" },
-  { title:"Quick Quiz 2", content:`
-    <p>What can Copilot in Excel do?</p>
-    <div class='quiz-question'>
-      <label><input type='radio' name='q2' value='wrong'> Replace Excel completely</label><br>
-      <label><input type='radio' name='q2' value='correct'> Assist with formulas, analysis, and charts</label><br>
-      <label><input type='radio' name='q2' value='wrong'> Only copy-paste data</label>
-      <div class='quiz-feedback' id='q2-feedback'></div>
+
+    <div class="navigation">
+        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">10</span>
+        </div>
+        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">Next →</button>
     </div>
-  `, quiz:{name:"q2", correct:"correct", feedbackId:"q2-feedback"} },
-  { title:"Best Practices", content:"<p>Review AI suggestions, maintain privacy, combine with expertise.</p>" },
-  { title:"Conclusion", content:"<p>You now know the key features of Copilot for Microsoft 365.</p>" }
-];
 
-// --- Build Slides ---
-const slidesContainer = document.getElementById("slides");
-slideData.forEach((s,i)=>{
-  const div=document.createElement('div');
-  div.className='slide';
-  div.id='slide-'+i;
-  div.innerHTML=`<h2>${s.title}</h2>${s.content}`;
-  slidesContainer.appendChild(div);
-});
+    <script>
+        let currentSlide = 1;
+        const totalSlides = document.querySelectorAll('.slide').length;
+        document.getElementById('totalSlides').textContent = totalSlides;
 
-let current = 0;
-showSlide(0);
+        function changeSlide(direction) {
+            const slides = document.querySelectorAll('.slide');
+            slides[currentSlide - 1].classList.remove('active');
+            
+            currentSlide += direction;
+            
+            if (currentSlide > totalSlides) currentSlide = totalSlides;
+            if (currentSlide < 1) currentSlide = 1;
+            
+            slides[currentSlide - 1].classList.add('active');
+            document.getElementById('currentSlide').textContent = currentSlide;
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+            
+            updateProgressBar();
+        }
 
-function showSlide(i){
-  document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));
-  const el=document.getElementById('slide-'+i);
-  if(el) el.classList.add('active');
-  current=i;
-  updateTOC();
-  updateDots();
-}
+        function updateProgressBar() {
+            const progress = (currentSlide / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
 
-function nextSlide(){ if(current<slideData.length-1) showSlide(current+1); }
-function prevSlide(){ if(current>0) showSlide(current-1); }
+        function checkQuiz1(element) {
+            const feedback = document.getElementById('q1-feedback');
+            feedback.classList.add('show');
+            if (element.value === 'correct') {
+                feedback.textContent = "✓ Correct! Well done.";
+                feedback.classList.remove('incorrect');
+                feedback.classList.add('correct');
+            } else {
+                feedback.textContent = "✗ Incorrect — try again.";
+                feedback.classList.remove('correct');
+                feedback.classList.add('incorrect');
+            }
+        }
 
-document.addEventListener('keydown', e=>{
-  if(e.key==='ArrowRight') nextSlide();
-  if(e.key==='ArrowLeft') prevSlide();
-});
+        function checkQuiz2(element) {
+            const feedback = document.getElementById('q2-feedback');
+            feedback.classList.add('show');
+            if (element.value === 'correct') {
+                feedback.textContent = "✓ Correct! Well done.";
+                feedback.classList.remove('incorrect');
+                feedback.classList.add('correct');
+            } else {
+                feedback.textContent = "✗ Incorrect — try again.";
+                feedback.classList.remove('correct');
+                feedback.classList.add('incorrect');
+            }
+        }
 
-function toggleDarkMode(){ document.body.classList.toggle('dark'); }
+        // Keyboard navigation
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
 
-// --- TOC ---
-const toc=document.getElementById('toc');
-slideData.forEach((s,i)=>{
-  const a=document.createElement('a');
-  a.textContent=s.title;
-  a.href='#';
-  a.onclick=()=>showSlide(i);
-  a.id='toc-'+i;
-  toc.appendChild(a);
-});
-function updateTOC(){
-  document.querySelectorAll('#toc a').forEach(a=>a.classList.remove('active'));
-  const active=document.getElementById('toc-'+current);
-  if(active) active.classList.add('active');
-}
+        // Initialize
+        document.getElementById('prevBtn').disabled = true;
+        updateProgressBar();
 
-// --- Progress Dots ---
-const dots=document.getElementById('dots');
-slideData.forEach((_,i)=>{
-  const d=document.createElement('span');
-  d.className='dot';
-  d.onclick=()=>showSlide(i);
-  d.id='dot-'+i;
-  dots.appendChild(d);
-});
-function updateDots(){
-  document.querySelectorAll('.dot').forEach(d=>d.classList.remove('active'));
-  const active=document.getElementById('dot-'+current);
-  if(active) active.classList.add('active');
-}
-
-// --- Slide Overview ---
-function toggleOverview(){
-  const o=document.getElementById('overview');
-  if(o.style.display==='none'){
-    o.innerHTML='';
-    slideData.forEach((s,i)=>{
-      const div=document.createElement('div');
-      div.innerHTML=`<h3>${s.title}</h3><p>${s.content.substring(0,120)}...</p>`;
-      div.onclick=()=>{ o.style.display='none'; showSlide(i); };
-      o.appendChild(div);
-    });
-    o.style.display='block';
-  }else{o.style.display='none';}
-}
-
-// --- Quiz Logic ---
-slidesContainer.addEventListener('change', e=>{
-  const slide=slideData[current];
-  if(!slide.quiz) return;
-  const q=slide.quiz;
-  if(e.target.name===q.name){
-    const feedback=document.getElementById(q.feedbackId);
-    if(e.target.value===q.correct){
-      feedback.textContent="Correct! Well done.";
-      feedback.style.color="green";
-    } else{
-      feedback.textContent="Incorrect — try again.";
-      feedback.style.color="red";
-    }
-  }
-});
-</script>
-
+        function nextSlide() { changeSlide(1); }
+        function prevSlide() { changeSlide(-1); }
+    </script>
 </body>
 </html>
