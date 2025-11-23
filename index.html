@@ -3,557 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Microsoft Copilot Interactive Guide</title>
+    <title>🛡️ Using Microsoft Copilot</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); 
-            overflow: hidden; 
-            height: 100vh;
-            transition: background 0.3s;
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
         }
-        
-        body.dark-mode {
-            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
         }
-        
-        body.dark-mode .slide-content { background: #1a1a1a; color: #e0e0e0; }
-        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color: #90cdf4; }
-        body.dark-mode p, body.dark-mode li { color: #e0e0e0; }
-        body.dark-mode .interactive-box { background: #2d3748; border-color: #4299e1; }
-        body.dark-mode .example-box { background: #3d3520; border-color: #d4a017; }
-        body.dark-mode table { background: #2d3748; color: #e0e0e0; }
-        body.dark-mode th { background: #4299e1; }
-        
-        /* Sidebar */
-        #sidebar {
-            position: fixed; left: -280px; top: 0; width: 280px; height: 100vh;
-            background: rgba(255,255,255,0.98); overflow-y: auto;
-            transition: left 0.3s; z-index: 2000; padding: 20px;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
         }
-        
-        body.dark-mode #sidebar { background: rgba(26,26,26,0.98); }
-        #sidebar.open { left: 0; }
-        #sidebar h3 { margin-bottom: 15px; color: var(--primary); }
-        #sidebar a { 
-            display: block; padding: 10px; margin: 5px 0; text-decoration: none; 
-            color: inherit; border-radius: 8px; transition: all 0.2s; font-size: 0.9em;
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
         }
-        #sidebar a:hover { background: rgba(102, 126, 234, 0.1); transform: translateX(5px); }
-        #sidebar a.active { background: var(--primary); color: white; font-weight: 600; }
-        
-        /* Top Controls */
-        #toggleSidebar {
-            position: fixed; top: 20px; left: 20px; z-index: 2001;
-            padding: 12px 16px; background: rgba(255,255,255,0.95);
-            border: none; border-radius: 8px; cursor: pointer; font-size: 1.2em;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: transform 0.3s;
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
         }
-        
-        #toggleSidebar:hover { transform: scale(1.1); }
-        body.dark-mode #toggleSidebar { background: rgba(26,26,26,0.95); color: white; }
-        
-        #searchBar {
-            position: fixed; top: 20px; right: 200px; z-index: 2001;
-            padding: 10px 15px; width: 250px; border: none; border-radius: 8px;
-            background: rgba(255,255,255,0.95); box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+        .content {
+            padding: 40px;
         }
-        
-        body.dark-mode #searchBar { background: rgba(26,26,26,0.95); color: white; }
-        
-        #controls {
-            position: fixed; top: 20px; right: 20px; z-index: 2001; display: flex; gap: 10px;
+
+        .section {
+            margin-bottom: 30px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
-        
-        .control-btn {
-            padding: 10px 15px; background: rgba(255,255,255,0.95); border: none;
-            border-radius: 8px; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            font-weight: 600; transition: all 0.3s;
+
+        .section:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
         }
-        
-        .control-btn:hover { background: var(--primary); color: white; transform: translateY(-2px); }
-        body.dark-mode .control-btn { background: rgba(26,26,26,0.95); color: white; }
-        
-        /* Slides */
-        .presentation-container { width: 100%; height: 100vh; }
-        .slide { 
-            display: none; width: 100%; height: calc(100vh - 80px); 
-            padding: 40px; overflow-y: auto; 
+
+        .section-header {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: background 0.3s ease;
         }
-        .slide.active { display: block; animation: slideIn 0.5s; }
-        @keyframes slideIn { 
-            from { opacity: 0; transform: translateX(30px); } 
-            to { opacity: 1; transform: translateX(0); } 
+
+        .section-header:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
-        
-        .slide-content { 
-            background: white; border-radius: 20px; padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 1200px; margin: 0 auto;
+
+        .section-header .icon {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
         }
-        
-        h1 { color: var(--primary); font-size: 2.5em; margin-bottom: 20px; text-align: center; }
-        h2 { color: var(--secondary); font-size: 1.8em; margin-bottom: 20px; }
-        h3 { color: var(--primary); font-size: 1.3em; margin: 15px 0 10px 0; }
-        p, li { font-size: 1.1em; line-height: 1.6; color: #333; margin-bottom: 10px; }
-        ul, ol { margin-left: 20px; }
-        
-        /* Navigation */
-        .navigation { 
-            position: fixed; bottom: 0; width: 100%; height: 80px;
-            background: rgba(255,255,255,0.95); display: flex;
-            justify-content: space-between; align-items: center; padding: 0 40px;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+
+        .section.active .section-header .icon {
+            transform: rotate(180deg);
         }
-        
-        body.dark-mode .navigation { background: rgba(26,26,26,0.95); }
-        
-        .nav-button { 
-            padding: 15px 30px; font-size: 1.1em; border: none; border-radius: 10px;
-            cursor: pointer; background: var(--primary); color: white; font-weight: 600;
-            transition: all 0.3s;
+
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            padding: 0 20px;
         }
-        
-        .nav-button:hover { background: var(--secondary); transform: translateY(-2px); }
-        .nav-button:disabled { background: #ccc; cursor: not-allowed; transform: none; }
-        
-        .slide-counter { font-size: 1.2em; color: var(--primary); font-weight: 600; }
-        body.dark-mode .slide-counter { color: #90cdf4; }
-        
-        .progress-dots { display: flex; gap: 8px; margin: 0 20px; }
-        .dot { 
-            width: 10px; height: 10px; border-radius: 50%; background: #ccc; 
-            cursor: pointer; transition: all 0.3s; 
+
+        .section.active .section-content {
+            max-height: 5000px;
+            padding: 20px;
         }
-        .dot:hover { transform: scale(1.3); }
-        .dot.active { background: var(--primary); transform: scale(1.4); }
-        
-        /* Interactive Elements */
-        .interactive-box { 
-            background: #f0f4ff; border-left: 5px solid var(--primary); 
-            padding: 15px; margin: 15px 0; border-radius: 10px; 
-            cursor: pointer; transition: all 0.3s; 
+
+        .copilot-type {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
         }
-        .interactive-box:hover { background: #e6edff; transform: translateX(5px); }
-        .hidden-content { max-height: 0; overflow: hidden; transition: max-height 0.5s; }
-        .hidden-content.show { max-height: 1000px; }
-        
-        .example-box { background: #fff9e6; border: 2px solid #ffd700; padding: 15px; border-radius: 10px; margin: 15px 0; }
-        .warning-box { background: #fef3c7; border-left: 5px solid #f59e0b; padding: 15px; margin: 15px 0; border-radius: 10px; }
-        .good-box { background: #d1fae5; border-left: 5px solid #10b981; padding: 15px; margin: 15px 0; border-radius: 10px; }
-        .bad-box { background: #fee2e2; border-left: 5px solid #ef4444; padding: 15px; margin: 15px 0; border-radius: 10px; }
-        
-        table { width: 100%; border-collapse: collapse; margin: 15px 0; background: white; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background: var(--primary); color: white; }
-        tr:hover { background: #f0f4ff; }
-        
-        .progress-bar { 
-            position: fixed; top: 0; left: 0; height: 5px; 
-            background: var(--primary); transition: width 0.3s; z-index: 1000; 
+
+        .copilot-type h3 {
+            color: #667eea;
+            margin-bottom: 10px;
         }
-        
-        .comparison-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 15px; margin: 20px 0; 
+
+        .scenario-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-        .comparison-card { 
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); 
-            color: white; padding: 20px; border-radius: 15px; text-align: center; 
-            transition: transform 0.3s; 
+
+        .scenario-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
         }
-        .comparison-card:hover { transform: translateY(-5px); }
-        
-        /* Overview Mode */
-        #overview { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-            background: rgba(0,0,0,0.95); z-index: 3000; overflow-y: auto; 
-            padding: 80px 40px; 
+
+        .scenario-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
         }
-        #overview.active { 
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-            gap: 20px; 
+
+        .scenario-reveal {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            margin-top: 15px;
+            padding-top: 0;
+            border-top: 2px solid #e0e0e0;
         }
-        .overview-card { 
-            background: white; padding: 20px; border-radius: 15px; cursor: pointer; 
-            transition: all 0.3s; height: 200px; overflow: hidden; 
+
+        .scenario-card.revealed .scenario-reveal {
+            max-height: 1000px;
+            padding-top: 15px;
         }
-        body.dark-mode .overview-card { background: #2d3748; color: white; }
-        .overview-card:hover { 
-            transform: scale(1.05); 
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5); 
+
+        .checklist-item {
+            padding: 15px;
+            margin: 10px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
         }
-        .overview-card h3 { font-size: 1.1em; margin-bottom: 10px; }
-        .overview-card p { font-size: 0.9em; color: #666; }
-        body.dark-mode .overview-card p { color: #aaa; }
-        
-        #closeOverview { 
-            position: fixed; top: 20px; right: 20px; z-index: 3001; 
-            padding: 10px 20px; background: white; border: none; 
-            border-radius: 8px; cursor: pointer; font-size: 1.2em; font-weight: bold; 
+
+        .checklist-item:hover {
+            background: #e9ecef;
         }
-        
-        @media print {
-            .slide { display: block !important; page-break-after: always; height: auto; }
-            .navigation, #sidebar, #toggleSidebar, #searchBar, #controls, .progress-bar { display: none !important; }
+
+        .checklist-item.checked {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
         }
-        
+
+        .checklist-item .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .checklist-item.checked .checkbox {
+            background: #28a745;
+            border-color: #28a745;
+        }
+
+        .checklist-item.checked .checkbox::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .badge.good {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge.bad {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .example-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .danger-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        strong {
+            color: #667eea;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #e0e0e0;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
         @media (max-width: 768px) {
-            #searchBar { width: 150px; right: 160px; }
-            .control-btn { padding: 8px 12px; font-size: 0.85em; }
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="progress-bar" id="progressBar"></div>
-    
-    <nav id="sidebar">
-        <h3>📑 Contents</h3>
-        <div id="tocLinks"></div>
-    </nav>
-    
-    <button id="toggleSidebar">☰</button>
-    <input type="text" id="searchBar" placeholder="🔍 Search slides...">
-    
-    <div id="controls">
-        <button class="control-btn" onclick="toggleDarkMode()">🌙 Dark</button>
-        <button class="control-btn" onclick="showOverview()">📋 Overview</button>
-        <button class="control-btn" onclick="window.print()">🖨️ Print</button>
-    </div>
-    
-    <div class="presentation-container">
-        <!-- Slide 1: Title -->
-        <div class="slide active">
-            <div class="slide-content">
-                <h1>🤖 Microsoft Copilot</h1>
-                <h2 style="text-align: center; color: #764ba2;">Your Interactive Guide</h2>
-                <p style="text-align: center; font-size: 1.2em; margin-top: 20px;">Click through to discover how to use Copilot effectively and responsibly</p>
-                <p style="text-align: center; color: #666; margin-top: 15px;">Use the navigation buttons below or arrow keys • Click ☰ for table of contents</p>
-            </div>
+    <div class="container">
+        <div class="header">
+            <h1>🛡️ Using Microsoft Copilot</h1>
+            <p>Your guide to using Copilot responsibly and effectively in financial crime-related work</p>
         </div>
 
-        <!-- Slide 2: What is Copilot -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>What is Microsoft Copilot?</h2>
-                <p>Microsoft Copilot is your AI-powered assistant that works across Microsoft products to boost productivity.</p>
-                <div class="interactive-box" onclick="toggleContent('feature1')">
-                    <h3>✍️ Writing & Content Creation</h3>
-                    <div class="hidden-content" id="feature1">
-                        <p>Draft documents, emails, and creative content with AI assistance.</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('feature2')">
-                    <h3>📊 Data Analysis</h3>
-                    <div class="hidden-content" id="feature2">
-                        <p>Analyze spreadsheets, identify trends, and create visualizations from your data.</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('feature3')">
-                    <h3>🔍 Research & Learning</h3>
-                    <div class="hidden-content" id="feature3">
-                        <p>Get instant answers, summarize documents, and learn complex topics explained simply.</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('feature4')">
-                    <h3>🎨 Creative Tasks</h3>
-                    <div class="hidden-content" id="feature4">
-                        <p>Generate images, create presentations, and brainstorm ideas for your projects.</p>
-                    </div>
-                </div>
+        <div class="content">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar">0% Complete</div>
             </div>
-        </div>
 
-        <!-- Slide 3: Which Copilot -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>Which Copilot Should I Use?</h2>
-                <p>Different Copilots have different capabilities. Click each to learn more:</p>
-                <div class="comparison-grid">
-                    <div class="comparison-card">
+            <div class="section">
+                <div class="section-header">
+                    <span>📚 Introduction to Copilot</span>
+                    <span class="icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <p><strong>Important:</strong> This guide covers appropriate use, key sensitivities, and compliance considerations when using Microsoft Copilot at the FCA.</p>
+                    <p style="margin-top: 15px;">Microsoft Copilot is an AI-powered assistant integrated across Microsoft 365 applications. It can help with research, writing, data analysis, and productivity tasks.</p>
+                    
+                    <div class="copilot-type">
                         <h3>🌐 Web Copilot</h3>
-                        <p>General research & learning</p>
+                        <p><strong>What it does:</strong> General research and information gathering</p>
+                        <p><strong>Best for:</strong> Understanding regulatory frameworks, industry trends, public information</p>
+                        <p><strong>Remember:</strong> No access to internal FCA documents or data</p>
                     </div>
-                    <div class="comparison-card">
-                        <h3>📝 Word Copilot</h3>
-                        <p>Works with YOUR documents</p>
+
+                    <div class="copilot-type">
+                        <h3>📝 Document Copilot</h3>
+                        <p><strong>What it does:</strong> Works with YOUR documents and data</p>
+                        <p><strong>Best for:</strong> Drafting policy papers, analyzing data, creating presentations</p>
+                        <p><strong>Remember:</strong> Only sees the specific document you have open</p>
                     </div>
-                    <div class="comparison-card">
-                        <h3>📊 Excel Copilot</h3>
-                        <p>Analyzes YOUR data</p>
-                    </div>
-                    <div class="comparison-card">
+
+                    <div class="copilot-type">
                         <h3>💬 Teams Copilot</h3>
-                        <p>Knows your conversations</p>
+                        <p><strong>What it does:</strong> Summarizes meetings and conversations</p>
+                        <p><strong>Best for:</strong> Catching up on discussions, tracking action items</p>
+                        <p><strong>Remember:</strong> Special rules apply - see Copilot Transcribe section</p>
                     </div>
-                    <div class="comparison-card">
+
+                    <div class="copilot-type">
                         <h3>📧 Outlook Copilot</h3>
-                        <p>Reads your emails</p>
-                    </div>
-                    <div class="comparison-card">
-                        <h3>📽️ PowerPoint Copilot</h3>
-                        <p>Creates presentations</p>
+                        <p><strong>What it does:</strong> Drafts emails and summarizes threads</p>
+                        <p><strong>Best for:</strong> Email management and communication</p>
+                        <p><strong>Remember:</strong> Consider sensitivity of email content</p>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Slide 4: Web Copilot -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>🌐 Web Copilot</h2>
-                <div class="interactive-box" onclick="toggleContent('web1')">
-                    <h3>What It Knows</h3>
-                    <div class="hidden-content" id="web1">
-                        <p>General knowledge and public internet information only. It does NOT know about your documents, emails, or Teams conversations.</p>
-                    </div>
+            <div class="section">
+                <div class="section-header">
+                    <span>✅ Appropriate Uses</span>
+                    <span class="icon">▼</span>
                 </div>
-                <div class="interactive-box" onclick="toggleContent('web2')">
-                    <h3>Best For</h3>
-                    <div class="hidden-content" id="web2">
+                <div class="section-content">
+                    <ul>
+                        <li><strong>Regulatory Research:</strong> Understand financial crime regulations, frameworks, and international standards
+                            <div class="example-box">Example: "Explain the key requirements of the Money Laundering Regulations 2017"</div>
+                        </li>
+                        <li><strong>Document Drafting:</strong> Help draft policy papers, guidance documents, and internal communications
+                            <div class="example-box">Example: "Help me draft an outline for guidance on fraud prevention controls"</div>
+                        </li>
+                        <li><strong>Analysis:</strong> Summarize publicly available industry reports and research
+                            <div class="example-box">Example: "Summarize the key trends in this financial crime typology report"</div>
+                        </li>
+                        <li><strong>Training Development:</strong> Create training content on financial crime typologies
+                            <div class="example-box">Example: "Create an outline for training on APP fraud indicators"</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <span>⛔ Important Restrictions</span>
+                    <span class="icon">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="danger-box">
+                        <h4>🚫 NEVER input:</h4>
                         <ul>
-                            <li>Researching regulatory frameworks and legislation</li>
-                            <li>Understanding industry trends and developments</li>
-                            <li>Getting definitions and explanations</li>
-                            <li>Brainstorming ideas for projects</li>
+                            <li>Personal data (names, addresses, account numbers)</li>
+                            <li>Confidential firm information</li>
+                            <li>Market-sensitive data</li>
+                            <li>Details of ongoing enforcement matters</li>
+                            <li>Privileged legal communications</li>
                         </ul>
                     </div>
-                </div>
-                <div class="example-box">
-                    <h3>Example Prompts:</h3>
-                    <p>"What are the key requirements of the Money Laundering Regulations 2017?"</p>
-                    <p>"Explain common fraud typologies in simple terms"</p>
-                </div>
-                <div class="good-box">✅ Great for general research and learning</div>
-                <div class="bad-box">❌ Cannot access your files or internal systems</div>
-            </div>
-        </div>
 
-        <!-- Slide 5: Word Copilot -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>📝 Word Copilot</h2>
-                <div class="interactive-box" onclick="toggleContent('word1')">
-                    <h3>What It Knows</h3>
-                    <div class="hidden-content" id="word1">
-                        <p>Only the specific Word document you currently have open. It can read and work with YOUR document content.</p>
+                    <div class="warning-box">
+                        <h4>⚠️ Stay within your remit:</h4>
+                        <p>Only use Copilot for information relevant to your role and responsibilities. Don't search for details about cases or matters you're not involved with.</p>
                     </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('word2')">
-                    <h3>Best For</h3>
-                    <div class="hidden-content" id="word2">
-                        <ul>
-                            <li>Drafting policy papers and guidance documents</li>
-                            <li>Summarizing long documents</li>
-                            <li>Rewriting sections for clarity or tone</li>
-                            <li>Creating document outlines</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="example-box">
-                    <h3>Example Prompts:</h3>
-                    <p>"Summarize this 20-page document into 5 key themes"</p>
-                    <p>"Make this section more concise and professional"</p>
-                    <p>"Create an outline for guidance on fraud prevention"</p>
-                </div>
-                <div class="good-box">✅ Works with YOUR document content</div>
-                <div class="bad-box">❌ Only sees the current document - not your other files</div>
-            </div>
-        </div>
 
-        <!-- Slide 6: Excel Copilot -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>📊 Excel Copilot</h2>
-                <div class="interactive-box" onclick="toggleContent('excel1')">
-                    <h3>What It Knows</h3>
-                    <div class="hidden-content" id="excel1">
-                        <p>Only the specific Excel spreadsheet you currently have open. It can analyze YOUR data.</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('excel2')">
-                    <h3>Best For</h3>
-                    <div class="hidden-content" id="excel2">
-                        <ul>
-                            <li>Analyzing trends in data</li>
-                            <li>Creating charts and visualizations</li>
-                            <li>Writing formulas</li>
-                            <li>Summarizing large datasets</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="example-box">
-                    <h3>Example Prompts:</h3>
-                    <p>"What are the trends in this data over the last 3 years?"</p>
-                    <p>"Create a chart showing the distribution by category"</p>
-                    <p>"Create a formula to calculate year-over-year change"</p>
-                </div>
-                <div class="good-box">✅ Powerful for analyzing appropriate datasets</div>
-                <div class="bad-box">❌ Only use with non-sensitive, appropriate data</div>
-            </div>
-        </div>
-
-        <!-- Slide 7: Teams Copilot -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>💬 Teams Copilot</h2>
-                <div class="interactive-box" onclick="toggleContent('teams1')">
-                    <h3>What It Knows</h3>
-                    <div class="hidden-content" id="teams1">
-                        <p>Messages and meetings in the specific Teams channel or chat you're viewing. It can access conversation history and meeting transcripts.</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('teams2')">
-                    <h3>Best For</h3>
-                    <div class="hidden-content" id="teams2">
-                        <ul>
-                            <li>Summarizing meetings you missed</li>
-                            <li>Finding key decisions from conversations</li>
-                            <li>Tracking action items</li>
-                            <li>Catching up on channel discussions</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="example-box">
-                    <h3>Example Prompts:</h3>
-                    <p>"Summarize the key decisions from today's meeting"</p>
-                    <p>"What were the main discussion points this week?"</p>
-                    <p>"List all action items assigned in yesterday's meeting"</p>
-                </div>
-                <div class="good-box">✅ Helps you stay on top of team communications</div>
-                <div class="warning-box">⚠️ Always inform participants when using Transcribe</div>
-            </div>
-        </div>
-
-        <!-- Slide 8: Outlook Copilot -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>📧 Outlook Copilot</h2>
-                <div class="interactive-box" onclick="toggleContent('outlook1')">
-                    <h3>What It Knows</h3>
-                    <div class="hidden-content" id="outlook1">
-                        <p>Your email conversations and threads. It can read the emails you're working with.</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('outlook2')">
-                    <h3>Best For</h3>
-                    <div class="hidden-content" id="outlook2">
-                        <ul>
-                            <li>Drafting email responses</li>
-                            <li>Summarizing long email threads</li>
-                            <li>Adjusting tone of emails</li>
-                            <li>Catching up on correspondence</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="example-box">
-                    <h3>Example Prompts:</h3>
-                    <p>"Draft a response explaining our published guidance"</p>
-                    <p>"Summarize this 15-email thread"</p>
-                    <p>"Make this email more formal for external stakeholders"</p>
-                </div>
-                <div class="good-box">✅ Great for routine correspondence</div>
-                <div class="warning-box">⚠️ Consider sensitivity of email content before using</div>
-            </div>
-        </div>
-
-        <!-- Slide 9: Quick Reference Card -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>📋 Quick Reference Card</h2>
-                <p>Use this handy reference for common tasks:</p>
-                <table>
-                    <thead>
-                        <tr><th>I want to...</th><th>Try saying...</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Start fresh</td><td>"Help me brainstorm..."</td></tr>
-                        <tr><td>Get shorter answers</td><td>"Summarise in 3 points..."</td></tr>
-                        <tr><td>Get longer answers</td><td>"Explain in detail..."</td></tr>
-                        <tr><td>Change the style</td><td>"Rewrite this to be more..."</td></tr>
-                        <tr><td>Understand something</td><td>"Explain this simply..."</td></tr>
-                        <tr><td>Check my work</td><td>"Review this and suggest improvements..."</td></tr>
-                        <tr><td>Save time</td><td>"Draft a quick..."</td></tr>
-                        <tr><td>Be creative</td><td>"Give me 10 ideas for..."</td></tr>
-                        <tr><td>Analyse data</td><td>"What trends do you see in..."</td></tr>
-                        <tr><td>Prepare for meetings</td><td>"Help me prepare questions for..."</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Slide 10: Useful Phrases -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>💬 Useful Phrases for Copilot</h2>
-                <div class="interactive-box" onclick="toggleContent('phrases1')">
-                    <h3>Starting Your Search or Question</h3>
-                    <div class="hidden-content" id="phrases1">
-                        <p>"Can you help me find..." • "I'm looking for..." • "What are the best options for..." • "Can you recommend..." • "Show me..." • "Compare... and..."</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('phrases2')">
-                    <h3>Getting More Detail</h3>
-                    <div class="hidden-content" id="phrases2">
-                        <p>"Can you explain that in simpler terms?" • "Tell me more about..." • "What are the pros and cons of...?" • "Give me examples of..."</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('phrases3')">
-                    <h3>Refining Your Results</h3>
-                    <div class="hidden-content" id="phrases3">
-                        <p>"Can you narrow that down to..." • "What about something shorter/simpler?" • "Are there alternatives to...?" • "What's the best option for a beginner?"</p>
-                    </div>
-                </div>
-                <div class="interactive-box" onclick="toggleContent('phrases4')">
-                    <h3>Practical Tasks</h3>
-                    <div class="hidden-content" id="phrases4">
-                        <p>"How do I..." • "What's the best way to..." • "Can you walk me through..." • "Step by step, how would I..."</p>
+                    <div class="warning-box">
+                        <h4>✓ Always verify outputs:</h4>
+                        <p>You are responsible for the accuracy of any work product. Apply your professional expertise and judgment.</p>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Slide 11: The 4 Keys -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>🎯 The 4 Keys to Good Prompts</h2>
-                <p>A good prompt has four parts:</p>
-                <div class="comparison-grid">
-                    <div class="interactive-box" style="text-align: center;">
-                        <h3>🎯 Goal</h3>
-                        <p>What you want Copilot to do</p>
-                    </div>
-                    <div class="interactive-box" style="text-align: center;">
-                        <h3>📋 Context</h3>
-                        <p>Background information</p>
-                    </div>
-                    <div class="interactive-box" style="text-align: center;">
-                        <h3>📁 Source</h3>
-                        <p>Files or data to reference</p>
-                    </div>
-                    <div class="interactive-box" style="text-align: center;">
-                        <h3>✅ Expectations</h3>
-                        <p>Format, tone, length</p>
-                    </div>
+            <div class="section">
+                <div class="section-header">
+                    <span>🎯 Interactive Scenarios</span>
+                    <span class="icon">▼</span>
                 </div>
-                <div class="example-box">
-                    <h3>Example prompt:</h3>
-                    <p><em>"Draft an outline of a training manual about AML controls. Our audience is new starters who need to understand the basics. The tone should be professional but accessible."</em></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 12: Common Mistakes -->
-        <div class="slide">
-            <div class="slide-content">
-                <h2>❌ Common Mistakes to Avoid</h2>
-                <div class="bad-box">
-                    <p><strong>❌ Too vague:</strong> "Help me with my report"</p>
-                    <p><strong>✅ Better:</strong
+                <d
