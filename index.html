@@ -50,8 +50,14 @@
   .checkbox{width:22px;height:22px;border:2px solid var(--fca-blue);border-radius:5px;display:flex;align-items:center;justify-content:center}
   .checklist-item.checked .checkbox{background:var(--good);border-color:var(--good)}
   .checklist-item.checked .checkbox::after{content:"✓";color:#fff;font-weight:700}
-  a{color:var(--accent);text-decoration:underline}
-  a:hover{color:#0b60d7}
+
+  /* Link styling: not underlined by default */
+  a{color:var(--accent);text-decoration:none}
+  a:hover{color:#0b60d7;text-decoration:underline}
+
+  /* Utility: make only the specific link text clickable */
+  .link{color:var(--accent);text-decoration:none}
+  .link:hover{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -60,6 +66,7 @@
     <h1>FCA Copilot Guide</h1>
     <p>Using Microsoft Copilot responsibly and effectively in financial crime-related work</p>
   </div>
+
   <div class="content">
     <div class="progress-bar"><div class="progress-fill" id="progressBar">0% Complete</div></div>
 
@@ -167,6 +174,9 @@
       <summary>🗣 FCA Phrase Bank</summary>
       <div class="section-content">
         <div class="example-box">“Ensure communications are clear, fair, and not misleading.”</div>
+        <div class="example-box">“Present information in a balanced way, avoiding exaggeration or omission.”</div>
+        <div class="example-box">“Use plain language and explain material risks, assumptions, and limitations.”</div>
+        <div class="example-box">“Substantiate claims with reliable evidence and disclose sources where appropriate.”</div>
       </div>
     </details>
 
@@ -174,7 +184,10 @@
     <details class="section">
       <summary>📚 Copilot Prompt Library</summary>
       <div class="section-content">
-        <p><a href="https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspx" targett Library</a></p>
+        <p>
+          <a class="link" href="https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library the Copilot Prompt Library
+          </a>
+        </p>
       </div>
     </details>
 
@@ -188,14 +201,19 @@
 
     <!-- ✅ Golden Rules -->
     <details class="section">
-      <summary>⚖️ Golden Rules & Compliance</summary>
+      <summary>⚖️ Golden Rules &amp; Compliance</summary>
       <div class="section-content">
         <ul>
           <li>Copilot prompts can be disclosable under FOIA until auto-deleted (~48 hours). Avoid sensitive content in prompts.</li>
           <li><strong>Disclosure obligations:</strong> Under CPIA 1996, any material generated during enforcement or investigations may be subject to disclosure in criminal proceedings.</li>
           <li>Always review and verify Copilot’s responses; cross-reference with trusted sources.</li>
-          <li>Handle information in line with <a href="https://thefca.sharepoint.com/sites/Tra/Information%20and%20Insight/Forms/AllItems.aspx?id=/sites/Tra/Information%20and%20Insight/Information%20Management/Information%20Management%20Policy%20refresh/Records_Mangement_Guidance_20230414_V1.3.pdf" target="_blank">Records Management Guidance (PDF)</a>.</tandards and policies, visit the <a href="https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot.aspx" targeta>.</li>
-        </ul>
+          <li>
+            Handle information in line with
+            <a class="link" href="https://thefca.sharepoint.com/sites/Tra/Information%20and%20Insight/Forms/AllItems.aspx?id=/sites/Tra/Information%20and%20Insight/Information%20Management/Information%20Management%20Policy%20refresh/Records_Mangement_Guidance_20230414_V1.3.pdf" target="_blank" rel(PDF)
+            </a>.
+            For AI standards and policies, visit the
+            <a class="link" href="https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot.aspx" target="_blank" rel="noopener noreferrer">
+  </ul>
       </div>
     </details>
 
@@ -204,9 +222,16 @@
       <summary>🔗 Quick Links</summary>
       <div class="section-content">
         <ul>
-          <li>https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspxCopilot Prompt Library</a></li>
-          <li><a href="https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligencepilot.aspxCopilot Hub</a></li>
-          <li><a href="https://thefca.sharepoint.com/sites/Tra/Information%20and%20Insight/Forms/AllItems.aspx?id=/sites/Tra/Information%20and%20Insight/Information%20Management/Information%20Management%20Policy%20refresh/Records_Mangement_Guidance_20230414_V1.3.pdf" target="_blank">Records Management</ul>
+          <li>
+            <a class="link" href="https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspx" target="_blank" rel       </a>
+          </li>
+          <li>
+            <a class="link" href="https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot.aspx" target="_blank" rel="noopener noreferrer      <li>
+            <a class="link" href="https://thefca.sharepoint.com/sites/Tra/Information%20and%20Insight/Forms/AllItems.aspx?id=/sites/Tra/Information%20and%20Insight/Information%20Management/Information%20Management%ords_Mangement_Guidance_20230414_V1.3.pdf
+              Records Management Guidance (PDF)
+            </a>
+          </li>
+        </ul>
       </div>
     </details>
 
@@ -226,16 +251,16 @@
 </div>
 
 <script>
-const items=document.querySelectorAll('.checklist-item');
-const progressBar=document.getElementById('progressBar');
+const items = document.querySelectorAll('.checklist-item');
+const progressBar = document.getElementById('progressBar');
 function updateProgress(){
-  const total=items.length;
-  const checked=document.querySelectorAll('.checklist-item.checked').length;
-  const pct=total?Math.round((checked/total)*100):0;
-  progressBar.style.width=pct+'%';
-  progressBar.textContent=pct+'% Complete';
+  const total = items.length;
+  const checked = document.querySelectorAll('.checklist-item.checked').length;
+  const pct = total ? Math.round((checked/total)*100) : 0;
+  progressBar.style.width = pct + '%';
+  progressBar.textContent = pct + '% Complete';
 }
-items.forEach(i=>{i.addEventListener('click',()=>{i.classList.toggle('checked');updateProgress();});});
+items.forEach(i => { i.addEventListener('click', () => { i.classList.toggle('checked'); updateProgress(); }); });
 updateProgress();
 </script>
 </body>
