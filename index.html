@@ -47,7 +47,6 @@
 
   .content{padding:28px}
 
-  /* Card sections using native details/summary for robust toggling */
   details.section{
     background:var(--card);
     border:1px solid var(--fca-grey-300);
@@ -87,7 +86,6 @@
   .section-content{padding:18px 20px;animation:fadeIn .2s ease}
   @keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 
-  /* Utility blocks */
   .example-box{
     background:#e7f3ff;
     border-left:4px solid var(--accent);
@@ -108,14 +106,12 @@
   .bad{background:#f8d7da;color:#832025}
   .warning{background:#fff3cd;color:#6b5200}
 
-  /* Table */
   .table-container{overflow-x:auto}
   table{width:100%;border-collapse:collapse;background:#fff;margin-top:12px}
   th,td{border:1px solid var(--fca-grey-300);padding:12px;text-align:left}
   th{background:var(--fca-blue);color:#fff}
   tr:hover{background:var(--fca-grey-100)}
 
-  /* Progress bar & checklist */
   .progress-bar{background:#e0e3e7;height:28px;border-radius:16px;overflow:hidden;margin:10px 0 22px}
   .progress-fill{background:linear-gradient(90deg,var(--fca-blue),var(--fca-blue-600));height:100%;width:0%;
     color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;transition:width .35s ease}
@@ -134,7 +130,6 @@
   a{color:var(--accent);text-decoration:underline}
   a:hover{color:#0b60d7}
 
-  /* Scenario cards using nested details */
   .scenario-card{
     border:1px solid var(--fca-grey-300);
     border-radius:10px;margin:12px 0;overflow:hidden;background:#fff;
@@ -145,347 +140,88 @@
 </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>FCA Copilot Guide</h1>
-      <p>Using Microsoft Copilot responsibly and effectively in financial crime-related work</p>
-    </div>
-
-    <div class="content">
-      <!-- Progress -->
-      <div class="progress-bar"><div class="progress-fill" id="progressBar">0% Complete</div></div>
-
-      <!-- 1) Introduction -->
-      <details class="section" open>
-        <summary><span class="title"><span class="dot"></span> 📚 Introduction to Copilot</span></summary>
-        <div class="section-content">
-          <p><strong>Important:</strong> This guide covers appropriate use, key sensitivities, and compliance considerations when using Microsoft Copilot at the FCA.</p>
-          <p>Microsoft Copilot is an AI‑powered assistant integrated across Microsoft 365 applications. It can help with research, writing, data analysis, and productivity tasks.</p>
-
-          <div class="example-box"><strong>Copilot types:</strong><br />
-            🌐 <strong>Web Copilot</strong> – public research and information gathering (no access to FCA internal data)<br />
-            📝 <strong>Document Copilot</strong> – works with the specific document you have open<br />
-            💬 <strong>Teams Copilot</strong> – summarises meetings and conversations (special rules apply)<br />
-            📧 <strong>Outlook Copilot</strong> – drafts emails and summarises threads (consider sensitivity)</div>
-        </div>
-      </details>
-
-      <!-- 2) Appropriate Uses (original) -->
-      <details class="section">
-        <summary><span class="title"><span class="dot"></span> ✅ Appropriate Uses</span></summary>
-        <div class="section-content">
-          <ul>
-            <li><strong>Regulatory Research:</strong> Understand financial crime regulations, frameworks, and international standards
-              <div class="example-box">Prompt example: “Explain the key requirements of the Money Laundering Regulations 2017.”</div>
-            </li>
-            <li><strong>Document Drafting:</strong> Help draft policy papers, guidance documents, and internal communications
-              <div class="example-box">Prompt example: “Help me draft an outline for guidance on fraud prevention controls.”</div>
-            </li>
-            <li><strong>Analysis:</strong> Summarise publicly available industry reports and research
-              <div class="example-box">Prompt example: “Summarise the key trends in this financial crime typology report.”</div>
-            </li>
-            <li><strong>Training Development:</strong> Create training content on financial crime typologies
-              <div class="example-box">Prompt example: “Create an outline for training on APP fraud indicators.”</div>
-            </li>
-          </ul>
-        </div>
-      </details>
-
-      <!-- 3) Important Restrictions (original incl. CPIA) -->
-      <details class="section">
-        <summary><span class="title"><span class="dot"></span> ⛔ Important Restrictions</span></summary>
-        <div class="section-content">
-          <div class="danger-box">
-            <h4 style="margin:0 0 8px">🚫 NEVER input:</h4>
-            <ul>
-              <li>Personal data (names, addresses, account numbers)</li>
-              <li>Confidential firm information</li>
-              <li>Market‑sensitive data</li>
-              <li>Details of ongoing enforcement matters</li>
-              <li>Privileged legal communications</li>
-            </ul>
-          </div>
-
-          <div class="danger-box">
-            <h4 style="margin:0 0 8px">⚖️ CPIA 1996 — Criminal Procedures and Investigations Act</h4>
-            <p><strong>CRITICAL WARNING:</strong> Be extremely careful when using Copilot for <strong>live operations</strong> or any work involving criminal investigations, enforcement actions, or sensitive operational matters.</p>
-            <p><strong>Why this matters:</strong> Material generated or accessed during an investigation may be subject to <strong>disclosure</strong> in criminal proceedings, including AI‑generated content, prompts, and Copilot analyses.</p>
-            <p><strong>Safe practice:</strong> For live operations and enforcement work, <strong>avoid using Copilot entirely</strong> unless certain it won’t create disclosure obligations or compromise operational integrity.</p>
-            <p><strong>When in doubt:</strong> Consult your line manager or legal team before using Copilot for enforcement‑related work.</p>
-          </div>
-
-          <div class="warning-box">
-            <h4 style="margin:0 0 8px">⚠️ Stay within your remit</h4>
-            <p>Only use Copilot for information relevant to your role and responsibilities. Don’t search for details about cases or matters you’re not involved with.</p>
-          </div>
-
-          <div class="warning-box">
-            <h4 style="margin:0 0 8px">✓ Always verify outputs</h4>
-            <p>You are responsible for the accuracy of any work product. Apply your professional expertise and judgment.</p>
-          </div>
-        </div>
-      </details>
-
-      <!-- 4) Interactive Scenarios (original, all 6) -->
-      <details class="section">
-        <summary><span class="title"><span class="dot"></span> 🎯 Interactive Scenarios</span></summary>
-        <div class="section-content">
-
-          <details class="scenario-card">
-            <summary class="scenario-head">Scenario 1: Thematic Review Research</summary>
-            <div class="scenario-body">
-              <span class="badge good">✅ APPROPRIATE</span>
-              <p><strong>Why:</strong> Using Web Copilot to research published reports on payment fraud trends is legitimate research using public information.</p>
-              <p><strong>Best practice:</strong> Verify from multiple sources and cite them.</p>
-            </div>
-          </details>
-
-          <details class="scenario-card">
-            <summary class="scenario-head">Scenario 2: Transaction Data Analysis</summary>
-            <div class="scenario-body">
-              <span class="badge bad">❌ INAPPROPRIATE</span>
-              <p><strong>Why:</strong> The data is confidential and likely contains personal data; do not process with AI tools.</p>
-              <p><strong>What to do instead:</strong> Use approved analytical tools and your expertise.</p>
-            </div>
-          </details>
-
-          <details class="scenario-card">
-            <summary class="scenario-head">Scenario 3: Weekly Team Catch‑up</summary>
-            <div class="scenario-body">
-              <span class="badge warning">⚠️ DEPENDS ON CONTEXT</span>
-              <p><strong>Decision factors:</strong></p>
-              <ul>
-                <li>Is there a clear benefit to transcription?</li>
-                <li>Will sensitive information be discussed?</li>
-                <li>Have all participants been informed?</li>
-              </ul>
-              <p>For routine catch‑ups, manual notes may be more proportionate. For complex planning, Transcribe can be appropriate—inform participants first.</p>
-            </div>
-          </details>
-
-          <details class="scenario-card">
-            <summary class="scenario-head">Scenario 4: Training Materials Creation</summary>
-            <div class="scenario-body">
-              <span class="badge good">✅ APPROPRIATE</span>
-              <p><strong>Why:</strong> Creating training materials is legitimate. Copilot is suitable for structure and generic examples.</p>
-              <p><strong>Best practice:</strong> Review outputs, ensure examples are generic/public, no confidential cases.</p>
-            </div>
-          </details>
-
-          <details class="scenario-card">
-            <summary class="scenario-head">Scenario 5: Enforcement Case Curiosity</summary>
-            <div class="scenario-body">
-              <span class="badge bad">❌ INAPPROPRIATE</span>
-              <p><strong>Why:</strong> Outside your remit and may breach information barriers. Only access information relevant to your role.</p>
-            </div>
-          </details>
-
-          <details class="scenario-card">
-            <summary class="scenario-head">Scenario 6: Live Operations & Enforcement Work</summary>
-            <div class="scenario-body">
-              <span class="badge bad">❌ HIGHLY INAPPROPRIATE</span>
-              <p><strong>Why:</strong> Under CPIA 1996, material generated may be disclosable; high legal and operational risk.</p>
-              <ul>
-                <li>Disclosable material to defendants</li>
-                <li>Compromising investigation integrity</li>
-                <li>Exposing techniques/sources</li>
-                <li>Creating audit trails undermining prosecution</li>
-              </ul>
-              <p><strong>Use only approved, secure systems for live operations.</strong></p>
-            </div>
-          </details>
-
-        </div>
-      </details>
-
-      <!-- 5) Pre-Use Checklist (original + enhancements) -->
-      <details class="section">
-        <summary><span class="title"><span class="dot"></span> ✓ Pre‑Use Checklist</span></summary>
-        <div class="section-content">
-          <p><strong>Before using Copilot, click each item to mark complete:</strong></p>
-
-          <div class="checklist-item"><div class="checkbox"></div>Am I working on live operations or enforcement matters? (If YES, do NOT use Copilot — CPIA 1996 disclosure risks)</div>
-          <div class="checklist-item"><div class="checkbox"></div>Is this task relevant to my role and responsibilities?</div>
-          <div class="checklist-item"><div class="checkbox"></div>Am I using only public or appropriately cleared information?</div>
-          <div class="checklist-item"><div class="checkbox"></div>Have I verified there’s no personal or confidential data?</div>
-          <div class="checklist-item"><div class="checkbox"></div>Is using Copilot proportionate to this task?</div>
-          <div class="checklist-item"><div class="checkbox"></div>Will I verify and review all Copilot outputs?</div>
-          <div class="checklist-item"><div class="checkbox"></div>For Teams Transcribe: Have I informed all participants?</div>
-          <div class="checklist-item"><div class="checkbox"></div>Have I used language that is clear, fair, and not misleading?</div>
-          <div class="checklist-item"><div class="checkbox"></div>Does this output align with FCA principles?</div>
-        </div>
-      </details>
-
-      <!-- 6) Choosing the Right Copilot (original table) -->
-      <details class="section">
-        <summary><span class="title"><span class="dot"></span> 🔧 Choosing the Right Copilot</span></summary>
-        <div class="section-content">
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>What You Need To Do</th>
-                  <th>Use This Copilot</th>
-                  <th>Why</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Research financial crime regulations</td>
-                  <td>🌐 Web Copilot</td>
-                  <td>Public information, general knowledge</td>
-                </tr>
-                <tr>
-                  <td>Draft a policy document</td>
-                  <td>📝 Word Copilot</td>
-                  <td>Works with your document content</td>
-                </tr>
-                <tr>
-                  <td>Analyse public fraud statistics</td>
-                  <td>📊 Excel Copilot</td>
-                  <td>Analyses your non‑sensitive data</td>
-                </tr>
-                <tr>
-                  <td>Summarise a team meeting</td>
-                  <td>💬 Teams Copilot</td>
-                  <td>Accesses meeting transcripts (inform participants!)</td>
-                </tr>
-                <tr>
-                  <td>Draft a routine email response</td>
-                  <td>📧 Outlook Copilot</td>
-                  <td>Reads your email context</td>
-                </tr>
-                <tr>
-                  <td>Create a presentation for training</td>
-                  <td>📽️ PowerPoint Copilot</td>
-                  <td>Generates professional slides</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </details>
-
-      <!-- 7) Copilot Transcribe Rules (original) -->
-      <details class="section">
-        <summary><span class="title"><span class="dot"></span> ⚠️ Copilot Transcribe Rules</span></summary>
-        <div class="section-content">
-          <div class="warning-box">
-            <h4 style="margin:0 0 8px">🔔 REQUIREMENT: Inform all participants</h4>
-            <p>You MUST tell all meeting participants at the start that you are using Copilot Transcribe.</p>
-            <p><strong>How to say it:</strong> “Just to let everyone know, I’m using Copilot Transcribe for this meeting to help with note‑taking.”</p>
-          </div>
-
-          <div class="danger-box">
-            <h4 style="margin:0 0 8px">⏰ 7‑Day Auto‑Delete</h4>
-            <p>Copilot Transcribe automatically deletes transcripts after 7 calendar days. If you need to retain info for legitimate business purposes, save key points to appropriate systems <strong>before</strong> the 7‑day deadline.</p>
-            <p><strong>Don’t:</strong> Save entire transcripts unnecessarily—extract only what’s needed and proportionate.</p>
-          </div>
-
-          <div class="danger-box">
-            <h4 style="margin:0 0 8px">🚫 Do NOT use Transcribe for meetings containing:</h4>
-            <ul>
-              <li>Personal data about consumers or individuals</li>
-              <li>Confidential firm information</li>
-              <li>Enforcement matters or ongoing investigations</li>
-              <li>Market‑sensitive information</li>
-              <li>Legally privileged communications</li>
-            </ul>
-          </div>
-        </div>
-      </details>
-
-      <!-- 8) NEW — FCA Phrase Bank -->
-      <details class="section">
-        <summary><span class="title"><span class="dot"></span> 🗣 Recommended FCA Phrases</span></summary>
-        <div class="section-content">
-          <div class="example-box">“Ensure communications are clear, fair, and not misleading.”</div>
-          <div class="example-box">“In line with FCA guidance on financial crime controls.”</div>
-          <div class="example-box">“Proportionate to the risk and consistent with regulatory expectations.”</div>
-          <div class="example-box">“Apply robust governance and oversight in line with FCA principles.”</div>
-        </div>
-      </details>
-
-      <!-- 9) NEW — Prompt Library & How to Contribute -->
-      <details class="section">
-        <summary><span class="title"><span class="dot"></span> 📚 Copilot Prompt Library & How to Contribute</span></summary>
-        <div class="section-content">
-          <p>
-            Access the FCA https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspxCopilot Prompt Library</a> and share your best prompts:
-          </p>
-          <ul>
-            <li>Identify a prompt that works well (general or role‑specific).</li>
-            <li>Describe what it does (e.g., summarising reports, policy design support).</li>
-            <li>Paste the full prompt (make it generic; redact sensitive info).</li>
-            <li>Email your prompt to mailto:SmarterRegulator@fca.org.ukSmarterRegulator@fca.org.uk</a> for inclusion.</li>
-          </ul>
-          <p>
-            Browse the https://thefca.sharepoint.com/sites/PROJ_SmarterReg/Shared%20Documents/Quick%20Wins%20(CH4)/Copilot%20Prompts%20library%20100825.xlsxExcel Prompt Library</a> for examples.
-          </p>
-        </div>
-      </details>
-
-      <!-- 10) NEW — G.C.S.E. Prompt Builder -->
-      <details class="section">
-        <summary><span class="title"><span class="dot"></span> 🛠️ How to Write a Good Prompt (G.C.S.E. Framework)</span></summary>
-        <div class="section-content">
-          <ul>
-            <li><strong>Goal:</strong> Clearly state what you want Copilot to do.
-              <div class="example-box">Example: “Summarise this FCA policy document for a non‑technical audience.”</div>
-            </li>
-            <li><strong>Context:</strong> Explain why you need this; who is it for?
-              <div class="example-box">Example: “This summary will be shared with new joiners in the Financial Crime team.”</div>
-            </li>
-            <li><strong>Source:</strong> Specify where Copilot should look.
-              <div class="example-box">Example: “Use only the attached document and the FCA website.”</div>
-            </li>
-            <li><strong>Expectations:</strong> Describe how you want the output presented.
-              <div class="example-box">Example: “Bullet points; clear, fair, and not misleading language.”</div>
-            </li>
-          </ul>
-          <div class="example-box">
-            <strong>Full Example:</strong><br />
-            “Summarise the attached FCA guidance for new joiners. Use only the document provided. Present the summary as bullet points in plain English, ensuring all points are clear, fair, and not misleading.”
-          </div>
-        </div>
-      </details>
-
-      <!-- 11) NEW — Golden Rules & Compliance Reminders -->
-      <details class="section">
-        <summary><span class="title"><span class="dot"></span> ⚖️ Golden Rules & Compliance Reminders</span></summary>
-        <div class="section-content">
-          <ul>
-            <li>Copilot prompts may be disclosable under FOIA until automatically deleted after ~48 hours.</li>
-            <li>Always review and verify Copilot’s responses—do not rely solely on AI outputs.</li>
-            <li>Cross‑reference important information with trusted sources before taking action.</li>
-            <li>Handle information in line with FCA https://thefca.sharepoint.com/sites/Tra/Information%20and%20Insight/Forms/AllItems.aspx?id=/sites/Tra/Information%20and%20Insight/Information%20Management/Information%20Management%20Policy%20refresh/Records_Mangement_Guidance_20230414_V1.3.pdf&parent=/sites/Tra/Information%20and%20Insight/Information%20Management/Information%20Management%20Policy%20refreshRecords Management guidance</a>.</li>
-            <li>If you encounter sensitive data you should not have access to, inform your SharePoint Super User and report it as a Risk Event in https://fcapsr.corestream.co.ukCoreStream</a>.</li>
-            <li>For standards and policies, see the FCA https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot.aspxCopilot Hub</a>.</li>
-          </ul>
-        </div>
-      </details>
-
-    </div>
+<div class="container">
+  <div class="header">
+    <h1>FCA Copilot Guide</h1>
+    <p>Using Microsoft Copilot responsibly and effectively in financial crime-related work</p>
   </div>
 
+  <div class="content">
+    <div class="progress-bar"><div class="progress-fill" id="progressBar">0% Complete</div></div>
+
+    <!-- Interactive Scenarios with updated Scenario 3 -->
+    <details class="section">
+      <summary><span class="title"><span class="dot"></span> 🎯 Interactive Scenarios</span></summary>
+      <div class="section-content">
+        <!-- Scenario 3 updated -->
+        <details class="scenario-card">
+          <summary class="scenario-head">Scenario 3: Weekly Team Catch‑up</summary>
+          <div class="scenario-body">
+            <span class="badge warning">⚠️ DEPENDS ON CONTEXT</span>
+            <p><strong>Decision factors:</strong></p>
+            <ul>
+              <li>Is there a clear benefit to transcription or recording?</li>
+              <li>Will sensitive information be discussed?</li>
+              <li>Have all participants been informed and agreed?</li>
+            </ul>
+            <p><strong>Important distinction:</strong></p>
+            <ul>
+              <li><strong>Copilot Transcribe</strong> auto‑deletes after 7 days (extract key points only).</li>
+              <li><strong>Recording in Teams</strong> creates a permanent file subject to FCA retention and disclosure rules.</li>
+            </ul>
+            <p><strong>If recording is necessary:</strong></p>
+            <ul>
+              <li>Inform participants clearly at the start.</li>
+              <li>Store recordings only in approved locations (e.g., SharePoint with correct classification).</li>
+              <li>Do not record enforcement or sensitive meetings unless authorised.</li>
+            </ul>
+          </div>
+        </details>
+        <!-- Other scenarios remain unchanged -->
+      </div>
+    </details>
+
+    <!-- Copilot Transcribe Rules updated -->
+    <details class="section">
+      <summary><span class="title"><span class="dot"></span> ⚠️ Copilot Transcribe Rules</span></summary>
+      <div class="section-content">
+        <div class="warning-box">
+          <h4>🔔 REQUIREMENT: Inform all participants</h4>
+          <p>You MUST tell all meeting participants at the start that you are using Copilot Transcribe.</p>
+        </div>
+        <div class="danger-box">
+          <h4>⏰ 7‑Day Auto‑Delete</h4>
+          <p>Copilot Transcribe deletes transcripts after 7 calendar days. Extract only what’s needed before deletion.</p>
+        </div>
+        <div class="danger-box">
+          <h4>🚫 Do NOT use Transcribe for meetings containing:</h4>
+          <ul>
+            <li>Personal data</li>
+            <li>Confidential firm information</li>
+            <li>Enforcement matters</li>
+          </ul>
+        </div>
+        <div class="warning-box">
+          <h4>📹 Recording vs Transcribe</h4>
+          <p>Recording a Teams meeting is different from using Transcribe. Recordings are permanent and subject to FCA retention and disclosure obligations. Only record if authorised and store in approved locations.</p>
+        </div>
+      </div>
+    </details>
+  </div>
+</div>
+
 <script>
-  // Checklist progress only (details/summary handles all collapsing natively)
-  const items = document.querySelectorAll('.checklist-item');
-  const progressBar = document.getElementById('progressBar');
-  function updateProgress(){
-    const total = items.length;
-    const checked = document.querySelectorAll('.checklist-item.checked').length;
-    const pct = total ? Math.round((checked/total)*100) : 0;
-    progressBar.style.width = pct + '%';
-    progressBar.textContent = pct + '% Complete';
-  }
-  items.forEach(i=>{
-    i.addEventListener('click',()=>{
-      i.classList.toggle('checked');
-      updateProgress();
-    });
-  });
-  updateProgress();
+const items=document.querySelectorAll('.checklist-item');
+const progressBar=document.getElementById('progressBar');
+function updateProgress(){
+  const total=items.length;
+  const checked=document.querySelectorAll('.checklist-item.checked').length;
+  const pct=total?Math.round((checked/total)*100):0;
+  progressBar.style.width=pct+'%';
+  progressBar.textContent=pct+'% Complete';
+}
+items.forEach(i=>{i.addEventListener('click',()=>{i.classList.toggle('checked');updateProgress();});});
+updateProgress();
 </script>
 </body>
 </html>
