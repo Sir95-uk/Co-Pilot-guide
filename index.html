@@ -65,26 +65,9 @@ body{
 /* ---------- Cards & Boxes ---------- */
 .copilot-type{background:var(--soft); padding:15px; margin:12px 0; border-left:4px solid var(--accent); border-radius:8px}
 .copilot-type h3{color:var(--accent); margin-bottom:8px}
-.scenario-card{
-  background:#fff; border:2px solid var(--border); border-radius:12px; padding:16px;
-  margin:12px 0; cursor:pointer; transition:.25s all;
-}
-.scenario-card:hover{border-color:var(--accent); box-shadow:0 5px 15px rgba(102,126,234,.20); transform:translateY(-2px)}
-.scenario-card h4{color:var(--accent); margin-bottom:8px}
-.scenario-reveal{display:none; margin-top:10px; padding-top:10px; border-top:2px solid var(--border)}
-.scenario-card.revealed .scenario-reveal{display:block; animation:fadeIn .25s ease}
-@keyframes fadeIn{from{opacity:0} to{opacity:1}}
-
 .example-box{background:#e7f3ff; border-left:4px solid #2196F3; padding:12px; margin:10px 0; border-radius:8px}
 .works-box{background:#d4edda; border-left:4px solid var(--ok); padding:12px; margin:10px 0; border-radius:8px}
 .avoid-box{background:#f8d7da; border-left:4px solid var(--bad); padding:12px; margin:10px 0; border-radius:8px}
-.warning-box{background:#fff3cd; border-left:4px solid var(--warn); padding:12px; margin:10px 0; border-radius:8px}
-.danger-box{background:#fdecef; border-left:4px solid var(--bad); padding:12px; margin:10px 0; border-radius:8px}
-
-.badge{display:inline-block;padding:6px 10px;border-radius:999px;font-size:.9em;font-weight:700;margin:5px 0}
-.good{background:#d4edda;color:#155724}
-.bad{background:#f8d7da;color:#721c24}
-.warning{background:#fff3cd;color:#856404}
 
 /* ---------- Checklist & Progress ---------- */
 .checklist-item{
@@ -104,13 +87,7 @@ body{
   height:100%; width:0%; transition:width .45s ease; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700
 }
 
-/* ---------- Tables ---------- */
-.table-container{overflow-x:auto; margin:12px 0}
-table{width:100%; border-collapse:collapse; background:#fff}
-th,td{padding:12px; text-align:left; border:1px solid var(--border)}
-th{background:linear-gradient(135deg,var(--bg-grad-1) 0%, var(--bg-grad-2) 100%); color:#fff; font-weight:700}
-tr:hover{background:var(--soft)}
-
+/* ---------- Links ---------- */
 a{color:var(--accent); text-decoration:none; font-weight:600}
 a:hover{text-decoration:underline; color:#4e5fd6}
 
@@ -120,11 +97,6 @@ a:hover{text-decoration:underline; color:#4e5fd6}
 .btn:hover{transform:translateY(-1px); box-shadow:0 4px 10px rgba(0,0,0,.08)}
 .btn.copy{border-color:#9db0ff; color:#3a57e8}
 .btn.small{padding:6px 10px; font-size:.9em}
-
-@media (max-width:768px){
-  .header h1{font-size:1.9em}
-  .content{padding:22px}
-}
 </style>
 </head>
 <body>
@@ -139,13 +111,13 @@ a:hover{text-decoration:underline; color:#4e5fd6}
     </div>
   </div>
   <div class="content">
+    <div class="progress-bar"><div class="progress-fill" id="progressBar">0% Complete</div></div>
 
     <!-- ✅ Introduction -->
     <div class="section active">
       <div class="section-header"><span>📚 Introduction to Copilot</span><span class="icon">▼</span></div>
       <div class="section-content">
         <p><strong>Important:</strong> This guide covers appropriate use, key sensitivities, and compliance considerations when using Microsoft Copilot at the FCA.</p>
-        <p>Microsoft Copilot is integrated across Microsoft 365. It can assist with research, drafting, analysis, meeting summaries, and productivity tasks. Choose the right Copilot for the job:</p>
         <div class="copilot-type"><h3>🌐 Web Copilot</h3><p>Research public information across the web.</p></div>
         <div class="copilot-type"><h3>📝 Word Copilot</h3><p>Draft and refine documents.</p></div>
         <div class="copilot-type"><h3>📊 Excel Copilot</h3><p>Analyse non-sensitive datasets.</p></div>
@@ -183,7 +155,9 @@ a:hover{text-decoration:underline; color:#4e5fd6}
       <div class="section-header"><span>🔗 Quick Links</span><span class="icon">▼</span></div>
       <div class="section-content">
         <ul>
-          <li><a href="https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspx" target="_blank">Copilot Prompt Library   </div>
+          <li><a href="https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspx" target="_blank></li>
+        </ul>
+      </div>
     </div>
 
     <!-- ✅ WOW: Prompt Examples -->
@@ -195,46 +169,15 @@ a:hover{text-decoration:underline; color:#4e5fd6}
           <div class="prompt-row"><span class="prompt">“Summarise FCA Handbook SYSC expectations relevant to financial crime governance.”</span><button class="btn copy small" data-copy="Summarise FCA Handbook SYSC expectations relevant to financial crime governance.">Copy</button></div>
         </div>
         <div class="avoid-box"><strong>Avoid:</strong> Confidential case details or personal data.</div>
-
-        <h3>📝 Word Copilot</h3>
-        <div class="works-box"><strong>Works well:</strong>
-          <div class="prompt-row"><span class="prompt">“Draft a 1-page briefing titled ‘Fraud Prevention Controls – Payments’.”</span><button class="btn copy small" data-copy="Draft a 1-page briefing titled ‘Fraud Prevention Controls – Payments’.">Copy</button></div>
-        </div>
-
-        <h3>📊 Excel Copilot</h3>
-        <div class="works-box"><strong>Works well:</strong>
-          <div class="prompt-row"><span class="prompt">“Create a pivot of Year vs Losses and add a line chart.”</span><button class="btn copy small" data-copy="Create a pivot of Year vs Losses and add a line chart.">Copy</button></div>
-        </div>
-
-        <h3>📽️ PowerPoint Copilot</h3>
-        <div class="works-box"><strong>Works well:</strong>
-          <div class="prompt-row"><span class="prompt">“Create a 6-slide deck ‘Fraud Typologies – UK Overview’.”</span><button class="btn copy small" data-copy="Create a 6-slide deck ‘Fraud Typologies – UK Overview’.">Copy</button></div>
-        </div>
-
-        <h3>🗒️ OneNote Copilot</h3>
-        <div class="works-box"><strong>Works well:</strong>
-          <div class="prompt-row"><span class="prompt">“Summarise this page into 5 bullet points and create an action list.”</span><button class="btn copy small" data-copy="Summarise this page into 5 bullet points and create an action list.">Copy</button></div>
-        </div>
-
-        <h3>📧 Outlook Copilot</h3>
-        <div class="works-box"><strong>Works well:</strong>
-          <div class="prompt-row"><span class="prompt">“Draft a professional reply acknowledging receipt and next steps.”</span><button class="btn copy small" data-copy="Draft a professional reply acknowledging receipt and next steps.">Copy</button></div>
-        </div>
-
-        <h3>💬 Teams Copilot</h3>
-        <div class="works-box"><strong>Works well:</strong>
-          <div class="prompt-row"><span class="prompt">“Summarise this meeting and extract action items with owners.”</span><button class="btn copy small" data-copy="Summarise this meeting and extract action items with owners.">Copy</button></div>
-        </div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-// Toggle sections
+// Toggle individual sections
 document.querySelectorAll('.section-header').forEach(header=>{
-  header.addEventListener('click',e=>{
-    e.preventDefault();
+  header.addEventListener('click',()=>{
     header.parentElement.classList.toggle('active');
   });
 });
@@ -284,3 +227,9 @@ document.querySelectorAll('.btn.copy').forEach(btn=>{
   btn.addEventListener('click',()=>{
     navigator.clipboard.writeText(btn.dataset.copy);
     btn.textContent='Copied!';
+    setTimeout(()=>btn.textContent='Copy',1500);
+  });
+});
+</script>
+</body>
+</html>
