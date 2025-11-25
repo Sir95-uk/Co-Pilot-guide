@@ -110,6 +110,7 @@ table{width:100%; border-collapse:collapse; background:#fff}
 th,td{padding:12px; text-align:left; border:1px solid var(--border)}
 th{background:linear-gradient(135deg,var(--bg-grad-1) 0%, var(--bg-grad-2) 100%); color:#fff; font-weight:700}
 tr:hover{background:var(--soft)}
+td ul{margin:8px 0 0 18px}
 
 /* ---------- Links ---------- */
 a{color:var(--accent); text-decoration:none; font-weight:600}
@@ -166,7 +167,6 @@ a:hover{text-decoration:underline; color:#4e5fd6}
         <div class="example-box">“Ensure communications are clear, fair, and not misleading.”</div>
         <div class="example-box">“Present information in a balanced way, avoiding exaggeration or omission.”</div>
         <div class="example-box">“Use plain language and explain material risks, assumptions, and limitations.”</div>
-        <div class="example-box">“Substantiate claims with reliable evidence and disclose sources where appropriate.”</div>
       </div>
     </div>
 
@@ -189,20 +189,111 @@ a:hover{text-decoration:underline; color:#4e5fd6}
       <div class="section-content">
         <ul>
           <li>
-            https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspx
-              Copilot Prompt Library (SharePoint)
-            </a>
+            https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspxCopilot Prompt Library (SharePoint)</a>
           </li>
           <!-- Placeholders you can enable later:
           <li><a href="https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot.aspx" target="_blank></li>
-          <li><a href="https://thefca.sharepoint.com/sites/Tra/Information%20and%20Insight/Forms/AllItems.aspx?id=/sites/Tra/Information%20and%20Insight/Information%20Management/Information%20Management%20Policy%20refresh/Records_Mangement_Guidance_20230414_V1.3.pdf" target="_blank" rel="noopener noreferrer">Records Management Guidance (PDF)</a></v>
+          <li><a href="https://thefca.sharepoint.com/sites/Tra/Information%20and%20Insight/Forms/AllItems.aspx?id=/sites/Tra/Information%20and%20Insight/Information%20Management/Information%20Management%20Policy%20refresh/Recordst_Guidance_20230414_V1.3.pdfRecords Management Guidance (PDF)</a></li>
+          -->
+        </ul>
+      </div>
+    </div>
 
-    <!-- 5. Try Copilot Now – Prompts by App -->
+    <!-- 5. Copilot Functions & Example Prompts (TABLE) -->
     <div class="section active">
+      <div class="section-header"><span>📋 Copilot Functions & Example Prompts (Table)</span><span class="icon">▼</span></div>
+      <div class="section-content">
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Copilot</th>
+                <th>What it Does</th>
+                <th>Good Example Phrases</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>🌐 Web Copilot</td>
+                <td>Searches public sources; summarises and compares external content. No access to internal FCA data.</td>
+                <td>
+                  <ul>
+                    <li>“Summarise FCA Handbook SYSC expectations relevant to financial crime governance.”</li>
+                    <li>“Compare 3 recent public typology reports on APP fraud; extract trends since 2022 with sources.”</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>📝 Word Copilot</td>
+                <td>Drafts and edits within the open document; improves clarity and structure.</td>
+                <td>
+                  <ul>
+                    <li>“Draft a 1‑page briefing titled ‘Fraud Prevention Controls – Payments’ with executive summary, 3 recommendations, risk caveat.”</li>
+                    <li>“Improve clarity: convert the next section into bullet points; ensure clear, fair, not misleading.”</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>📊 Excel Copilot</td>
+                <td>Analyses the open workbook; creates pivots, charts, and summaries of <em>non‑sensitive</em> data.</td>
+                <td>
+                  <ul>
+                    <li>“From the sheet ‘PublicFraudStats’, build a pivot of ‘Year’ by ‘Losses (£m)’ and add a YoY line chart since 2020.”</li>
+                    <li>“Describe the top 3 trends in this dataset and suggest one visual for each.”</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>📽️ PowerPoint Copilot</td>
+                <td>Generates slides and speaker notes from prompts or a source document.</td>
+                <td>
+                    <ul>
+                      <li>“Create a 6‑slide deck ‘Fraud Typologies – UK Overview’: agenda, definitions, 3 key trends, controls, summary with next steps.”</li>
+                      <li>“Generate speaker notes for slide 3 in plain language with one public citation.”</li>
+                    </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>🗒️ OneNote Copilot</td>
+                <td>Summarises pages/sections; drafts notes, action lists, and study plans.</td>
+                <td>
+                  <ul>
+                    <li>“Summarise this page into 5 bullet points and produce an action list with owners and due dates.”</li>
+                    <li>“Create a study plan for AML/CTF frameworks with weekly learning goals and public reading links.”</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>📧 Outlook Copilot</td>
+                <td>Drafts replies; summarises email threads; proposes next steps.</td>
+                <td>
+                  <ul>
+                    <li>“Draft a professional reply acknowledging receipt, outline next steps, and propose a short call this week (clear, fair, not misleading).”</li>
+                    <li>“Summarise this thread in 5 bullet points and extract actions with owners.”</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>💬 Teams Copilot</td>
+                <td>Summarises meetings/chats; extracts action items, decisions, and owners.</td>
+                <td>
+                  <ul>
+                    <li>“Summarise this meeting and extract action items with owners and due dates.”</li>
+                    <li>“Create a decision log: list decisions, rationale, and follow‑ups.”</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="avoid-box"><strong>Important:</strong> Avoid prompts containing personal data, confidential firm information, privileged content, or anything outside your remit.</div>
+      </div>
+    </div>
+
+    <!-- 6. Try Copilot Now – Prompts by App (with copy buttons) -->
+    <div class="section">
       <div class="section-header"><span>🚀 Try Copilot Now – Prompts by App</span><span class="icon">▼</span></div>
       <div class="section-content">
-
-        <!-- Web Copilot -->
         <h3>🌐 Web Copilot</h3>
         <div class="works-box">
           <strong>Works well:</strong>
@@ -215,11 +306,10 @@ a:hover{text-decoration:underline; color:#4e5fd6}
             <button class="btn copy small" data-copy="Compare recent public typology reports on APP fraud in the UK since 2022. Extract trends with sources.">Copy</button>
           </div>
         </div>
-        <div class="avoid-box"><strong>Avoid:</strong> Prompts containing personal data, confidential firm information, or anything outside your remit.</div>
+        <div class="avoid-box"><strong>Avoid:</strong> Any confidential/personal data or out‑of‑remit topics.</div>
 
         <hr style="margin:18px 0;border:none;border-top:1px solid var(--border)"/>
 
-        <!-- Word Copilot -->
         <h3>📝 Word Copilot</h3>
         <div class="works-box">
           <strong>Works well:</strong>
@@ -232,11 +322,9 @@ a:hover{text-decoration:underline; color:#4e5fd6}
             <button class="btn copy small" data-copy="Improve clarity: convert the next section into bullet points and ensure the language is clear, fair, and not misleading.">Copy</button>
           </div>
         </div>
-        <div class="avoid-box"><strong>Avoid:</strong> Real case details, personal data, naming supervised firms, or privileged content.</div>
 
         <hr style="margin:18px 0;border:none;border-top:1px solid var(--border)"/>
 
-        <!-- Excel Copilot -->
         <h3>📊 Excel Copilot</h3>
         <div class="works-box">
           <strong>Works well (with non‑sensitive data):</strong>
@@ -249,11 +337,9 @@ a:hover{text-decoration:underline; color:#4e5fd6}
             <button class="btn copy small" data-copy="Describe the top 3 trends visible in the dataset and suggest one visual for each trend.">Copy</button>
           </div>
         </div>
-        <div class="avoid-box"><strong>Avoid:</strong> Confidential transactions, consumer‑level records, or personal identifiers.</div>
 
         <hr style="margin:18px 0;border:none;border-top:1px solid var(--border)"/>
 
-        <!-- PowerPoint Copilot -->
         <h3>📽️ PowerPoint Copilot</h3>
         <div class="works-box">
           <strong>Works well:</strong>
@@ -266,11 +352,9 @@ a:hover{text-decoration:underline; color:#4e5fd6}
             <button class="btn copy small" data-copy="Generate speaker notes for slide 3 with plain‑language explanations and one citation to a public source.">Copy</button>
           </div>
         </div>
-        <div class="avoid-box"><strong>Avoid:</strong> Internal case specifics, market‑sensitive projections, or privileged content.</div>
 
         <hr style="margin:18px 0;border:none;border-top:1px solid var(--border)"/>
 
-        <!-- OneNote Copilot -->
         <h3>🗒️ OneNote Copilot</h3>
         <div class="works-box">
           <div class="prompt-row">
@@ -282,11 +366,9 @@ a:hover{text-decoration:underline; color:#4e5fd6}
             <button class="btn copy small" data-copy="Create a study plan for AML/CTF frameworks with weekly learning goals and public reading links.">Copy</button>
           </div>
         </div>
-        <div class="avoid-box"><strong>Avoid:</strong> Notes that include personal or confidential case data.</div>
 
         <hr style="margin:18px 0;border:none;border-top:1px solid var(--border)"/>
 
-        <!-- Outlook Copilot -->
         <h3>📧 Outlook Copilot</h3>
         <div class="works-box">
           <div class="prompt-row">
@@ -298,11 +380,9 @@ a:hover{text-decoration:underline; color:#4e5fd6}
             <button class="btn copy small" data-copy="Summarise this thread in 5 bullet points and extract actions with owners.">Copy</button>
           </div>
         </div>
-        <div class="avoid-box"><strong>Avoid:</strong> Sensitive firm details, personal data, or privileged discussions.</div>
 
         <hr style="margin:18px 0;border:none;border-top:1px solid var(--border)"/>
 
-        <!-- Teams Copilot -->
         <h3>💬 Teams Copilot</h3>
         <div class="works-box">
           <div class="prompt-row">
@@ -314,11 +394,11 @@ a:hover{text-decoration:underline; color:#4e5fd6}
             <button class="btn copy small" data-copy="Create a decision log from this chat: list decisions, rationale, and any follow‑ups.">Copy</button>
           </div>
         </div>
-        <div class="avoid-box"><strong>Avoid:</strong> Transcribing sensitive/privileged meetings; see rules below.</div>
+        <div class="avoid-box"><strong>Avoid:</strong> Transcribing sensitive/privileged meetings; observe rules below.</div>
       </div>
     </div>
 
-    <!-- 6. Interactive Scenarios -->
+    <!-- 7. Interactive Scenarios -->
     <div class="section">
       <div class="section-header"><span>🎯 Interactive Scenarios</span><span class="icon">▼</span></div>
       <div class="section-content">
@@ -370,7 +450,7 @@ a:hover{text-decoration:underline; color:#4e5fd6}
       </div>
     </div>
 
-    <!-- 7. Pre‑Use Checklist -->
+    <!-- 8. Pre‑Use Checklist -->
     <div class="section">
       <div class="section-header"><span>✓ Pre‑Use Checklist</span><span class="icon">▼</span></div>
       <div class="section-content">
@@ -384,7 +464,7 @@ a:hover{text-decoration:underline; color:#4e5fd6}
       </div>
     </div>
 
-    <!-- 8. Choosing the Right Copilot -->
+    <!-- 9. Choosing the Right Copilot -->
     <div class="section">
       <div class="section-header"><span>🔧 Choosing the Right Copilot</span><span class="icon">▼</span></div>
       <div class="section-content">
@@ -404,7 +484,7 @@ a:hover{text-decoration:underline; color:#4e5fd6}
       </div>
     </div>
 
-    <!-- 9. Copilot Transcribe Rules -->
+    <!-- 10. Copilot Transcribe Rules -->
     <div class="section">
       <div class="section-header"><span>⚠️ Copilot Transcribe Rules</span><span class="icon">▼</span></div>
       <div class="section-content">
@@ -429,7 +509,7 @@ a:hover{text-decoration:underline; color:#4e5fd6}
       </div>
     </div>
 
-    <!-- 10. Golden Rules & Compliance (CPIA) -->
+    <!-- 11. Golden Rules & Compliance (CPIA 1996) -->
     <div class="section">
       <div class="section-header"><span>⚖️ Golden Rules & Compliance (CPIA 1996)</span><span class="icon">▼</span></div>
       <div class="section-content">
@@ -439,7 +519,7 @@ a:hover{text-decoration:underline; color:#4e5fd6}
             <li><strong>Record, Retain, Reveal, Review:</strong> Log and preserve all investigation material, including relevant unused material.</li>
             <li><strong>Disclosure Test:</strong> Disclose anything that might reasonably assist the defence or undermine the prosecution.</li>
             <li><strong>Ongoing Duty:</strong> Disclosure continues throughout the case; reassess new material promptly.</li>
-            <li><strong>Roles:</strong> Disclosure Officer & Reviewing Lawyer ensure schedules, decisions, and compliance are maintained.</li>
+            <li><strong>Roles:</strong> The Disclosure Officer reviews unused material, creates schedules, and records decisions; the Reviewing Lawyer ensures appropriate disclosure.</li>
           </ul>
         </div>
         <div class="warning-box">
@@ -481,7 +561,8 @@ document.getElementById('scanLinks').addEventListener('click',()=>{
   const links=document.querySelectorAll('a[href]');
   let brokenCount=0;
   links.forEach(link=>{
-    if(!link.href || link.getAttribute('href')==='' || link.getAttribute('href')==='#'){
+    const href=link.getAttribute('href');
+    if(!href || href.trim()==='' || href.trim()==='#'){
       link.style.color='red';
       link.style.fontWeight='bold';
       link.title='Broken/missing link';
