@@ -2,266 +2,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>FCA Copilot Guide</title>
-<style>
-  :root{
-    --fca-blue:#004080;
-    --fca-blue-600:#0057a3;
-    --fca-grey-50:#f4f6f8;
-    --fca-grey-100:#eef1f4;
-    --fca-grey-300:#d7dde3;
-    --card:#ffffff;
-    --text:#333333;
-    --accent:#1a73e8;
-    --good:#28a745;
-    --warn:#ffc107;
-    --bad:#dc3545;
-  }
-  body{margin:0;background:var(--fca-grey-50);color:var(--text);font-family:Segoe UI,Tahoma,Arial,sans-serif;line-height:1.6;padding:20px;}
-  .container{max-width:1100px;margin:0 auto;background:var(--card);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.08);overflow:hidden;}
-  .header{background:var(--fca-blue);color:#fff;padding:32px 28px;border-bottom:6px solid var(--fca-blue-600);}
-  .header h1{margin:0 0 6px;font-size:2.2rem}
-  .header p{margin:0;opacity:.9}
-  .content{padding:28px}
-  details.section{background:var(--card);border:1px solid var(--fca-grey-300);border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.05);margin:18px 0;}
-  summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:var(--fca-grey-100);padding:16px 18px;font-weight:600;font-size:1.05rem;}
-  summary::-webkit-details-marker{display:none}
-  summary::after{content:"▼";color:var(--fca-blue)}
-  details[open] summary::after{content:"▲"}
-  .section-content{padding:18px 20px}
-  .example-box{background:#e7f3ff;border-left:4px solid var(--accent);padding:12px;margin:12px 0;border-radius:8px}
-  .danger-box{background:#f8d7da;border-left:4px solid var(--bad);padding:12px;margin:14px 0;border-radius:8px}
-  .warning-box{background:#fff3cd;border-left:4px solid var(--warn);padding:12px;margin:14px 0;border-radius:8px}
-  .badge{display:inline-block;padding:6px 10px;border-radius:16px;font-weight:600;font-size:.9rem;margin:6px 0}
-  .good{background:#d4edda;color:#1f6f2d}
-  .bad{background:#f8d7da;color:#832025}
-  .warning{background:#fff3cd;color:#6b5200}
-  .table-container{overflow-x:auto}
-  table{width:100%;border-collapse:collapse;margin-top:12px}
-  th,td{border:1px solid var(--fca-grey-300);padding:12px;text-align:left}
-  th{background:var(--fca-blue);color:#fff}
-  tr:hover{background:var(--fca-grey-100)}
-  .progress-bar{background:#e0e3e7;height:28px;border-radius:16px;overflow:hidden;margin:10px 0 22px}
-  .progress-fill{background:linear-gradient(90deg,var(--fca-blue),var(--fca-blue-600));height:100%;width:0%;color:#fff;text-align:center;font-weight:700;display:flex;align-items:center;justify-content:center;transition:width .35s ease}
-  .checklist-item{background:#f8f9fa;padding:12px;border-radius:10px;margin:10px 0;display:flex;align-items:center;gap:12px;cursor:pointer}
-  .checklist-item.checked{background:#d4edda;border-left:4px solid var(--good)}
-  .checkbox{width:22px;height:22px;border:2px solid var(--fca-blue);border-radius:5px;display:flex;align-items:center;justify-content:center}
-  .checklist-item.checked .checkbox{background:var(--good);border-color:var(--good)}
-  .checklist-item.checked .checkbox::after{content:"✓";color:#fff;font-weight:700}
-
-  /* Link styling: not underlined by default */
-  a{color:var(--accent);text-decoration:none}
-  a:hover{color:#0b60d7;text-decoration:underline}
-
-  /* Utility: make only the specific link text clickable */
-  .link{color:var(--accent);text-decoration:none}
-  .link:hover{text-decoration:underline}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛡️ Using Microsoft Copilot</title>
+    <style>
+        /* Existing styles retained */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333;
+               background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 20px;
+                     box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; text-align: center; }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .header p { font-size: 1.1em; opacity: 0.9; }
+        .content { padding: 40px; }
+        .section { margin-bottom: 30px; border: 2px solid #e0e0e0; border-radius: 10px; overflow: hidden; transition: all 0.3s ease; }
+        .section:hover { border-color: #667eea; box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2); }
+        .section-header { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 20px; cursor: pointer;
+                          display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 1.2em; }
+        .section-header:hover { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .section-header .icon { font-size: 1.5em; transition: transform 0.3s ease; }
+        .section.active .section-header .icon { transform: rotate(180deg); }
+        .section-content { display: none; padding: 20px; }
+        .section.active .section-content { display: block; animation: slideDown 0.3s ease; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .example-box { background: #e7f3ff; border-left: 4px solid #2196F3; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .checklist-item { padding: 15px; margin: 10px 0; background: #f8f9fa; border-radius: 8px; cursor: pointer; display: flex; align-items: center; }
+        .checklist-item.checked { background: #d4edda; border-left: 4px solid #28a745; }
+        .checklist-item .checkbox { width: 24px; height: 24px; border: 2px solid #667eea; border-radius: 4px; margin-right: 15px; display: flex; align-items: center; justify-content: center; }
+        .checklist-item.checked .checkbox { background: #28a745; border-color: #28a745; }
+        .checklist-item.checked .checkbox::after { content: '✓'; color: white; font-weight: bold; }
+        .progress-bar { background: #e0e0e0; height: 30px; border-radius: 15px; overflow: hidden; margin: 20px 0; }
+        .progress-fill { background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); height: 100%; width: 0%; transition: width 0.5s ease; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+    </style>
 </head>
 <body>
 <div class="container">
-  <div class="header">
-    <h1>FCA Copilot Guide</h1>
-    <p>Using Microsoft Copilot responsibly and effectively in financial crime-related work</p>
-  </div>
+    <div class="header">
+        <h1>🛡️ Using Microsoft Copilot</h1>
+        <p>Your guide to using Copilot responsibly and effectively in financial crime-related work</p>
+    </div>
 
-  <div class="content">
-    <div class="progress-bar"><div class="progress-fill" id="progressBar">0% Complete</div></div>
-
-    <!-- ✅ Introduction -->
-    <details class="section" open>
-      <summary>📚 Introduction to Copilot</summary>
-      <div class="section-content">
-        <p><strong>Important:</strong> This guide covers appropriate use, key sensitivities, and compliance considerations when using Microsoft Copilot at the FCA.</p>
-        <p>Copilot is an AI-powered assistant integrated across Microsoft 365 applications. It can help with research, writing, data analysis, and productivity tasks.</p>
-      </div>
-    </details>
-
-    <!-- ✅ Appropriate Uses -->
-    <details class="section">
-      <summary>✅ Appropriate Uses</summary>
-      <div class="section-content">
-        <ul>
-          <li><strong>Regulatory Research:</strong> Understand financial crime regulations.
-            <div class="example-box">Example: “Explain the key requirements of the Money Laundering Regulations 2017.”</div>
-          </li>
-          <li><strong>Document Drafting:</strong> Draft policy papers and guidance.
-            <div class="example-box">Example: “Help me draft an outline for guidance on fraud prevention controls.”</div>
-          </li>
-        </ul>
-      </div>
-    </details>
-
-    <!-- ✅ Important Restrictions -->
-    <details class="section">
-      <summary>⚠️ Important Restrictions</summary>
-      <div class="section-content">
-        <div class="danger-box">
-          <h4>🚫 NEVER input:</h4>
-          <ul>
-            <li>Personal data</li>
-            <li>Confidential firm information</li>
-            <li>Market-sensitive data</li>
-          </ul>
+    <div class="content">
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar">0% Complete</div>
         </div>
-        <div class="danger-box">
-          <h4>⚖️ CPIA 1996 Warning</h4>
-          <p>Do not use Copilot for live enforcement work unless authorised. Material generated may be disclosable in criminal proceedings.</p>
+
+        <!-- FCA Phrase Bank -->
+        <div class="section">
+            <div class="section-header">
+                <span>🗣 Recommended FCA Phrases</span>
+                <span class="icon">▼</span>
+            </div>
+            <div class="section-content">
+                <p><strong>Use these phrases to maintain regulatory clarity:</strong></p>
+                <div class="example-box">"Ensure communications are clear, fair, and not misleading."</div>
+                <div class="example-box">"In line with FCA guidance on financial crime controls."</div>
+                <div class="example-box">"Proportionate to the risk and consistent with regulatory expectations."</div>
+                <div class="example-box">"Apply robust governance and oversight in line with FCA principles."</div>
+            </div>
         </div>
-      </div>
-    </details>
 
-    <!-- ✅ Interactive Scenarios -->
-    <details class="section">
-      <summary>🎯 Interactive Scenarios</summary>
-      <div class="section-content">
-        <details class="scenario-card">
-          <summary class="scenario-head">Scenario 3: Weekly Team Catch-up</summary>
-          <div class="scenario-body">
-            <span class="badge warning">⚠️ DEPENDS ON CONTEXT</span>
-            <p><strong>Copilot Transcribe vs Teams Recording:</strong></p>
-            <ul>
-              <li>Transcribe auto-deletes after 7 days.</li>
-              <li>Recording creates a permanent file subject to FCA retention rules.</li>
-            </ul>
-            <p><strong>If recording:</strong> Inform participants, store in approved locations, never record enforcement meetings without authorisation.</p>
-          </div>
-        </details>
-      </div>
-    </details>
-
-    <!-- ✅ Checklist -->
-    <details class="section">
-      <summary>📝 Pre-Use Checklist</summary>
-      <div class="section-content">
-        <div class="checklist-item"><div class="checkbox"></div>Am I working on live enforcement matters?</div>
-        <div class="checklist-item"><div class="checkbox"></div>Is this task relevant to my role?</div>
-        <div class="checklist-item"><div class="checkbox"></div>Am I using only cleared information?</div>
-      </div>
-    </details>
-
-    <!-- ✅ Choosing Copilot -->
-    <details class="section">
-      <summary>🔧 Choosing the Right Copilot</summary>
-      <div class="section-content">
-        <div class="table-container">
-          <table>
-            <thead><tr><th>Task</th><th>Copilot</th><th>Why</th></tr></thead>
-            <tbody>
-              <tr><td>Research regulations</td><td>🌐 Web Copilot</td><td>Public info</td></tr>
-              <tr><td>Draft policy</td><td>📝 Word Copilot</td><td>Works with your doc</td></tr>
-            </tbody>
-          </table>
+        <!-- Enhanced Checklist -->
+        <div class="section">
+            <div class="section-header">
+                <span>✓ Pre-Use Checklist</span>
+                <span class="icon">▼</span>
+            </div>
+            <div class="section-content">
+                <p><strong>Before using Copilot, check each item (click to mark as complete):</strong></p>
+                <div class="checklist-item"><div class="checkbox"></div><div>Am I working on live operations or enforcement matters? (If YES, do NOT use Copilot - CPIA 1996 disclosure risks)</div></div>
+                <div class="checklist-item"><div class="checkbox"></div><div>Is this task relevant to my role and responsibilities?</div></div>
+                <div class="checklist-item"><div class="checkbox"></div><div>Am I using only public or appropriately cleared information?</div></div>
+                <div class="checklist-item"><div class="checkbox"></div><div>Have I verified there's no personal or confidential data?</div></div>
+                <div class="checklist-item"><div class="checkbox"></div><div>Is using Copilot proportionate to this task?</div></div>
+                <div class="checklist-item"><div class="checkbox"></div><div>Will I verify and review all Copilot outputs?</div></div>
+                <div class="checklist-item"><div class="checkbox"></div><div>Have I used language that is clear, fair, and not misleading?</div></div>
+                <div class="checklist-item"><div class="checkbox"></div><div>Does this output align with FCA principles?</div></div>
+            </div>
         </div>
-      </div>
-    </details>
-
-    <!-- ✅ Copilot Transcribe Rules -->
-    <details class="section">
-      <summary>⚠️ Copilot Transcribe Rules</summary>
-      <div class="section-content">
-        <div class="warning-box">
-          <h4>📹 Recording vs Transcribe</h4>
-          <p>Recording is permanent and subject to FCA retention and disclosure obligations.</p>
-        </div>
-      </div>
-    </details>
-
-    <!-- ✅ FCA Phrase Bank -->
-    <details class="section">
-      <summary>🗣 FCA Phrase Bank</summary>
-      <div class="section-content">
-        <div class="example-box">“Ensure communications are clear, fair, and not misleading.”</div>
-        <div class="example-box">“Present information in a balanced way, avoiding exaggeration or omission.”</div>
-        <div class="example-box">“Use plain language and explain material risks, assumptions, and limitations.”</div>
-        <div class="example-box">“Substantiate claims with reliable evidence and disclose sources where appropriate.”</div>
-      </div>
-    </details>
-
-    <!-- ✅ Prompt Library -->
-    <details class="section">
-      <summary>📚 Copilot Prompt Library</summary>
-      <div class="section-content">
-        <p>
-          <a class="link" href="https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library the Copilot Prompt Library
-          </a>
-        </p>
-      </div>
-    </details>
-
-    <!-- ✅ G.C.S.E. Prompt Builder -->
-    <details class="section">
-      <summary>🛠️ G.C.S.E. Prompt Builder</summary>
-      <div class="section-content">
-        <p>Goal, Context, Source, Expectations framework for effective prompts.</p>
-      </div>
-    </details>
-
-    <!-- ✅ Golden Rules -->
-    <details class="section">
-      <summary>⚖️ Golden Rules &amp; Compliance</summary>
-      <div class="section-content">
-        <ul>
-          <li>Copilot prompts can be disclosable under FOIA until auto-deleted (~48 hours). Avoid sensitive content in prompts.</li>
-          <li><strong>Disclosure obligations:</strong> Under CPIA 1996, any material generated during enforcement or investigations may be subject to disclosure in criminal proceedings.</li>
-          <li>Always review and verify Copilot’s responses; cross-reference with trusted sources.</li>
-          <li>
-            Handle information in line with
-            <a class="link" href="https://thefca.sharepoint.com/sites/Tra/Information%20and%20Insight/Forms/AllItems.aspx?id=/sites/Tra/Information%20and%20Insight/Information%20Management/Information%20Management%20Policy%20refresh/Records_Mangement_Guidance_20230414_V1.3.pdf" target="_blank" rel(PDF)
-            </a>.
-            For AI standards and policies, visit the
-            <a class="link" href="https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot.aspx" target="_blank" rel="noopener noreferrer">
-  </ul>
-      </div>
-    </details>
-
-    <!-- ✅ Quick Links -->
-    <details class="section">
-      <summary>🔗 Quick Links</summary>
-      <div class="section-content">
-        <ul>
-          <li>
-            <a class="link" href="https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspx" target="_blank" rel       </a>
-          </li>
-          <li>
-            <a class="link" href="https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot.aspx" target="_blank" rel="noopener noreferrer      <li>
-            <a class="link" href="https://thefca.sharepoint.com/sites/Tra/Information%20and%20Insight/Forms/AllItems.aspx?id=/sites/Tra/Information%20and%20Insight/Information%20Management/Information%20Management%ords_Mangement_Guidance_20230414_V1.3.pdf
-              Records Management Guidance (PDF)
-            </a>
-          </li>
-        </ul>
-      </div>
-    </details>
-
-    <!-- ✅ Best Practice Summary -->
-    <details class="section" open>
-      <summary>✅ Best Practice Summary</summary>
-      <div class="section-content">
-        <ul>
-          <li>Inform participants before using Transcribe or recording; obtain clear consent.</li>
-          <li>Do not input personal, confidential, market-sensitive, or privileged data into Copilot.</li>
-          <li>Verify and fact-check outputs; apply “clear, fair, not misleading”.</li>
-          <li>Follow FCA retention and disclosure rules for recordings and AI-generated material.</li>
-        </ul>
-      </div>
-    </details>
-  </div>
+    </div>
 </div>
 
 <script>
-const items = document.querySelectorAll('.checklist-item');
-const progressBar = document.getElementById('progressBar');
-function updateProgress(){
-  const total = items.length;
-  const checked = document.querySelectorAll('.checklist-item.checked').length;
-  const pct = total ? Math.round((checked/total)*100) : 0;
-  progressBar.style.width = pct + '%';
-  progressBar.textContent = pct + '% Complete';
-}
-items.forEach(i => { i.addEventListener('click', () => { i.classList.toggle('checked'); updateProgress(); }); });
-updateProgress();
+    // Section toggle
+    document.querySelectorAll('.section-header').forEach(header => {
+        header.addEventListener('click', function(e) {
+            e.preventDefault();
+            const section = this.parentElement;
+            section.classList.toggle('active');
+
+            // Dynamic phrase suggestion
+            if (section.classList.contains('active')) {
+                const phrases = [
+                    "Tip: Ensure clarity and fairness in all outputs.",
+                    "Tip: Avoid jargon; use plain language.",
+                    "Tip: Reference FCA guidance where relevant."
+                ];
+                const suggestionBox = document.createElement('div');
+                suggestionBox.className = 'example-box';
+                suggestionBox.textContent = phrases[Math.floor(Math.random() * phrases.length)];
+                section.querySelector('.section-content').appendChild(suggestionBox);
+            }
+        });
+    });
+
+    // Checklist functionality
+    const checklistItems = document.querySelectorAll('.checklist-item');
+    checklistItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            this.classList.toggle('checked');
+            updateProgress();
+        });
+    });
+
+    // Progress bar update
+    function updateProgress() {
+        const total = checklistItems.length;
+        const checked = document.querySelectorAll('.checklist-item.checked').length;
+        const percentage = Math.round((checked / total) * 100);
+        const progressBar = document.getElementById('progressBar');
+        progressBar.style.width = percentage + '%';
+        progressBar.textContent = percentage + '% Complete';
+    }
+    updateProgress();
 </script>
 </body>
 </html>
