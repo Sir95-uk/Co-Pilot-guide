@@ -13,7 +13,7 @@
         color: #333;
     }
     .container {
-        max-width: 1000px; margin: auto;
+        max-width: 1100px; margin: auto;
         background: #fff; border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         overflow: hidden;
@@ -22,12 +22,12 @@
         background: #004080; color: #fff;
         text-align: center; padding: 30px;
     }
-    .header h1 { margin-bottom: 10px; font-size: 2em; }
+    .header h1 { margin-bottom: 10px; font-size: 2.2em; }
     .header p { font-size: 1.1em; opacity: 0.9; }
     .content { padding: 30px; }
     .section {
-        border: 1px solid #ddd; border-radius: 8px;
-        margin-bottom: 20px; overflow: hidden;
+        background: #fff; border-radius: 8px;
+        margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     .section-header {
         background: #f0f2f5; padding: 15px;
@@ -68,6 +68,15 @@
     }
     .checklist-item.checked .checkbox { background: #28a745; border-color: #28a745; }
     .checklist-item.checked .checkbox::after { content: '✓'; color: #fff; font-weight: bold; }
+    table {
+        width: 100%; border-collapse: collapse; margin-top: 15px;
+    }
+    th, td {
+        padding: 12px; border: 1px solid #ddd; text-align: left;
+    }
+    th {
+        background: #004080; color: #fff;
+    }
     a { color: #004080; text-decoration: underline; }
 </style>
 </head>
@@ -80,7 +89,18 @@
     <div class="content">
         <div class="progress-bar"><div class="progress-fill" id="progressBar">0% Complete</div></div>
 
-        <!-- FCA Phrases -->
+        <!-- Introduction -->
+        <div class="section">
+            <div class="section-header">
+                <span>📚 Introduction to Copilot</span><span class="icon">▼</span>
+            </div>
+            <div class="section-content">
+                <p><strong>Important:</strong> This guide covers appropriate use, key sensitivities, and compliance considerations when using Microsoft Copilot at the FCA.</p>
+                <p>Copilot is an AI-powered assistant integrated across Microsoft 365 applications. It can help with research, writing, data analysis, and productivity tasks.</p>
+            </div>
+        </div>
+
+        <!-- FCA Phrase Bank -->
         <div class="section">
             <div class="section-header">
                 <span>🗣 Recommended FCA Phrases</span><span class="icon">▼</span>
@@ -98,11 +118,11 @@
                 <span>📚 Copilot Prompt Library & How to Contribute</span><span class="icon">▼</span>
             </div>
             <div class="section-content">
-                <p>Access the <a href="https://thepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspxCopilot Prompt Library</a> and share your best prompts:</p>
+                <p>Access the <a href="https://thefca.sharepoint.com/sites/KMWiki/SitePagesPrompt-Library.aspxCopilot Prompt Library</a> and share your best prompts:</p>
                 <ul>
                     <li>Identify a useful prompt.</li>
                     <li>Describe its purpose.</li>
-                    <li>Email to <a href="mailto:SmarterRegulatorukSmarterRegulator@fca.org.uk</a>.</li>
+                    <li>Email to mailto:SmarterRegulator@fca.org.ukSmarterRegulator@fca.org.uk</a>.</li>
                 </ul>
             </div>
         </div>
@@ -134,17 +154,22 @@
             </div>
         </div>
 
-        <!-- Compliance -->
+        <!-- Choosing the Right Copilot -->
         <div class="section">
             <div class="section-header">
-                <span>⚖️ Golden Rules & Compliance</span><span class="icon">▼</span>
+                <span>🔧 Choosing the Right Copilot</span><span class="icon">▼</span>
             </div>
             <div class="section-content">
-                <ul>
-                    <li>Prompts may be disclosable under FOIA until deleted after 48 hours.</li>
-                    <li>Always verify Copilot outputs.</li>
-                    <li>Follow <a href="https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot.aspx" target="_blank">Copilot Hub</a>.</li>
-       </div>
+                <table>
+                    <thead>
+                        <tr><th>Task</th><th>Copilot</th><th>Why</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Research financial crime regulations</td><td>🌐 Web Copilot</td><td>Public information</td></tr>
+                        <tr><td>Draft a policy document</td><td>📝 Word Copilot</td><td>Works with your document</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
