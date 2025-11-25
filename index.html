@@ -19,7 +19,6 @@
     --warn:#ffc107;
     --bad:#dc3545;
   }
-  *{box-sizing:border-box}
   body{
     margin:0;
     background:var(--fca-grey-50);
@@ -44,9 +43,7 @@
   }
   .header h1{margin:0 0 6px;font-size:2.2rem}
   .header p{margin:0;opacity:.9}
-
   .content{padding:28px}
-
   details.section{
     background:var(--card);
     border:1px solid var(--fca-grey-300);
@@ -55,88 +52,40 @@
     margin:18px 0;
     overflow:hidden;
   }
-  details.section[open]{box-shadow:0 6px 18px rgba(0,0,0,.08)}
   summary{
     list-style:none;
     cursor:pointer;
     display:flex;
-    align-items:center;
     justify-content:space-between;
-    gap:12px;
+    align-items:center;
     background:var(--fca-grey-100);
     padding:16px 18px;
     font-weight:600;
     font-size:1.05rem;
-    position:relative;
-    outline:none;
   }
   summary::-webkit-details-marker{display:none}
-  summary .title{display:flex;align-items:center;gap:10px}
-  summary .title .dot{
-    width:10px;height:10px;border-radius:50%;background:var(--fca-blue);
-    box-shadow:0 0 0 3px rgba(26,115,232,.15);
-  }
-  summary::after{
-    content:"▼";
-    font-size:1.1rem;
-    color:var(--fca-blue);
-    transition:.2s transform ease;
-  }
-  details[open] summary::after{content:"▲";transform:translateY(-1px)}
-  .section-content{padding:18px 20px;animation:fadeIn .2s ease}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
-
-  .example-box{
-    background:#e7f3ff;
-    border-left:4px solid var(--accent);
-    padding:12px 14px;
-    border-radius:8px;
-    margin:12px 0;
-  }
-  .danger-box{
-    background:#f8d7da;border-left:4px solid var(--bad);
-    padding:12px 14px;border-radius:8px;margin:14px 0;
-  }
-  .warning-box{
-    background:#fff3cd;border-left:4px solid var(--warn);
-    padding:12px 14px;border-radius:8px;margin:14px 0;
-  }
+  summary::after{content:"▼";color:var(--fca-blue)}
+  details[open] summary::after{content:"▲"}
+  .section-content{padding:18px 20px}
+  .example-box{background:#e7f3ff;border-left:4px solid var(--accent);padding:12px;margin:12px 0;border-radius:8px}
+  .danger-box{background:#f8d7da;border-left:4px solid var(--bad);padding:12px;margin:14px 0;border-radius:8px}
+  .warning-box{background:#fff3cd;border-left:4px solid var(--warn);padding:12px;margin:14px 0;border-radius:8px}
   .badge{display:inline-block;padding:6px 10px;border-radius:16px;font-weight:600;font-size:.9rem;margin:6px 0}
   .good{background:#d4edda;color:#1f6f2d}
   .bad{background:#f8d7da;color:#832025}
   .warning{background:#fff3cd;color:#6b5200}
-
   .table-container{overflow-x:auto}
-  table{width:100%;border-collapse:collapse;background:#fff;margin-top:12px}
+  table{width:100%;border-collapse:collapse;margin-top:12px}
   th,td{border:1px solid var(--fca-grey-300);padding:12px;text-align:left}
   th{background:var(--fca-blue);color:#fff}
-  tr:hover{background:var(--fca-grey-100)}
-
   .progress-bar{background:#e0e3e7;height:28px;border-radius:16px;overflow:hidden;margin:10px 0 22px}
-  .progress-fill{background:linear-gradient(90deg,var(--fca-blue),var(--fca-blue-600));height:100%;width:0%;
-    color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;transition:width .35s ease}
-  .checklist-item{
-    background:#f8f9fa;padding:12px;border-radius:10px;margin:10px 0;
-    display:flex;align-items:center;gap:12px;cursor:pointer;transition:.15s background ease
-  }
-  .checklist-item:hover{background:#eef2f6}
+  .progress-fill{background:linear-gradient(90deg,var(--fca-blue),var(--fca-blue-600));height:100%;width:0%;color:#fff;text-align:center;font-weight:700;transition:width .35s ease}
+  .checklist-item{background:#f8f9fa;padding:12px;border-radius:10px;margin:10px 0;display:flex;align-items:center;gap:12px;cursor:pointer}
   .checklist-item.checked{background:#d4edda;border-left:4px solid var(--good)}
-  .checkbox{
-    width:22px;height:22px;border:2px solid var(--fca-blue);border-radius:5px;display:flex;
-    align-items:center;justify-content:center;flex-shrink:0
-  }
+  .checkbox{width:22px;height:22px;border:2px solid var(--fca-blue);border-radius:5px;display:flex;align-items:center;justify-content:center}
   .checklist-item.checked .checkbox{background:var(--good);border-color:var(--good)}
   .checklist-item.checked .checkbox::after{content:"✓";color:#fff;font-weight:700}
   a{color:var(--accent);text-decoration:underline}
-  a:hover{color:#0b60d7}
-
-  .scenario-card{
-    border:1px solid var(--fca-grey-300);
-    border-radius:10px;margin:12px 0;overflow:hidden;background:#fff;
-    box-shadow:0 2px 8px rgba(0,0,0,.05)
-  }
-  .scenario-head{padding:14px 16px;background:#f0f2f5;font-weight:600}
-  .scenario-body{padding:14px 16px}
 </style>
 </head>
 <body>
@@ -145,66 +94,60 @@
     <h1>FCA Copilot Guide</h1>
     <p>Using Microsoft Copilot responsibly and effectively in financial crime-related work</p>
   </div>
-
   <div class="content">
     <div class="progress-bar"><div class="progress-fill" id="progressBar">0% Complete</div></div>
 
-    <!-- Interactive Scenarios with updated Scenario 3 -->
+    <!-- Interactive Scenarios -->
     <details class="section">
-      <summary><span class="title"><span class="dot"></span> 🎯 Interactive Scenarios</span></summary>
+      <summary>🎯 Interactive Scenarios</summary>
       <div class="section-content">
-        <!-- Scenario 3 updated -->
         <details class="scenario-card">
-          <summary class="scenario-head">Scenario 3: Weekly Team Catch‑up</summary>
+          <summary class="scenario-head">Scenario 3: Weekly Team Catch-up</summary>
           <div class="scenario-body">
             <span class="badge warning">⚠️ DEPENDS ON CONTEXT</span>
-            <p><strong>Decision factors:</strong></p>
+            <p><strong>Copilot Transcribe vs Teams Recording:</strong></p>
             <ul>
-              <li>Is there a clear benefit to transcription or recording?</li>
-              <li>Will sensitive information be discussed?</li>
-              <li>Have all participants been informed and agreed?</li>
+              <li>Transcribe auto-deletes after 7 days.</li>
+              <li>Recording creates a permanent file subject to FCA retention rules.</li>
             </ul>
-            <p><strong>Important distinction:</strong></p>
-            <ul>
-              <li><strong>Copilot Transcribe</strong> auto‑deletes after 7 days (extract key points only).</li>
-              <li><strong>Recording in Teams</strong> creates a permanent file subject to FCA retention and disclosure rules.</li>
-            </ul>
-            <p><strong>If recording is necessary:</strong></p>
-            <ul>
-              <li>Inform participants clearly at the start.</li>
-              <li>Store recordings only in approved locations (e.g., SharePoint with correct classification).</li>
-              <li>Do not record enforcement or sensitive meetings unless authorised.</li>
-            </ul>
+            <p><strong>If recording:</strong> Inform participants, store in approved locations, never record enforcement meetings without authorisation.</p>
           </div>
         </details>
-        <!-- Other scenarios remain unchanged -->
       </div>
     </details>
 
-    <!-- Copilot Transcribe Rules updated -->
+    <!-- Copilot Transcribe Rules -->
     <details class="section">
-      <summary><span class="title"><span class="dot"></span> ⚠️ Copilot Transcribe Rules</span></summary>
+      <summary>⚠️ Copilot Transcribe Rules</summary>
       <div class="section-content">
         <div class="warning-box">
-          <h4>🔔 REQUIREMENT: Inform all participants</h4>
-          <p>You MUST tell all meeting participants at the start that you are using Copilot Transcribe.</p>
-        </div>
-        <div class="danger-box">
-          <h4>⏰ 7‑Day Auto‑Delete</h4>
-          <p>Copilot Transcribe deletes transcripts after 7 calendar days. Extract only what’s needed before deletion.</p>
-        </div>
-        <div class="danger-box">
-          <h4>🚫 Do NOT use Transcribe for meetings containing:</h4>
-          <ul>
-            <li>Personal data</li>
-            <li>Confidential firm information</li>
-            <li>Enforcement matters</li>
-          </ul>
-        </div>
-        <div class="warning-box">
           <h4>📹 Recording vs Transcribe</h4>
-          <p>Recording a Teams meeting is different from using Transcribe. Recordings are permanent and subject to FCA retention and disclosure obligations. Only record if authorised and store in approved locations.</p>
+          <p>Recording is different from Transcribe. Recordings are permanent and subject to FCA retention and disclosure obligations.</p>
         </div>
+      </div>
+    </details>
+
+    <!-- Best Practice Summary -->
+    <details class="section" open>
+      <summary>✅ Best Practice Summary</summary>
+      <div class="section-content">
+        <ul>
+          <li>Always inform participants before using Transcribe or recording.</li>
+          <li>Never input personal or confidential data into Copilot.</li>
+          <li>Verify all outputs; apply FCA principles: clear, fair, not misleading.</li>
+          <li>Use Copilot only for tasks relevant to your role.</li>
+          <li>Follow FCA retention and disclosure rules for recordings.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Quick Links -->
+    <details class="section">
+      <summary>🔗 Quick Links</summary>
+      <div class="section-content">
+        <ul>
+          <li><a href="https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspx" target="_blank">Copilot Prompt Libraryhref="https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot.aspx" target="_blank">Copilot><a href="https://thefca.sharepoint.com/sites/Tra/Information%20and%20Insight/Forms/AllItems.aspx?id=/sites/Tra/Information%20and%20Insight/Information%20Management/Information%20Management%20Policy%20refresh/Records_Mangement_Guidance_20230414_V1.3.pdf" target="_blank">Recordsi>
+        </ul>
       </div>
     </details>
   </div>
