@@ -4,90 +4,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🛡️ Using Microsoft Copilot</title>
+<title>FCA Copilot Guide</title>
 <style>
     body {
-        font-family: 'Segoe UI', Tahoma, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        margin: 0; padding: 20px; color: #333;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: #f4f6f8;
+        margin: 0; padding: 20px;
+        color: #333;
     }
     .container {
-        max-width: 900px; margin: auto; background: #fff;
-        border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        max-width: 1000px; margin: auto;
+        background: #fff; border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         overflow: hidden;
     }
     .header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: #fff; text-align: center; padding: 30px;
+        background: #004080; color: #fff;
+        text-align: center; padding: 30px;
     }
     .header h1 { margin-bottom: 10px; font-size: 2em; }
+    .header p { font-size: 1.1em; opacity: 0.9; }
     .content { padding: 30px; }
     .section {
-        border: 1px solid #ddd; border-radius: 8px; margin-bottom: 20px;
-        overflow: hidden;
+        border: 1px solid #ddd; border-radius: 8px;
+        margin-bottom: 20px; overflow: hidden;
     }
     .section-header {
-        background: #f5f7fa; padding: 15px; font-weight: bold;
-        display: flex; justify-content: space-between; align-items: center;
+        background: #f0f2f5; padding: 15px;
+        font-weight: bold; display: flex;
+        justify-content: space-between; align-items: center;
         cursor: pointer; font-size: 1.1em;
     }
-    .section-header:hover {
-        background: #667eea; color: #fff;
-    }
+    .section-header:hover { background: #004080; color: #fff; }
     .icon { font-size: 1.3em; transition: transform 0.3s ease; }
     .section-content {
-        display: none; padding: 20px; animation: fadeIn 0.3s ease;
+        display: none; padding: 20px;
+        animation: fadeIn 0.3s ease;
     }
     .section.active .section-content { display: block; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     .example-box {
-        background: #e7f3ff; border-left: 4px solid #2196F3;
+        background: #e7f3ff; border-left: 4px solid #004080;
         padding: 10px; margin: 10px 0; border-radius: 5px;
     }
-    ul { margin-left: 20px; }
-    li { margin-bottom: 8px; }
     .progress-bar {
-        background: #eee; height: 25px; border-radius: 15px; overflow: hidden; margin-bottom: 20px;
+        background: #eee; height: 25px; border-radius: 15px;
+        overflow: hidden; margin-bottom: 20px;
     }
     .progress-fill {
-        background: linear-gradient(90deg, #667eea, #764ba2);
-        height: 100%; width: 0%; color: #fff; text-align: center; font-weight: bold;
+        background: #004080; height: 100%; width: 0%;
+        color: #fff; text-align: center; font-weight: bold;
         transition: width 0.4s ease;
     }
     .checklist-item {
-        background: #f8f9fa; padding: 10px; margin: 8px 0; border-radius: 6px;
-        display: flex; align-items: center; cursor: pointer;
+        background: #f8f9fa; padding: 10px; margin: 8px 0;
+        border-radius: 6px; display: flex; align-items: center;
+        cursor: pointer;
     }
     .checklist-item.checked { background: #d4edda; border-left: 4px solid #28a745; }
     .checkbox {
-        width: 20px; height: 20px; border: 2px solid #667eea; margin-right: 10px;
-        display: flex; align-items: center; justify-content: center;
+        width: 20px; height: 20px; border: 2px solid #004080;
+        margin-right: 10px; display: flex; align-items: center; justify-content: center;
     }
     .checklist-item.checked .checkbox { background: #28a745; border-color: #28a745; }
     .checklist-item.checked .checkbox::after { content: '✓'; color: #fff; font-weight: bold; }
-    a { color: #667eea; text-decoration: underline; }
+    a { color: #004080; text-decoration: underline; }
 </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <h1>🛡️ Using Microsoft Copilot</h1>
-        <p>Your guide to using Copilot responsibly and effectively in financial crime-related work</p>
+        <h1>FCA Copilot Guide</h1>
+        <p>Using Microsoft Copilot responsibly and effectively in financial crime-related work</p>
     </div>
     <div class="content">
         <div class="progress-bar"><div class="progress-fill" id="progressBar">0% Complete</div></div>
 
-        <!-- FCA Phrase Bank -->
+        <!-- FCA Phrases -->
         <div class="section">
             <div class="section-header">
                 <span>🗣 Recommended FCA Phrases</span><span class="icon">▼</span>
             </div>
             <div class="section-content">
-                <p><strong>Use these phrases to maintain regulatory clarity:</strong></p>
                 <div class="example-box">"Ensure communications are clear, fair, and not misleading."</div>
                 <div class="example-box">"In line with FCA guidance on financial crime controls."</div>
                 <div class="example-box">"Proportionate to the risk and consistent with regulatory expectations."</div>
-                <div class="example-box">"Apply robust governance and oversight in line with FCA principles."</div>
             </div>
         </div>
 
@@ -97,13 +98,13 @@
                 <span>📚 Copilot Prompt Library & How to Contribute</span><span class="icon">▼</span>
             </div>
             <div class="section-content">
-                <p>The <a href="https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspx" target="_blank">Copilot Prompt Library</a> is a living resource of effective prompts and use cases.</p>
-              <li>Identify a prompt that works well for you.</li>
-                    <li>Describe what it does (e.g., summarising reports).</li>
-                    <li>Paste your full prompt (make it generic).</li>
-                    <li>Email to <a href="mailto:SmarterRegulator@fca.org.uk">SmarterRegulator@fca.orgi>
+                <p>Access the <a href="https://thepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspxCopilot Prompt Library</a> and share your best prompts:</p>
+                <ul>
+                    <li>Identify a useful prompt.</li>
+                    <li>Describe its purpose.</li>
+                    <li>Email to <a href="mailto:SmarterRegulatorukSmarterRegulator@fca.org.uk</a>.</li>
                 </ul>
-                <p><a href="https://thefca.sharepoint.com/sites/PROJ_SmarterReg/Shared%20Documents/Quick%20Wins%20(CH4)/Copilot%20Prompts%20library%20100825.xlsx" target="_blank">Browse the Excel Prompt Library>
+            </div>
         </div>
 
         <!-- G.C.S.E. Framework -->
@@ -112,14 +113,12 @@
                 <span>🛠️ How to Write a Good Prompt (G.C.S.E. Framework)</span><span class="icon">▼</span>
             </div>
             <div class="section-content">
-                <p>The <strong>G.C.S.E. prompt builder</strong> helps you get the best from Copilot:</p>
                 <ul>
-                    <li><strong>Goal:</strong> What do you want Copilot to do?<br><div class="example-box">Example: "Summarise this FCA policy document for a non-technical audience."</div></li>
-                    <li><strong>Context:</strong> Why do you need this?<br><div class="example-box">Example: "This summary will be shared with new joiners in the Financial Crime team."</div></li>
-                    <li><strong>Source:</strong> Where should Copilot look?<br><div class="example-box">Example: "Use only the attached document and FCA website."</div></li>
-                    <li><strong>Expectations:</strong> How should the output look?<br><div class="example-box">Example: "Present as bullet points, using clear, fair, and not misleading language."</div></li>
+                    <li><strong>Goal:</strong> What do you want Copilot to do?<br><div class="example-box">Example: "Summarise FCA policy for non-technical audience."</div></li>
+                    <li><strong>Context:</strong> Why do you need this?<br><div class="example-box">Example: "For onboarding new Financial Crime team members."</div></li>
+                    <li><strong>Source:</strong> Where should Copilot look?<br><div class="example-box">Example: "Use attached FCA guidance only."</div></li>
+                    <li><strong>Expectations:</strong> How should it look?<br><div class="example-box">Example: "Bullet points, clear and fair language."</div></li>
                 </ul>
-                <div class="example-box"><strong>Full Example:</strong><br>"Summarise the attached FCA guidance for new joiners. Use only the document provided. Present the summary as bullet points in plain English, ensuring all points are clear, fair, and not misleading."</div>
             </div>
         </div>
 
@@ -129,37 +128,28 @@
                 <span>✓ Pre-Use Checklist</span><span class="icon">▼</span>
             </div>
             <div class="section-content">
-                <p><strong>Click to mark as complete:</strong></p>
-                <div class="checklist-item"><div class="checkbox"></div>Am I working on live operations or enforcement matters?</div>
+                <div class="checklist-item"><div class="checkbox"></div>Am I working on live enforcement matters?</div>
                 <div class="checklist-item"><div class="checkbox"></div>Is this task relevant to my role?</div>
-                <div class="checklist-item"><div class="checkbox"></div>Am I using only public or cleared information?</div>
-                <div class="checklist-item"><div class="checkbox"></div>Have I verified there's no personal or confidential data?</div>
-                <div class="checklist-item"><div class="checkbox"></div>Is using Copilot proportionate to this task?</div>
-                <div class="checklist-item"><div class="checkbox"></div>Will I verify and review all Copilot outputs?</div>
-                <div class="checklist-item"><div class="checkbox"></div>Have I used language that is clear, fair, and not misleading?</div>
-                <div class="checklist-item"><div class="checkbox"></div>Does this output align with FCA principles?</div>
+                <div class="checklist-item"><div class="checkbox"></div>Am I using only cleared information?</div>
             </div>
         </div>
 
         <!-- Compliance -->
         <div class="section">
             <div class="section-header">
-                <span>⚖️ Golden Rules & Compliance Reminders</span><span class="icon">▼</span>
+                <span>⚖️ Golden Rules & Compliance</span><span class="icon">▼</span>
             </div>
             <div class="section-content">
                 <ul>
-                    <li>Copilot prompts may be disclosable under FOIA until deleted after 48 hours.</li>
-                    <li>Always review and verify Copilot’s responses.</li>
-                    <li>Cross-check important info with trusted sources.</li>
-                    <li>Follow <a href="https://thefca.sharepoint.com/sites/Tra/Information%20and%20Insight/Forms/AllItems.aspx?id=/sites/Tra/Information%20and%20Insight/Information%20Management/Information%20Management%20Policy%20refresh/Records_Mangement_Guidance_20230414_V1.3.pdf" target="_blank">Records Management           <li>Report sensitive data issues in <a href="https://fcapsr.corestream.co.uk" target="_blank">CoreStream</a>.</li>
-it the <a href="https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot.aspx" target="_blank">Copilot Hub              </ul>
-            </div>
+                    <li>Prompts may be disclosable under FOIA until deleted after 48 hours.</li>
+                    <li>Always verify Copilot outputs.</li>
+                    <li>Follow <a href="https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot.aspx" target="_blank">Copilot Hub</a>.</li>
+       </div>
         </div>
     </div>
 </div>
 
 <script>
-    // Toggle sections and icons
     document.querySelectorAll('.section-header').forEach(header => {
         header.addEventListener('click', function() {
             const section = this.parentElement;
@@ -168,8 +158,6 @@ it the <a href="https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial
             icon.textContent = section.classList.contains('active') ? '▲' : '▼';
         });
     });
-
-    // Checklist progress
     const checklistItems = document.querySelectorAll('.checklist-item');
     checklistItems.forEach(item => {
         item.addEventListener('click', function() {
