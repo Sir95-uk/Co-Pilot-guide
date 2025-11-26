@@ -60,7 +60,7 @@ body{
 .section.active .section-header .icon{transform:rotate(180deg)}
 .section-content{display:none; padding:20px}
 .section.active .section-content{display:block; animation:slideDown .25s ease}
-@keyframes slideDown{from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)}}
+@keyframes slideDown{from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)}
 
 /* ---------- Cards & Boxes ---------- */
 .copilot-type{background:var(--soft); padding:15px; margin:12px 0; border-left:4px solid var(--accent); border-radius:8px}
@@ -144,19 +144,31 @@ a:hover{text-decoration:underline; color:#4e5fd6}
 
   <div class="content">
 
-    <!-- 1. Introduction -->
+    <!-- 1. Introduction (Trimmed from Copilot 101) -->
     <div class="section active">
-      <div class="section-header"><span>📚 Introduction to Copilot</span><span class="icon">▼</span></div>
+      <div class="section-header"><span>📚 Introduction to Copilot (Essentials)</span><span class="icon">▼</span></div>
       <div class="section-content">
-        <p><strong>Important:</strong> This guide covers appropriate use, key sensitivities, and compliance considerations when using Microsoft Copilot at the FCA.</p>
-        <p>Microsoft Copilot is integrated across Microsoft 365. It can assist with research, drafting, analysis, meeting summaries, and productivity tasks. Choose the right Copilot for the job:</p>
+        <p><strong>Important:</strong> This guide summarises appropriate use, key sensitivities, and compliance considerations when using Microsoft Copilot at the FCA.</p>
+        <div class="example-box">
+          <strong>What is Copilot?</strong> An AI assistant embedded across Microsoft 365 that helps you <em>create</em>, <em>summarise</em>, <em>transform</em>, <em>edit</em>, and <em>analyse</em> within the apps you already use (Word, Excel, PowerPoint, Outlook, Teams, OneNote).
+        </div>
+        <div class="works-box">
+          <strong>Why it helps (from training):</strong>
+          <ul>
+            <li>Reduces time spent searching and drafting; gives back focus time.</li>
+            <li>Improves meetings with recaps and action extraction (where permitted).</li>
+            <li>Works with your existing M365 permissions—private data stays private.</li>
+          </ul>
+        </div>
+
+        <p>Choose the right Copilot for the job:</p>
         <div class="copilot-type"><h3>🌐 Web Copilot</h3><p>Research public information across the web.</p></div>
-        <div class="copilot-type"><h3>📝 Word Copilot</h3><p>Draft and refine documents within the open file.</p></div>
+        <div class="copilot-type"><h3>📝 Word Copilot</h3><p>Draft and refine documents in the open file.</p></div>
         <div class="copilot-type"><h3>📊 Excel Copilot</h3><p>Summarise and chart <em>non‑sensitive</em> datasets in the open workbook.</p></div>
         <div class="copilot-type"><h3>📽️ PowerPoint Copilot</h3><p>Create slides and speaker notes from prompts/documents.</p></div>
         <div class="copilot-type"><h3>🗒️ OneNote Copilot</h3><p>Summarise pages/sections; draft notes and plans.</p></div>
         <div class="copilot-type"><h3>📧 Outlook Copilot</h3><p>Draft replies; summarise threads clearly and fairly.</p></div>
-        <div class="copilot-type"><h3>💬 Teams Copilot</h3><p>Summarise meetings/chats; extract action items.</p></div>
+        <div class="copilot-type"><h3>💬 Teams Copilot</h3><p>Summarise meetings/chats; extract action items (with consent & appropriate use).</p></div>
       </div>
     </div>
 
@@ -170,31 +182,29 @@ a:hover{text-decoration:underline; color:#4e5fd6}
       </div>
     </div>
 
-    <!-- 3. Best Practice Summary -->
+    <!-- 3. Best Practice Summary (Trimmed from Copilot 101) -->
     <div class="section">
       <div class="section-header"><span>✅ Best Practice Summary</span><span class="icon">▼</span></div>
       <div class="section-content">
         <ul>
-          <li>Inform participants before using Transcribe or recording; obtain clear consent.</li>
-          <li>Do not input personal, confidential, market‑sensitive, or privileged data into Copilot.</li>
-          <li>Verify and fact‑check outputs; apply “clear, fair, not misleading”.</li>
-          <li>Use Copilot only for tasks relevant to your role; stay within your remit.</li>
+          <li><strong>Inform participants</strong> before using Transcribe or recording; obtain clear consent.</li>
+          <li><strong>Respect permissions:</strong> Copilot only surfaces content you already have access to.</li>
+          <li><strong>Security & Privacy:</strong> Data remains within our Microsoft 365 tenant; follow FCA policies.</li>
+          <li><strong>Don’t input</strong> personal, confidential, market‑sensitive, privileged or out‑of‑remit data into prompts.</li>
+          <li><strong>Verify & fact‑check outputs;</strong> apply “clear, fair, not misleading”.</li>
+          <li><strong>Use Copilot for work tasks</strong> relevant to your role; stay within remit.</li>
         </ul>
       </div>
     </div>
 
-    <!-- 4. Quick Links -->
+    <!-- 4. Quick Links (fixed anchors) -->
     <div class="section">
       <div class="section-header"><span>🔗 Quick Links</span><span class="icon">▼</span></div>
       <div class="section-content">
         <ul>
-          <li>
-            https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspxCopilot Prompt Library (SharePoint)</a>
-          </li>
-          <!-- Placeholders you can enable later:
-          <li><a href="https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot.aspx" target="_blank></li>
-          <li><a href="https://thefca.sharepoint.com/sites/Tra/Information%20and%20Insight/Forms/AllItems.aspx?id=/sites/Tra/Information%20and%20Insight/Information%20Management/Information%20Management%20Policy%20refresh/Recordst_Guidance_20230414_V1.3.pdfRecords Management Guidance (PDF)</a></li>
-          -->
+          <li><a href="https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspx" target="_blank">Copilot Prompt Library (SharePoint)</://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot.aspxCopilot Hub (Pulse)</a></li>
+          <li>https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot-Learning-Library.aspxCopilot Learning Library (videos, guides)</a></li>
+          <li><a href="https://thefca.sharepoint.com/:p:/r/sites/ProProandPor/_layouts/15/Doc.aspx?sourcedoc=%7B3CB005A3-D576-4B5C-B028-2681C1D3DDB2%7D&file=Copilot%20101%20Training%%20FINAL.pptx&action=edit&mobileredirect=true&DefaultItemOpen=1Copilot 101 Training FCA – FINAL (deck)</a></li>
         </ul>
       </div>
     </div>
@@ -247,10 +257,10 @@ a:hover{text-decoration:underline; color:#4e5fd6}
                 <td>📽️ PowerPoint Copilot</td>
                 <td>Generates slides and speaker notes from prompts or a source document.</td>
                 <td>
-                    <ul>
-                      <li>“Create a 6‑slide deck ‘Fraud Typologies – UK Overview’: agenda, definitions, 3 key trends, controls, summary with next steps.”</li>
-                      <li>“Generate speaker notes for slide 3 in plain language with one public citation.”</li>
-                    </ul>
+                  <ul>
+                    <li>“Create a 6‑slide deck ‘Fraud Typologies – UK Overview’: agenda, definitions, 3 key trends, controls, summary with next steps.”</li>
+                    <li>“Generate speaker notes for slide 3 in plain language with one public citation.”</li>
+                  </ul>
                 </td>
               </tr>
               <tr>
@@ -484,7 +494,7 @@ a:hover{text-decoration:underline; color:#4e5fd6}
       </div>
     </div>
 
-    <!-- 10. Copilot Transcribe Rules -->
+    <!-- 10. Copilot Transcribe Rules (Trimmed from Copilot 101) -->
     <div class="section">
       <div class="section-header"><span>⚠️ Copilot Transcribe Rules</span><span class="icon">▼</span></div>
       <div class="section-content">
@@ -494,7 +504,7 @@ a:hover{text-decoration:underline; color:#4e5fd6}
         </div>
         <div class="danger-box">
           <h4>⏰ 7‑Day Auto‑Delete</h4>
-          <p>Transcripts auto‑delete after 7 days. If retention is needed for legitimate purposes, save proportionate notes to approved systems before 7 days.</p>
+          <p>Transcripts auto‑delete after 7 days. If retention is needed, review for accuracy and save proportionate notes to approved repositories before expiry.</p>
         </div>
         <div class="danger-box">
           <h4>🚫 Do NOT use Transcribe for meetings containing:</h4>
@@ -506,6 +516,7 @@ a:hover{text-decoration:underline; color:#4e5fd6}
             <li>Legally privileged communications</li>
           </ul>
         </div>
+        <div class="avoid-box"><strong>Also:</strong> Do not move, copy, or share transcripts outside approved OneDrive/SharePoint locations.</div>
       </div>
     </div>
 
@@ -516,24 +527,22 @@ a:hover{text-decoration:underline; color:#4e5fd6}
         <div class="danger-box">
           <h4>CRITICAL: CPIA 1996 Disclosure Obligations</h4>
           <ul>
-            <li><strong>Record, Retain, Reveal, Review:</strong> Log and preserve all investigation material, including relevant unused material.</li>
-            <li><strong>Disclosure Test:</strong> Disclose anything that might reasonably assist the defence or undermine the prosecution.</li>
-            <li><strong>Ongoing Duty:</strong> Disclosure continues throughout the case; reassess new material promptly.</li>
-            <li><strong>Roles:</strong> The Disclosure Officer reviews unused material, creates schedules, and records decisions; the Reviewing Lawyer ensures appropriate disclosure.</li>
+            <li><strong>Record, Retain, Reveal, Review:</strong> preserve investigation material, incl. relevant unused material.</li>
+            <li><strong>Disclosure Test:</strong> disclose anything that may reasonably assist the defence or undermine the prosecution.</li>
+            <li><strong>Ongoing Duty:</strong> reassess new material promptly throughout the case.</li>
+            <li><strong>Roles:</strong> Disclosure Officer manages schedules/decisions; Reviewing Lawyer ensures appropriate disclosure.</li>
           </ul>
         </div>
         <div class="warning-box">
           <h4>Avoidance of Bad Practice</h4>
           <ul>
-            <li><strong>Do NOT search for anything unrelated to your work/remit.</strong></li>
+            <li><strong>Do NOT search for anything unrelated to your remit.</strong></li>
             <li>Do not input personal, confidential, market‑sensitive, or privileged data into Copilot.</li>
-            <li>Do not create unnecessary AI‑generated material in enforcement contexts.</li>
-            <li>Always verify outputs and retain only proportionate notes in approved systems.</li>
+            <li>Avoid generating AI material in enforcement contexts; use approved systems.</li>
+            <li>Always verify outputs; retain only proportionate notes in approved systems.</li>
           </ul>
         </div>
-        <div class="example-box">
-          <strong>Reminder:</strong> Copilot prompts may be subject to FOIA until auto‑deleted; avoid sensitive content in prompts.
-        </div>
+        <div class="example-box"><strong>Reminder:</strong> Prompts may be disclosable until they auto‑delete; keep them professional.</div>
       </div>
     </div>
 
@@ -579,15 +588,15 @@ document.querySelectorAll('.scenario-card').forEach(card=>{
   });
 });
 
-// Checklist progress
+// Checklist progress (optional: add a progress bar if needed)
 const checklistItems=document.querySelectorAll('.checklist-item');
 function updateProgress(){
   const total=checklistItems.length;
   const checked=document.querySelectorAll('.checklist-item.checked').length;
   const pct=total?Math.round((checked/total)*100):0;
-  const bar=document.getElementById('progressBar');
-  bar.style.width=pct+'%';
-  bar.textContent=pct+'% Complete';
+  // Hook for a progress bar element if you add one:
+  // const bar=document.getElementById('progressBar');
+  // if(bar){bar.style.width=pct+'%'; bar.textContent=pct+'% Complete';}
 }
 checklistItems.forEach(item=>{
   item.addEventListener('click',()=>{
@@ -611,3 +620,4 @@ document.querySelectorAll('.btn.copy').forEach(btn=>{
 });
 </script>
 </body>
+</html>
