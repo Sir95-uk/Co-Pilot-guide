@@ -128,8 +128,8 @@ a:hover{text-decoration:none; color:#4e5fd6}
     </div>
   </div>
   <div class="content">
-    <!-- Add your sections here, e.g. Introduction, FCA Phrase Bank, Best Practice, etc. -->
-    <!-- For brevity, only a sample section is shown below. Paste your full content here. -->
+
+    <!-- 1. Introduction -->
     <div class="section active">
       <div class="section-header"><span>📚 Introduction to Copilot (Essentials)</span><span class="icon">▼</span></div>
       <div class="section-content">
@@ -155,73 +155,103 @@ a:hover{text-decoration:none; color:#4e5fd6}
         <div class="copilot-type"><h3>💬 Teams Copilot</h3><p>Summarise meetings/chats; extract action items (with consent &amp; appropriate use).</p></div>
       </div>
     </div>
-    <!-- Continue adding your other sections here, following the same structure -->
-  </div>
-</div>
-<script>
-// Toggle individual sections
-document.querySelectorAll('.section-header').forEach(header=>{
-  header.addEventListener('click',()=>{
-    header.parentElement.classList.toggle('active');
-  });
-});
-// Expand All / Collapse All
-document.querySelector('[data-expand="all"]').addEventListener('click',()=>{
-  document.querySelectorAll('.section').forEach(sec=>sec.classList.add('active'));
-});
-document.querySelector('[data-collapse="all"]').addEventListener('click',()=>{
-  document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
-});
-// Scan Links (highlights broken anchors)
-document.getElementById('scanLinks').addEventListener('click',()=>{
-  const links=document.querySelectorAll('a[href]');
-  let brokenCount=0;
-  links.forEach(link=>{
-    const href=link.getAttribute('href');
-    if(!href || href.trim()==='' || href.trim()==='#'){
-      link.style.color='red';
-      link.style.fontWeight='bold';
-      link.title='Broken/missing link';
-      brokenCount++;
-    }
-  });
-  alert(brokenCount===0?'✅ All links look fine!':`⚠️ Found ${brokenCount} broken/missing links. They are highlighted in red.`);
-});
-// Interactive scenarios (click card to reveal)
-document.querySelectorAll('.scenario-card').forEach(card=>{
-  card.addEventListener('click',()=>{
-    card.classList.toggle('revealed');
-  });
-});
-// Checklist progress (optional: add a progress bar if needed)
-const checklistItems=document.querySelectorAll('.checklist-item');
-function updateProgress(){
-  const total=checklistItems.length;
-  const checked=document.querySelectorAll('.checklist-item.checked').length;
-  const pct=total?Math.round((checked/total)*100):0;
-  // Hook for a progress bar element if you add one:
-  // const bar=document.getElementById('progressBar');
-  // if(bar){bar.style.width=pct+'%'; bar.textContent=pct+'% Complete';}
-}
-checklistItems.forEach(item=>{
-  item.addEventListener('click',()=>{
-    item.classList.toggle('checked');
-    updateProgress();
-  });
-});
-updateProgress();
-// Copy prompt buttons
-document.querySelectorAll('.btn.copy').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const text=btn.dataset.copy||'';
-    if(navigator.clipboard && text){
-      navigator.clipboard.writeText(text).then(()=>{
-        btn.textContent='Copied!';
-        setTimeout(()=>btn.textContent='Copy',1500);
-      });
-    }
-  });
-});
-</script>
-</body>
-</html>
+
+    <!-- 2. FCA Phrase Bank -->
+    <div class="section">
+      <div class="section-header"><span>🗣 FCA Phrase Bank</span><span class="icon">▼</span></div>
+      <div class="section-content">
+        <div class="example-box">“Ensure communications are clear, fair, and not misleading.”</div>
+        <div class="example-box">“Present information in a balanced way, avoiding exaggeration or omission.”</div>
+        <div class="example-box">“Use plain language and explain material risks, assumptions, and limitations.”</div>
+      </div>
+    </div>
+
+    <!-- 3. Best Practice Summary -->
+    <div class="section">
+      <div class="section-header"><span>✅ Best Practice Summary</span><span class="icon">▼</span></div>
+      <div class="section-content">
+        <ul>
+          <li><strong>Inform participants</strong> before using Transcribe or recording; obtain clear consent.</li>
+          <li><strong>Respect permissions:</strong> Copilot only surfaces content you already have access to.</li>
+          <li><strong>Security &amp; Privacy:</strong> Data remains within our Microsoft 365 tenant; follow FCA policies.</li>
+          <li><strong>Don’t input</strong> personal, confidential, market‑sensitive, privileged or out‑of‑remit data into prompts.</li>
+          <li><strong>Verify &amp; fact‑check outputs;</strong> apply “clear, fair, not misleading”.</li>
+          <li><strong>Use Copilot for work tasks</strong> relevant to your role; stay within remit.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 4. Quick Links -->
+    <div class="section">
+      <div class="section-header"><span>🔗 Quick Links</span><span class="icon">▼</span></div>
+      <div class="section-content">
+        <ul>
+          <li><a href="https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspx" target="_blank">Copilot Prompt Library (SharePoint)</a></li>
+s://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot-Learning-Library.aspx" target="_blank">Copilot Learning Library (videos, guides)</a></li>
+s://thefca.sharepoint.com/:p:/r/sites/ProProandPor/_layouts/15/Doc.aspx?sourcedoc=%7B3CB005A3-D576-4B5C-B028-2681C1D3DDB2%7D&file=Copilot%20101%20Training%%20FINAL.pptx&action=edit&mobileredirect=true&DefaultItemOpen=1" target="_blank">Copilot 101 Training FCA – FINAL (deck)</a></iv>
+    </div>
+
+    <!-- 5. Copilot Functions & Example Prompts (TABLE) -->
+    <div class="section active">
+      <div class="section-header"><span>📋 Copilot Functions &amp; Example Prompts (Table)</span><span class="icon">▼</span></div>
+      <div class="section-content">
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Copilot</th>
+                <th>What it Does</th>
+                <th>Good Example Phrases</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>🌐 Web Copilot</td>
+                <td>Searches public sources; summarises and compares external content. No access to internal FCA data.</td>
+                <td>
+                  <ul>
+                    <li>“Summarise FCA Handbook SYSC expectations relevant to financial crime governance.”</li>
+                    <li>“Compare 3 recent public typology reports on APP fraud; extract trends since 2022 with sources.”</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>📝 Word Copilot</td>
+                <td>Drafts and edits within the open document; improves clarity and structure.</td>
+                <td>
+                  <ul>
+                    <li>“Draft a 1‑page briefing titled ‘Fraud Prevention Controls – Payments’ with executive summary, 3 recommendations, risk caveat.”</li>
+                    <li>“Improve clarity: convert the next section into bullet points; ensure clear, fair, not misleading.”</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>📊 Excel Copilot</td>
+                <td>Analyses the open workbook; creates pivots, charts, and summaries of <em>non‑sensitive</em> data.</td>
+                <td>
+                  <ul>
+                    <li>“From the sheet ‘PublicFraudStats’, build a pivot of ‘Year’ by ‘Losses (£m)’ and add a YoY line chart since 2020.”</li>
+                    <li>“Describe the top 3 trends in this dataset and suggest one visual for each.”</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>📽️ PowerPoint Copilot</td>
+                <td>Generates slides and speaker notes from prompts or a source document.</td>
+                <td>
+                  <ul>
+                    <li>“Create a 6‑slide deck ‘Fraud Typologies – UK Overview’: agenda, definitions, 3 key trends, controls, summary with next steps.”</li>
+                    <li>“Generate speaker notes for slide 3 in plain language with one public citation.”</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>🗒️ OneNote Copilot</td>
+                <td>Summarises pages/sections; drafts notes, action lists, and study plans.</td>
+                <td>
+                  <ul>
+                    <li>“Summarise this page into 5 bullet points and produce an action list with owners and due dates.”</li>
+                    <li>“Create a study plan for AML/CTF frameworks with weekly learning goals and public reading links.”</li>
+                  </ul>
+                </td>
+              </tr>
