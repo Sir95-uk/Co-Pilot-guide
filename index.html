@@ -5,6 +5,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>🛡️ Using Microsoft Copilot – FCA Guide (Hybrid)</title>
+
 <style>
 /* ---------- Base & Theme ---------- */
 *{margin:0;padding:0;box-sizing:border-box}
@@ -122,6 +123,7 @@ a:hover{text-decoration:underline; color:#4e5fd6}
 .btn{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:8px; border:1px solid var(--border); background:#fff; cursor:pointer; transition:.25s}
 .btn:hover{transform:translateY(-1px); box-shadow:0 4px 10px rgba(0,0,0,.08)}
 .btn.copy{border-color:#9db0ff; color:#3a57e8}
+.btn.download{border-color:#33c4a0; color:#198a72}
 .btn.small{padding:6px 10px; font-size:.9em}
 
 @media (max-width:768px){
@@ -139,6 +141,8 @@ a:hover{text-decoration:underline; color:#4e5fd6}
       <span class="chip" data-expand="all">Expand All</span>
       <span class="chip" data-collapse="all">Collapse All</span>
       <span class="chip" id="scanLinks">Scan Links</span>
+      <!-- Local download button -->
+      <button class="btn download small" id="downloadPage" title="Download this page as an HTML file">⬇️ Download this page</button>
     </div>
   </div>
 
@@ -183,25 +187,34 @@ a:hover{text-decoration:underline; color:#4e5fd6}
       </div>
     </div>
 
-    <!-- 4. Quick Links -->
+    <!-- 4. Quick Links (fixed anchors) -->
     <div class="section">
       <div class="section-header"><span>🔗 Quick Links</span><span class="icon">▼</span></div>
       <div class="section-content">
         <ul>
           <li>
-            https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspxCopilot Prompt Library (SharePoint)</a>
+            https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspx
+              Copilot Prompt Library (SharePoint)
+            </a>
           </li>
-          <!-- Placeholders you can enable later:
-          <li><a href="https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot.aspx" target="_blank></li>
-          <li><a href="https://thefca.sharepoint.com/sites/Tra/Information%20and%20Insight/Forms/AllItems.aspx?id=/sites/Tra/Information%20and%20Insight/Information%20Management/Information%20Management%20Policy%20refresh/Recordst_Guidance_20230414_V1.3.pdfRecords Management Guidance (PDF)</a></li>
-          -->
+          <!-- Uncomment when ready and correct the target/_blank quote as shown -->
+          <li>
+            https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot.aspx
+              Intranet: Copilot (How-to)
+            </a>
+          </li>
+          <li>
+            https://thefca.sharepoint.com/sites/Tra/Information%20and%20Insight/Forms/AllItems.aspx?id=/sites/Tra/Information%20and%20Insight/Information%20Management/Information%20Management%20Policy%20refresh/Recordst_Guidance_20230414_V1.3.pdf
+              Records Management Guidance (PDF)
+            </a>
+          </li>
         </ul>
       </div>
     </div>
 
     <!-- 5. Copilot Functions & Example Prompts (TABLE) -->
     <div class="section active">
-      <div class="section-header"><span>📋 Copilot Functions & Example Prompts (Table)</span><span class="icon">▼</span></div>
+      <div class="section-header"><span>📋 Copilot Functions &amp; Example Prompts (Table)</span><span class="icon">▼</span></div>
       <div class="section-content">
         <div class="table-container">
           <table>
@@ -461,6 +474,7 @@ a:hover{text-decoration:underline; color:#4e5fd6}
         <div class="checklist-item"><div class="checkbox"></div>Have I checked there’s no personal/confidential data?</div>
         <div class="checklist-item"><div class="checkbox"></div>Will I verify and review all Copilot outputs?</div>
         <div class="checklist-item"><div class="checkbox"></div>For Teams Transcribe: Have I informed all participants?</div>
+        <div class="progress-bar"><div id="progressBar" class="progress-fill">0% Complete</div></div>
       </div>
     </div>
 
@@ -511,7 +525,7 @@ a:hover{text-decoration:underline; color:#4e5fd6}
 
     <!-- 11. Golden Rules & Compliance (CPIA 1996) -->
     <div class="section">
-      <div class="section-header"><span>⚖️ Golden Rules & Compliance (CPIA 1996)</span><span class="icon">▼</span></div>
+      <div class="section-header"><span>⚖️ Golden Rules &amp; Compliance (CPIA 1996)</span><span class="icon">▼</span></div>
       <div class="section-content">
         <div class="danger-box">
           <h4>CRITICAL: CPIA 1996 Disclosure Obligations</h4>
@@ -541,53 +555,94 @@ a:hover{text-decoration:underline; color:#4e5fd6}
 </div>
 
 <script>
-// Toggle individual sections
+// --- Utility: Robust copy with fallback ---
+function copyTextRobust(text) {
+  if (!text) return Promise.reject(new Error('No text to copy'));
+  // Preferred modern API
+  if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+    return navigator.clipboard.writeText(text).catch(() => fallbackExecCommand(text));
+  }
+  // Fallback
+  return fallbackExecCommand(text);
+}
+
+function fallbackExecCommand(text) {
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    // Prevent scrolling to bottom on iOS
+    ta.style.position = 'fixed';
+    ta.style.top = '-1000px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    if (!ok) throw new Error('execCommand copy failed');
+    return Promise.resolve();
+  } catch (e) {
+    return Promise.reject(e);
+  }
+}
+
+// --- Toggle individual sections ---
 document.querySelectorAll('.section-header').forEach(header=>{
   header.addEventListener('click',()=>{
     header.parentElement.classList.toggle('active');
   });
 });
 
-// Expand All / Collapse All
-document.querySelector('[data-expand="all"]').addEventListener('click',()=>{
-  document.querySelectorAll('.section').forEach(sec=>sec.classList.add('active'));
-});
-document.querySelector('[data-collapse="all"]').addEventListener('click',()=>{
-  document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
-});
-
-// Scan Links (highlights broken anchors)
-document.getElementById('scanLinks').addEventListener('click',()=>{
-  const links=document.querySelectorAll('a[href]');
-  let brokenCount=0;
-  links.forEach(link=>{
-    const href=link.getAttribute('href');
-    if(!href || href.trim()==='' || href.trim()==='#'){
-      link.style.color='red';
-      link.style.fontWeight='bold';
-      link.title='Broken/missing link';
-      brokenCount++;
-    }
+// --- Expand All / Collapse All ---
+const expandAllBtn = document.querySelector('[data-expand="all"]');
+if (expandAllBtn) {
+  expandAllBtn.addEventListener('click',()=>{
+    document.querySelectorAll('.section').forEach(sec=>sec.classList.add('active'));
   });
-  alert(brokenCount===0?'✅ All links look fine!':`⚠️ Found ${brokenCount} broken/missing links. They are highlighted in red.`);
-});
+}
+const collapseAllBtn = document.querySelector('[data-collapse="all"]');
+if (collapseAllBtn) {
+  collapseAllBtn.addEventListener('click',()=>{
+    document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
+  });
+}
 
-// Interactive scenarios (click card to reveal)
+// --- Scan Links (highlights broken anchors) ---
+const scanLinksBtn = document.getElementById('scanLinks');
+if (scanLinksBtn) {
+  scanLinksBtn.addEventListener('click',()=>{
+    const links=document.querySelectorAll('a[href]');
+    let brokenCount=0;
+    links.forEach(link=>{
+      const href=link.getAttribute('href');
+      if(!href || href.trim()==='' || href.trim()==='#'){
+        link.style.color='red';
+        link.style.fontWeight='bold';
+        link.title='Broken/missing link';
+        brokenCount++;
+      }
+    });
+    alert(brokenCount===0?'✅ All links look fine!':`⚠️ Found ${brokenCount} broken/missing links. They are highlighted in red.`);
+  });
+}
+
+// --- Interactive scenarios (click card to reveal) ---
 document.querySelectorAll('.scenario-card').forEach(card=>{
   card.addEventListener('click',()=>{
     card.classList.toggle('revealed');
   });
 });
 
-// Checklist progress
+// --- Checklist progress ---
 const checklistItems=document.querySelectorAll('.checklist-item');
 function updateProgress(){
   const total=checklistItems.length;
   const checked=document.querySelectorAll('.checklist-item.checked').length;
   const pct=total?Math.round((checked/total)*100):0;
   const bar=document.getElementById('progressBar');
-  bar.style.width=pct+'%';
-  bar.textContent=pct+'% Complete';
+  if (bar) {
+    bar.style.width=pct+'%';
+    bar.textContent=pct+'% Complete';
+  }
 }
 checklistItems.forEach(item=>{
   item.addEventListener('click',()=>{
@@ -597,17 +652,44 @@ checklistItems.forEach(item=>{
 });
 updateProgress();
 
-// Copy prompt buttons
+// --- Copy prompt buttons (robust feedback) ---
 document.querySelectorAll('.btn.copy').forEach(btn=>{
   btn.addEventListener('click',()=>{
     const text=btn.dataset.copy||'';
-    if(navigator.clipboard && text){
-      navigator.clipboard.writeText(text).then(()=>{
+    copyTextRobust(text)
+      .then(()=>{
+        const orig = btn.textContent;
         btn.textContent='Copied!';
-        setTimeout(()=>btn.textContent='Copy',1500);
+        btn.disabled=true;
+        setTimeout(()=>{btn.textContent=orig; btn.disabled=false;}, 1500);
+      })
+      .catch(()=>{
+        const orig = btn.textContent;
+        btn.textContent='Copy failed';
+        btn.disabled=true;
+        setTimeout(()=>{btn.textContent=orig; btn.disabled=false;}, 2000);
       });
-    }
   });
 });
+
+// --- Local download button (saves the current DOM as HTML) ---
+const downloadBtn = document.getElementById('downloadPage');
+if (downloadBtn) {
+  downloadBtn.addEventListener('click', ()=>{
+    // Serialize current document to preserve any runtime changes
+    const doctype = '<!DOCTYPE html>';
+    const html = document.documentElement.outerHTML;
+    const blob = new Blob([doctype + '\n' + html], {type:'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'fca-copilot-guide.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+}
 </script>
 </body>
+</html>
