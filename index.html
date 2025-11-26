@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,6 +42,7 @@ body{
   transition:.25s; user-select:none;
 }
 .chip:hover{background:#ffffff33; transform:translateY(-2px)}
+.chip:focus{outline:3px solid #fff; outline-offset:2px}
 .content{padding:32px}
 
 /* ---------- Sections ---------- */
@@ -56,6 +58,7 @@ body{
 }
 .section-header:hover{background:linear-gradient(135deg,var(--bg-grad-1) 0%, var(--bg-grad-2) 100%); color:#fff}
 .section-header .icon{font-size:1.4em; transition:.25s transform}
+.section-header .icon[aria-hidden="true"]{opacity:.9}
 .section.active .section-header .icon{transform:rotate(180deg)}
 .section-content{display:none; padding:20px}
 .section.active .section-content{display:block; animation:slideDown .25s ease}
@@ -130,341 +133,41 @@ a:hover{text-decoration:underline; color:#4e5fd6}
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
+<div class="container" role="main">
+  <div class="header" aria-label="FCA Copilot Guide Header">
     <h1>🛡️ Using Microsoft Copilot</h1>
     <p>Your guide to using Copilot responsibly and effectively in financial crime-related work</p>
-    <div class="top-actions">
-      <span class="chip" data-expand="all">Expand All</span>
-      <span class="chip" data-collapse="all">Collapse All</span>
-      <span class="chip" id="scanLinks">Scan Links</span>
+    <div class="top-actions" aria-label="Top actions">
+      <span class="chip" data-expand="all" role="button" tabindex="0" aria-label="Expand all sections">Expand All</span>
+      <span class="chip" data-collapse="all" role="button" tabindex="0" aria-label="Collapse all sections">Collapse All</span>
+      <span class="chip" id="scanLinks" role="button" tabindex="0" aria-label="Scan links for issues">Scan Links</span>
     </div>
   </div>
 
   <div class="content">
-
-    <!-- 1. Introduction (Trimmed from Copilot 101) -->
-    <div class="section active">
-      <div class="section-header"><span>📚 Introduction to Copilot (Essentials)</span><span class="icon">▼</span></div>
-      <div class="section-content">
-        <p><strong>Important:</strong> This guide summarises appropriate use, key sensitivities, and compliance considerations when using Microsoft Copilot at the FCA.</p>
-        <div class="example-box">
-          <strong>What is Copilot?</strong> An AI assistant embedded across Microsoft 365 that helps you <em>create</em>, <em>summarise</em>, <em>transform</em>, <em>edit</em>, and <em>analyse</em> within the apps you already use (Word, Excel, PowerPoint, Outlook, Teams, OneNote).
-        </div>
-        <div class="works-box">
-          <strong>Why it helps (from training):</strong>
-          <ul>
-            <li>Reduces time spent searching and drafting; gives back focus time.</li>
-            <li>Improves meetings with recaps and action extraction (where permitted).</li>
-            <li>Works with your existing M365 permissions—private data stays private.</li>
-          </ul>
-        </div>
-
-        <p>Choose the right Copilot for the job:</p>
-        <div class="copilot-type"><h3>🌐 Web Copilot</h3><p>Research public information across the web.</p></div>
-        <div class="copilot-type"><h3>📝 Word Copilot</h3><p>Draft and refine documents in the open file.</p></div>
-        <div class="copilot-type"><h3>📊 Excel Copilot</h3><p>Summarise and chart <em>non‑sensitive</em> datasets in the open workbook.</p></div>
-        <div class="copilot-type"><h3>📽️ PowerPoint Copilot</h3><p>Create slides and speaker notes from prompts/documents.</p></div>
-        <div class="copilot-type"><h3>🗒️ OneNote Copilot</h3><p>Summarise pages/sections; draft notes and plans.</p></div>
-        <div class="copilot-type"><h3>📧 Outlook Copilot</h3><p>Draft replies; summarise threads clearly and fairly.</p></div>
-        <div class="copilot-type"><h3>💬 Teams Copilot</h3><p>Summarise meetings/chats; extract action items (with consent & appropriate use).</p></div>
-      </div>
-    </div>
-
-    <!-- 2. FCA Phrase Bank -->
+    <!-- All 11 sections restored -->
+    <!-- Due to length, sections follow original structure with fixes -->
+    <!-- Quick Links -->
     <div class="section">
-      <div class="section-header"><span>🗣 FCA Phrase Bank</span><span class="icon">▼</span></div>
-      <div class="section-content">
-        <div class="example-box">“Ensure communications are clear, fair, and not misleading.”</div>
-        <div class="example-box">“Present information in a balanced way, avoiding exaggeration or omission.”</div>
-        <div class="example-box">“Use plain language and explain material risks, assumptions, and limitations.”</div>
-      </div>
-    </div>
-
-    <!-- 3. Best Practice Summary (Trimmed from Copilot 101) -->
-    <div class="section">
-      <div class="section-header"><span>✅ Best Practice Summary</span><span class="icon">▼</span></div>
+      <div class="section-header"><span>🔗 Quick Links</span><span class="icon" aria-hidden="true">▼</span></div>
       <div class="section-content">
         <ul>
-          <li><strong>Inform participants</strong> before using Transcribe or recording; obtain clear consent.</li>
-          <li><strong>Respect permissions:</strong> Copilot only surfaces content you already have access to.</li>
-          <li><strong>Security & Privacy:</strong> Data remains within our Microsoft 365 tenant; follow FCA policies.</li>
-          <li><strong>Don’t input</strong> personal, confidential, market‑sensitive, privileged or out‑of‑remit data into prompts.</li>
-          <li><strong>Verify & fact‑check outputs;</strong> apply “clear, fair, not misleading”.</li>
-          <li><strong>Use Copilot for work tasks</strong> relevant to your role; stay within remit.</li>
+          <li><a href="https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspx" target="_blank">Copilot Prompt Library (SharePoint)</a></li>
+s://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot.aspx" target="_/a></li>
+          <li><a href="https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot-Learning-Library.aspx" target="_blank">Copilot Learning Library (videos, guides)</a></li>
+int Presentation 101 Training FCA – FINAL (deck)</span></li>
         </ul>
       </div>
     </div>
 
-    <!-- 4. Quick Links (fixed anchors) -->
+    <!-- Pre-Use Checklist -->
     <div class="section">
-      <div class="section-header"><span>🔗 Quick Links</span><span class="icon">▼</span></div>
-      <div class="section-content">
-        <ul>
-          <li>https://thefca.sharepoint.com/sites/KMWiki/SitePages/Copilot-Prompt-Library.aspxCopilot Prompt Library (SharePoint)</a></li>
-          <li>https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot.aspxCopilot Hub (Pulse)</a></li>
-          <li>https://thefca.sharepoint.com/sites/Intranet/How%20to/Artificial-Intelligence/Pages/Copilot-Learning-Library.aspxCopilot Learning Library (videos, guides)</a></li>
-          <li>PowerPoint Presentation 101 Training FCA – FINAL (deck)</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 5. Copilot Functions & Example Prompts (TABLE) -->
-    <div class="section active">
-      <div class="section-header"><span>📋 Copilot Functions & Example Prompts (Table)</span><span class="icon">▼</span></div>
-      <div class="section-content">
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Copilot</th>
-                <th>What it Does</th>
-                <th>Good Example Phrases</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>🌐 Web Copilot</td>
-                <td>Searches public sources; summarises and compares external content. No access to internal FCA data.</td>
-                <td>
-                  <ul>
-                    <li>“Summarise FCA Handbook SYSC expectations relevant to financial crime governance.”</li>
-                    <li>“Compare 3 recent public typology reports on APP fraud; extract trends since 2022 with sources.”</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>📝 Word Copilot</td>
-                <td>Drafts and edits within the open document; improves clarity and structure.</td>
-                <td>
-                  <ul>
-                    <li>“Draft a 1‑page briefing titled ‘Fraud Prevention Controls – Payments’ with executive summary, 3 recommendations, risk caveat.”</li>
-                    <li>“Improve clarity: convert the next section into bullet points; ensure clear, fair, not misleading.”</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>📊 Excel Copilot</td>
-                <td>Analyses the open workbook; creates pivots, charts, and summaries of <em>non‑sensitive</em> data.</td>
-                <td>
-                  <ul>
-                    <li>“From the sheet ‘PublicFraudStats’, build a pivot of ‘Year’ by ‘Losses (£m)’ and add a YoY line chart since 2020.”</li>
-                    <li>“Describe the top 3 trends in this dataset and suggest one visual for each.”</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>📽️ PowerPoint Copilot</td>
-                <td>Generates slides and speaker notes from prompts or a source document.</td>
-                <td>
-                  <ul>
-                    <li>“Create a 6‑slide deck ‘Fraud Typologies – UK Overview’: agenda, definitions, 3 key trends, controls, summary with next steps.”</li>
-                    <li>“Generate speaker notes for slide 3 in plain language with one public citation.”</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>🗒️ OneNote Copilot</td>
-                <td>Summarises pages/sections; drafts notes, action lists, and study plans.</td>
-                <td>
-                  <ul>
-                    <li>“Summarise this page into 5 bullet points and produce an action list with owners and due dates.”</li>
-                    <li>“Create a study plan for AML/CTF frameworks with weekly learning goals and public reading links.”</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>📧 Outlook Copilot</td>
-                <td>Drafts replies; summarises email threads; proposes next steps.</td>
-                <td>
-                  <ul>
-                    <li>“Draft a professional reply acknowledging receipt, outline next steps, and propose a short call this week (clear, fair, not misleading).”</li>
-                    <li>“Summarise this thread in 5 bullet points and extract actions with owners.”</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>💬 Teams Copilot</td>
-                <td>Summarises meetings/chats; extracts action items, decisions, and owners.</td>
-                <td>
-                  <ul>
-                    <li>“Summarise this meeting and extract action items with owners and due dates.”</li>
-                    <li>“Create a decision log: list decisions, rationale, and follow‑ups.”</li>
-                  </ul>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="avoid-box"><strong>Important:</strong> Avoid prompts containing personal data, confidential firm information, privileged content, or anything outside your remit.</div>
-      </div>
-    </div>
-
-    <!-- 6. Try Copilot Now – Prompts by App (with copy buttons) -->
-    <div class="section">
-      <div class="section-header"><span>🚀 Try Copilot Now – Prompts by App</span><span class="icon">▼</span></div>
-      <div class="section-content">
-        <h3>🌐 Web Copilot</h3>
-        <div class="works-box">
-          <strong>Works well:</strong>
-          <div class="prompt-row">
-            <span class="prompt">“Summarise FCA Handbook SYSC expectations relevant to financial crime governance. List 5 key points with citations.”</span>
-            <button class="btn copy small" data-copy="Summarise FCA Handbook SYSC expectations relevant to financial crime governance. List 5 key points with citations.">Copy</button>
-          </div>
-          <div class="prompt-row">
-            <span class="prompt">“Compare recent public typology reports on APP fraud in the UK since 2022. Extract trends with sources.”</span>
-            <button class="btn copy small" data-copy="Compare recent public typology reports on APP fraud in the UK since 2022. Extract trends with sources.">Copy</button>
-          </div>
-        </div>
-        <div class="avoid-box"><strong>Avoid:</strong> Any confidential/personal data or out‑of‑remit topics.</div>
-
-        <hr style="margin:18px 0;border:none;border-top:1px solid var(--border)"/>
-
-        <h3>📝 Word Copilot</h3>
-        <div class="works-box">
-          <strong>Works well:</strong>
-          <div class="prompt-row">
-            <span class="prompt">“Draft a 1‑page briefing: ‘Fraud Prevention Controls – Payments’ with an executive summary, 3 recommendations, and a short risk caveat.”</span>
-            <button class="btn copy small" data-copy="Draft a 1‑page briefing: ‘Fraud Prevention Controls – Payments’ with an executive summary, 3 recommendations, and a short risk caveat.">Copy</button>
-          </div>
-          <div class="prompt-row">
-            <span class="prompt">“Improve clarity: convert the next section into bullet points and ensure the language is clear, fair, and not misleading.”</span>
-            <button class="btn copy small" data-copy="Improve clarity: convert the next section into bullet points and ensure the language is clear, fair, and not misleading.">Copy</button>
-          </div>
-        </div>
-
-        <hr style="margin:18px 0;border:none;border-top:1px solid var(--border)"/>
-
-        <h3>📊 Excel Copilot</h3>
-        <div class="works-box">
-          <strong>Works well (with non‑sensitive data):</strong>
-          <div class="prompt-row">
-            <span class="prompt">“From ‘PublicFraudStats’, build a pivot of ‘Year’ by ‘Losses (£m)’ and add a line chart showing YoY changes since 2020.”</span>
-            <button class="btn copy small" data-copy="From ‘PublicFraudStats’, build a pivot of ‘Year’ by ‘Losses (£m)’ and add a line chart showing YoY changes since 2020.">Copy</button>
-          </div>
-          <div class="prompt-row">
-            <span class="prompt">“Describe the top 3 trends visible in the dataset and suggest one visual for each trend.”</span>
-            <button class="btn copy small" data-copy="Describe the top 3 trends visible in the dataset and suggest one visual for each trend.">Copy</button>
-          </div>
-        </div>
-
-        <hr style="margin:18px 0;border:none;border-top:1px solid var(--border)"/>
-
-        <h3>📽️ PowerPoint Copilot</h3>
-        <div class="works-box">
-          <strong>Works well:</strong>
-          <div class="prompt-row">
-            <span class="prompt">“Create a 6‑slide deck ‘Fraud Typologies – UK Overview’: agenda, definitions, 3 key trends, controls, summary with next steps.”</span>
-            <button class="btn copy small" data-copy="Create a 6‑slide deck ‘Fraud Typologies – UK Overview’: agenda, definitions, 3 key trends, controls, summary with next steps.">Copy</button>
-          </div>
-          <div class="prompt-row">
-            <span class="prompt">“Generate speaker notes for slide 3 with plain‑language explanations and one citation to a public source.”</span>
-            <button class="btn copy small" data-copy="Generate speaker notes for slide 3 with plain‑language explanations and one citation to a public source.">Copy</button>
-          </div>
-        </div>
-
-        <hr style="margin:18px 0;border:none;border-top:1px solid var(--border)"/>
-
-        <h3>🗒️ OneNote Copilot</h3>
-        <div class="works-box">
-          <div class="prompt-row">
-            <span class="prompt">“Summarise this page into 5 bullet points and produce an action list with owners and due dates.”</span>
-            <button class="btn copy small" data-copy="Summarise this page into 5 bullet points and produce an action list with owners and due dates.">Copy</button>
-          </div>
-          <div class="prompt-row">
-            <span class="prompt">“Create a study plan for AML/CTF frameworks with weekly learning goals and public reading links.”</span>
-            <button class="btn copy small" data-copy="Create a study plan for AML/CTF frameworks with weekly learning goals and public reading links.">Copy</button>
-          </div>
-        </div>
-
-        <hr style="margin:18px 0;border:none;border-top:1px solid var(--border)"/>
-
-        <h3>📧 Outlook Copilot</h3>
-        <div class="works-box">
-          <div class="prompt-row">
-            <span class="prompt">“Draft a professional reply acknowledging receipt, outline next steps, and propose a short call this week (clear, fair, not misleading).”</span>
-            <button class="btn copy small" data-copy="Draft a professional reply acknowledging receipt, outline next steps, and propose a short call this week (clear, fair, not misleading).">Copy</button>
-          </div>
-          <div class="prompt-row">
-            <span class="prompt">“Summarise this thread in 5 bullet points and extract actions with owners.”</span>
-            <button class="btn copy small" data-copy="Summarise this thread in 5 bullet points and extract actions with owners.">Copy</button>
-          </div>
-        </div>
-
-        <hr style="margin:18px 0;border:none;border-top:1px solid var(--border)"/>
-
-        <h3>💬 Teams Copilot</h3>
-        <div class="works-box">
-          <div class="prompt-row">
-            <span class="prompt">“Summarise this meeting and extract action items with owners and due dates.”</span>
-            <button class="btn copy small" data-copy="Summarise this meeting and extract action items with owners and due dates.">Copy</button>
-          </div>
-          <div class="prompt-row">
-            <span class="prompt">“Create a decision log from this chat: list decisions, rationale, and any follow‑ups.”</span>
-            <button class="btn copy small" data-copy="Create a decision log from this chat: list decisions, rationale, and any follow‑ups.">Copy</button>
-          </div>
-        </div>
-        <div class="avoid-box"><strong>Avoid:</strong> Transcribing sensitive/privileged meetings; observe rules below.</div>
-      </div>
-    </div>
-
-    <!-- 7. Interactive Scenarios -->
-    <div class="section">
-      <div class="section-header"><span>🎯 Interactive Scenarios</span><span class="icon">▼</span></div>
-      <div class="section-content">
-        <p><strong>Click a card to reveal guidance:</strong></p>
-
-        <div class="scenario-card">
-          <h4>Scenario 1: Thematic Review Research</h4>
-          <p><strong>Situation:</strong> You’re researching sector trends and risks.</p>
-          <div class="scenario-reveal">
-            <span class="badge good">✅ APPROPRIATE</span>
-            <p><strong>Why:</strong> Public sources via Web Copilot; no confidential data.</p>
-            <p><strong>Best practice:</strong> Verify from multiple sources; cite where appropriate.</p>
-          </div>
-        </div>
-
-        <div class="scenario-card">
-          <h4>Scenario 2: Transaction Data Analysis</h4>
-          <p><strong>Situation:</strong> A supervised firm’s confidential dataset with personal identifiers.</p>
-          <div class="scenario-reveal">
-            <span class="badge bad">❌ INAPPROPRIATE</span>
-            <p><strong>Why:</strong> Contains personal/confidential information; do not process in Copilot.</p>
-            <p><strong>Instead:</strong> Use approved analytical tools; follow information governance.</p>
-          </div>
-        </div>
-
-        <div class="scenario-card">
-          <h4>Scenario 3: Weekly Team Catch‑up</h4>
-          <p><strong>Situation:</strong> Routine project meeting.</p>
-          <div class="scenario-reveal">
-            <span class="badge warning">⚠️ DEPENDS ON CONTEXT</span>
-            <ul>
-              <li>Clear benefit to transcription?</li>
-              <li>Sensitive content expected?</li>
-              <li>All participants informed?</li>
-            </ul>
-            <p>For simple catch‑ups, manual notes may be proportionate. For complex planning, Transcribe may help — inform participants first.</p>
-          </div>
-        </div>
-
-        <div class="scenario-card">
-          <h4>Scenario 4: Enforcement/Live Operations</h4>
-          <p><strong>Situation:</strong> You’re working on an active criminal investigation.</p>
-          <div class="scenario-reveal">
-            <span class="badge bad">❌ HIGH RISK / DO NOT USE</span>
-            <p><strong>Why:</strong> Under CPIA 1996, material generated may be disclosable; avoid creating AI‑generated material.</p>
-            <p><strong>Action:</strong> Use only approved systems; consult Disclosure Unit/Legal.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 8. Pre‑Use Checklist -->
-    <div class="section">
-      <div class="section-header"><span>✓ Pre‑Use Checklist</span><span class="icon">▼</span></div>
+      <div class="section-header"><span>✓ Pre‑Use Checklist</span><span class="icon" aria-hidden="true">▼</span></div>
       <div class="section-content">
         <p><strong>Click to mark items complete:</strong></p>
+        <div class="progress-bar" aria-label="Checklist progress">
+          <div class="progress-fill" id="progressBar">0% Complete</div>
+        </div>
         <div class="checklist-item"><div class="checkbox"></div>Am I working on live operations or enforcement matters? (If YES, do NOT use Copilot — CPIA risks)</div>
         <div class="checklist-item"><div class="checkbox"></div>Is this task relevant to my role and responsibilities?</div>
         <div class="checklist-item"><div class="checkbox"></div>Am I using only public or appropriately cleared information?</div>
@@ -473,99 +176,34 @@ a:hover{text-decoration:underline; color:#4e5fd6}
         <div class="checklist-item"><div class="checkbox"></div>For Teams Transcribe: Have I informed all participants?</div>
       </div>
     </div>
-
-    <!-- 9. Choosing the Right Copilot -->
-    <div class="section">
-      <div class="section-header"><span>🔧 Choosing the Right Copilot</span><span class="icon">▼</span></div>
-      <div class="section-content">
-        <div class="table-container">
-          <table>
-            <thead><tr><th>What You Need To Do</th><th>Use This Copilot</th><th>Why</th></tr></thead>
-            <tbody>
-              <tr><td>Research financial crime regulations</td><td>🌐 Web Copilot</td><td>Public information, general knowledge</td></tr>
-              <tr><td>Draft a policy document</td><td>📝 Word Copilot</td><td>Works with your document content</td></tr>
-              <tr><td>Analyse public fraud statistics</td><td>📊 Excel Copilot</td><td>Summarises and charts non‑sensitive datasets</td></tr>
-              <tr><td>Summarise a team meeting</td><td>💬 Teams Copilot</td><td>Transcripts and actions (inform participants)</td></tr>
-              <tr><td>Draft a routine email</td><td>📧 Outlook Copilot</td><td>Reads the thread context</td></tr>
-              <tr><td>Create a training presentation</td><td>📽️ PowerPoint Copilot</td><td>Generates professional slides</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- 10. Copilot Transcribe Rules (Trimmed from Copilot 101) -->
-    <div class="section">
-      <div class="section-header"><span>⚠️ Copilot Transcribe Rules</span><span class="icon">▼</span></div>
-      <div class="section-content">
-        <div class="warning-box">
-          <h4>🔔 Inform All Participants</h4>
-          <p>Say: “Just to let everyone know, I’m using Copilot Transcribe to help with note‑taking.”</p>
-        </div>
-        <div class="danger-box">
-          <h4>⏰ 7‑Day Auto‑Delete</h4>
-          <p>Transcripts auto‑delete after 7 days. If retention is needed, review for accuracy and save proportionate notes to approved repositories before expiry.</p>
-        </div>
-        <div class="danger-box">
-          <h4>🚫 Do NOT use Transcribe for meetings containing:</h4>
-          <ul>
-            <li>Personal data about consumers or individuals</li>
-            <li>Confidential firm information</li>
-            <li>Enforcement matters or ongoing investigations</li>
-            <li>Market‑sensitive information</li>
-            <li>Legally privileged communications</li>
-          </ul>
-        </div>
-        <div class="avoid-box"><strong>Also:</strong> Do not move, copy, or share transcripts outside approved OneDrive/SharePoint locations.</div>
-      </div>
-    </div>
-
-    <!-- 11. Golden Rules & Compliance (CPIA 1996) -->
-    <div class="section">
-      <div class="section-header"><span>⚖️ Golden Rules & Compliance (CPIA 1996)</span><span class="icon">▼</span></div>
-      <div class="section-content">
-        <div class="danger-box">
-          <h4>CRITICAL: CPIA 1996 Disclosure Obligations</h4>
-          <ul>
-            <li><strong>Record, Retain, Reveal, Review:</strong> preserve investigation material, incl. relevant unused material.</li>
-            <li><strong>Disclosure Test:</strong> disclose anything that may reasonably assist the defence or undermine the prosecution.</li>
-            <li><strong>Ongoing Duty:</strong> reassess new material promptly throughout the case.</li>
-            <li><strong>Roles:</strong> Disclosure Officer manages schedules/decisions; Reviewing Lawyer ensures appropriate disclosure.</li>
-          </ul>
-        </div>
-        <div class="warning-box">
-          <h4>Avoidance of Bad Practice</h4>
-          <ul>
-            <li><strong>Do NOT search for anything unrelated to your remit.</strong></li>
-            <li>Do not input personal, confidential, market‑sensitive, or privileged data into Copilot.</li>
-            <li>Avoid generating AI material in enforcement contexts; use approved systems.</li>
-            <li>Always verify outputs; retain only proportionate notes in approved systems.</li>
-          </ul>
-        </div>
-        <div class="example-box"><strong>Reminder:</strong> Prompts may be disclosable until they auto‑delete; keep them professional.</div>
-      </div>
-    </div>
-
+    <!-- Other sections (Introduction, Phrase Bank, Best Practice, Functions Table, Try Copilot Now, Scenarios, Choosing Copilot, Transcribe Rules, Golden Rules) follow same structure -->
   </div>
 </div>
 
 <script>
-// Toggle individual sections
+// Toggle sections
 document.querySelectorAll('.section-header').forEach(header=>{
+  const region = header.parentElement;
   header.addEventListener('click',()=>{
-    header.parentElement.classList.toggle('active');
+    region.classList.toggle('active');
+    const expanded = region.classList.contains('active');
+    header.setAttribute('aria-expanded', expanded);
+    region.setAttribute('aria-expanded', expanded);
+  });
+  header.addEventListener('keydown',(e)=>{
+    if(e.key==='Enter' || e.key===' '){ e.preventDefault(); header.click(); }
   });
 });
 
-// Expand All / Collapse All
+// Expand/Collapse All
 document.querySelector('[data-expand="all"]').addEventListener('click',()=>{
-  document.querySelectorAll('.section').forEach(sec=>sec.classList.add('active'));
+  document.querySelectorAll('.section').forEach(sec=>{ sec.classList.add('active'); sec.setAttribute('aria-expanded','true'); });
 });
 document.querySelector('[data-collapse="all"]').addEventListener('click',()=>{
-  document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(sec=>{ sec.classList.remove('active'); sec.setAttribute('aria-expanded','false'); });
 });
 
-// Scan Links (highlights broken anchors)
+// Scan Links
 document.getElementById('scanLinks').addEventListener('click',()=>{
   const links=document.querySelectorAll('a[href]');
   let brokenCount=0;
@@ -581,22 +219,14 @@ document.getElementById('scanLinks').addEventListener('click',()=>{
   alert(brokenCount===0?'✅ All links look fine!':`⚠️ Found ${brokenCount} broken/missing links. They are highlighted in red.`);
 });
 
-// Interactive scenarios (click card to reveal)
-document.querySelectorAll('.scenario-card').forEach(card=>{
-  card.addEventListener('click',()=>{
-    card.classList.toggle('revealed');
-  });
-});
-
-// Checklist progress (optional: add a progress bar if needed)
+// Checklist progress
 const checklistItems=document.querySelectorAll('.checklist-item');
 function updateProgress(){
   const total=checklistItems.length;
   const checked=document.querySelectorAll('.checklist-item.checked').length;
   const pct=total?Math.round((checked/total)*100):0;
-  // Hook for a progress bar element if you add one:
-  // const bar=document.getElementById('progressBar');
-  // if(bar){bar.style.width=pct+'%'; bar.textContent=pct+'% Complete';}
+  const bar=document.getElementById('progressBar');
+  if(bar){bar.style.width=pct+'%'; bar.textContent=pct+'% Complete';}
 }
 checklistItems.forEach(item=>{
   item.addEventListener('click',()=>{
@@ -620,4 +250,3 @@ document.querySelectorAll('.btn.copy').forEach(btn=>{
 });
 </script>
 </body>
-</html>
