@@ -581,12 +581,19 @@ document.getElementById('scanLinks').addEventListener('click',()=>{
   alert(brokenCount===0?'✅ All links look fine!':`⚠️ Found ${brokenCount} broken/missing links. They are highlighted in red.`);
 });
 
-// Interactive scenarios (click card to reveal)
+
+ Interactive scenarios (click card to reveal only one at a time)
 document.querySelectorAll('.scenario-card').forEach(card=>{
   card.addEventListener('click',()=>{
+    // Close all other scenario cards
+    document.querySelectorAll('.scenario-card').forEach(other=>{
+      if(other!==card) other.classList.remove('revealed');
+    });
+    // Toggle this one
     card.classList.toggle('revealed');
   });
 });
+
 
 // Checklist progress (optional: add a progress bar if needed)
 const checklistItems=document.querySelectorAll('.checklist-item');
